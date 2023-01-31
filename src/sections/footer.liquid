@@ -1,4 +1,4 @@
-<div class="bg-shark">
+<div class="bg-black">
     <div class="container mx-auto">
         <div class="py-5 border-b border-solid border-white">
             <div class="flex flex-col lg:flex-row">
@@ -17,7 +17,7 @@
                         %}
                     </a>
                 </div>
-                <div class="basis-1/2 mt-4 lg:mt-0 lg:px-4 xl:px-20">
+                <div class="mt-4 lg:mt-0 lg:px-4 xl:px-16 lg:w-full">
                     <div class="flex flex-col lg:flex-row">
                         {%- for block in section.blocks -%}
                             {%- if block.type == "menu" -%}
@@ -26,7 +26,7 @@
                                 {%- assign diff = max | minus: min -%}
                                 {%- assign randomNumber = "now" | date: "%N" | modulo: diff | plus: min -%}
                                 <div class="basis-1/2">
-                                    <nav aria-label="Footer Navigation" class="footer__nav" id="footer_nav--{{ randomNumber }}">
+                                    <nav aria-label="Footer Navigation" class="footer__nav mr-2" id="footer_nav--{{ randomNumber }}">
                                     {%- if linklists[block.settings.menu].links.size > 0 -%}
                                         <ul>
                                             {%- for link in linklists[block.settings.menu].links -%}
@@ -42,14 +42,13 @@
                         {%- endfor -%}
                     </div>
                 </div>
-                <div class="basis-1/4 mt-9 lg:mt-0">
-                    {%- render 'c-socials' -%}
-                </div>
             </div>
         </div>
-        <div class="py-4">
+        <div class="py-4 flex items-center justify-between">
             <span class="text-xs leading-relaxed text-white">All Rights Reserved&nbsp;&nbsp;Copyright {{ "now" | date: "%Y" }}</span>
+            {%- render 'c-socials' -%}
         </div>
     </div>
 </div>
+
 {% schema 'footer' %}
