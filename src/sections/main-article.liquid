@@ -1,0 +1,61 @@
+{% comment %}
+Info: Blog article template
+URL:
+* /blogs/{blog-name}/{article-id-handle}
+{% endcomment %}
+
+<div class="relative">
+  <div class="px-6 xl:px-0 mt-4 xl:mt-0 lg:text-center xl:absolute top-9 left-14">
+    {% render 'c-button-back'
+     , text: 'article.back_to_blog',
+     translate: true,
+     type: 'link',
+     href: blog.url,
+     customClass: 'justify-start xl:justify-start', %}
+  </div>
+
+  <section class="lg:max-w-[45rem] mx-auto px-6 lg:px-0">
+    <div class="mt-4 lg:mt-0">
+      {% render 'c-image'
+       , src: article.image,
+       lazy: false,
+       alt: article.image.alt,
+       maxWidth: 1024,
+       fullwidth: true,
+       width: article.image.width,
+       height: article.image.height,
+       customClass: 'object-cover w-full h-full', %}
+    </div>
+
+    <h1 class="font-family-heading text-3xl text-center mt-8 lg:mt-12">{{ article.title }}</h1>
+
+    <div class="article__entry-content entry-content font-family-heading text-lg mt-4 lg:mt-7 px-4">
+      {{ article.content }}
+    </div>
+  </section>
+
+  <div class="mt-3">
+    {% render 'related-blog-articles'
+     , extArticle: article,
+     extBlog: blog, %}
+  </div>
+
+</div>
+
+<script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": "{{ article.title }}",
+  "image": "{{ article.image | image_url }}",
+  "url": "{{ article.url }}",
+  "datePublished": "{{ article.published_at | date: "%Y-%m-%d" }}",
+  "dateCreated": "{{ article.created_at | date: "%Y-%m-%d" }}",
+  "dateModified": "{{ article.updated_at | date: "%Y-%m-%d" }}",
+  "description": "{{ article.excerpt }}",
+  "articleBody": "{{ article.content | escape }}",
+  "author": {
+              "@type": "Person",
+              "name": "{{ article.author }}"
+  }
+      }</script>

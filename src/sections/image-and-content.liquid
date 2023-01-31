@@ -1,0 +1,169 @@
+{% assign s = section.settings %}
+<section class="mx-auto my-0">
+    <div class="flex {% if s.image_position == "left" %} flex-col lg:flex-row {% elsif s.image_position == "right" %} flex-col lg:flex-row-reverse {% endif %} lg:h-[33.75rem] my-0">
+        {%
+            render 'c-image',
+            src: s.image_block.src,
+            lazy: s.lazy_load,
+            alt: s.image_block.alt,
+            customClass: 'w-full lg:w-1/2 min-h-[33.75rem] md:h-full object-cover',
+            width: s.image_block.width,
+            height: s.image_block.height
+        %}
+        <div class="container mx-auto flex flex-col w-full my-14 lg:my-0 lg:w-1/2 min-h-[33.75rem] lg:h-full justify-center items-center">
+            <div class="max-w-[36.125rem] text-center">
+                <h2 class="text-[1.75rem] leading-10  mb-7">{{ s.title }}</h2>
+                <div class="{% if s.paragraph_size == 'default' %}text-sm{% elsif s.paragraph_size == 'bigger' %}text-lg leading-7{% endif %}">{{ s.paragraph }}</div>
+
+                {% if s.link_url and section.blocks.size == 0 %}
+                    <div class="text-center mt-12">
+                        <a
+                            href="{{s.link_url}}"
+                            class="border border-solid border-black px-4 py-2 rounded-full text-[0.625rem] leading-6 tracking-widest hover:border-orange hover:text-white hover:bg-orange focus-visible:text-white focus-visible:bg-orange focus-visible:border-orange transition-colors uppercase"
+                        >{{ s.link_label }}</a>
+                    </div>
+                {% endif %}
+            </div>
+            {% if section.blocks.size > 0 %}
+                <p class="text-lg mt-8 mb-5 font-semibold">{{ s.lead_text }}</p>
+                <div class="grid grid-cols-4 gap-4 max-w-[38rem] w-full justify-between">
+                    {% for block in section.blocks %}
+                        {% assign product_item = all_products[block.settings.product] %}
+                        <a
+                            class="focus-visible:text-white focus-visible:border-orange"
+                            href={{ product_item.url }}
+                        >
+                            {%
+                                render 'c-image',
+                                src: product_item.images[0],
+                                lazy: true,
+                                alt: product_item.alt,
+                                customClass: 'max-w-32 h-32 object-contain',
+                                width: product_item.width,
+                                height: product_item.height
+                            %}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% schema %}
+{
+    "name": "Image and content",
+    "max_blocks":4,
+    "settings": [
+        {
+            "label": "Image",
+            "id": "image_block",
+            "type": "image_picker"
+        },
+        {
+            "label": "Lazy load",
+            "id": "lazy_load",
+            "type": "select",
+            "options": [
+                {
+                    "value": "true",
+                    "label": "True"
+                },
+                {
+                    "value": "false",
+                    "label": "False"
+                }
+            ],
+            "default": "true"
+        },
+        {
+            "label": "Image position",
+            "id": "image_position",
+            "type": "select",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ],
+            "default": "left"
+        },
+        {
+            "content": "Content",
+            "type": "header"
+        },
+        {
+            "label": "Title",
+            "id": "title",
+            "type": "text"
+        },
+        {
+            "label": "Paragraph",
+            "id": "paragraph",
+            "type": "richtext"
+        },
+        {
+            "label": "Paragrapth size",
+            "id": "paragraph_size",
+            "type": "select",
+            "options": [
+                {
+                    "value": "default",
+                    "label": "Default"
+                },
+                {
+                    "value": "bigger",
+                    "label": "Bigger"
+                }
+            ],
+            "default": "default"
+        },
+        {
+            "content": "Button",
+            "type": "header"
+        },
+        {
+            "label": "Link",
+            "id": "link_url",
+            "type": "url"
+        },
+        {
+            "label": "Label",
+            "id": "link_label",
+            "type": "text",
+            "default": "READ MORE"
+        },
+        {
+            "content": "Products",
+            "type": "header"
+        },
+        {
+            "label": "Lead text",
+            "id": "lead_text",
+            "type": "text"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "list",
+            "name": "Product",
+            "settings": [
+                {
+                    "type": "product",
+                    "id": "product",
+                    "label": "Product"
+                }
+            ]
+        }
+    ],
+    "presets":[
+        {
+            "name": "Image and content",
+            "category": "Section"
+        }
+    ]
+}
+{% endschema %}

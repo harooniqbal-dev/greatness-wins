@@ -1,0 +1,28 @@
+.js-hau-form--label,
+.js-hau-form--label {
+    @apply font-bold;
+}
+
+select.js-hau-form,
+input.js-hau-form-other {
+    @apply w-full px-2 py-2.5 leading-5 text-xxs font-semibold border border-black mb-9 bg-[#E8E6E6];
+}
+
+.js-hau-form,
+.js-hau-form-other,
+.js-hau-form--label,
+.js-hau-form--error,
+.js-hau-form-other--label,
+.js-hau-form-other--error {
+    @apply block mb-1;
+}
+
+.js-hau-form-other.error,
+.js-hau-form.error {
+    @apply border border-rose-500;
+}
+
+.js-hau-form--error,
+.js-hau-form-other--error {
+    @apply text-rose-500;
+}

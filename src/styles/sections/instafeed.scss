@@ -1,0 +1,24 @@
+/**
+ * Instafeed App Section
+ */
+
+#insta-feed {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    max-width: 73.5rem !important;
+    margin-bottom: 6rem !important;
+
+    h2 {
+        @apply text-[1.875rem] leading-10 font-semibold mb-12;
+    }
+
+    .slide-page a {
+        &:focus {
+            outline: none;
+
+            img {
+                @apply outline outline-2 outline-orange;
+            }
+        }
+    }
+}

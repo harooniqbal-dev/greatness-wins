@@ -1,0 +1,53 @@
+{
+    "sections": {
+        "lead_text": {
+            "type": "lead-text",
+            "settings": {
+                "title": "Sustainability",
+                "description": "<p>Have you ever wondered the impact the clothing you wear has on the environment? Greatness isn’t only about winning, it’s also about the top-tier coaches, trainers and fans who stand behind each athlete. In the same way, making great active apparel isn’t only about comfort, fit and durability. It’s about the people who create it, the materials it’s made from and its impact on our environment.<\/p>"
+            }
+        },
+        "lead_text_dark_background": {
+            "type": "lead-text-dark-background",
+            "settings": {
+                "title": "Did you know…",
+                "description": "<p>98% of our base materials are either Bluesign® or Oeko-Tex® certified, to keep harmful chemicals & dyes out of waterways and away from your skin.<br\/><br\/>80% of our shorts are made with recycled fibers. By using recycled polyester, we reduce greenhouse gas emissions by more than 70% as compared to virgin polyester.<br\/><br\/>21,930 recycled plastic bottles were used to make our active shorts.<br\/><br\/>1.5K: Through Fair Trade®, we invest in the livelihoods of over 1.5K workers through our Fair and Safe supply chain brand impact initiatives.<\/p>"
+            }
+        },
+        "multi_image_and_content": {
+            "type": "multi-image-and-content",
+            "blocks": {
+            },
+            "block_order": [
+            ],
+            "settings": {}
+        },
+        "testimonial_slider": {
+            "type": "testimonial-slider",
+            "settings": {}
+        },
+        "images_slider": {
+            "type": "images-slider",
+            "blocks": {
+            },
+            "block_order": [
+            ],
+            "settings": {}
+        },
+        "newsletter": {
+            "type": "newsletter",
+            "settings": {
+                "heading": "Sign up for exclusive access & limited releases.",
+                "arrow": true,
+            }
+        }
+    },
+    "order": [
+        "lead_text",
+        "lead_text_dark_background",
+        "multi_image_and_content",
+        "testimonial_slider",
+        "images_slider",
+        "newsletter"
+    ]
+}

@@ -1,0 +1,164 @@
+<nav aria-label="Main Navbar" class="relative{% if template.name != 'index' %} bg-white{% else %} bg-black{% endif %} shadow-sm h-20 lg:h-[4.5rem] flex items-center js-main-navbar" id="main-navbar">
+    <div class="container mx-auto xl:max-w-[83.25rem]">
+        <div class="navigation flex items-center flex-row">
+            <ul class="navigation__main-navbar hidden lg:flex basis-1/3 items-center lg:h-22">
+                {% for link in linklists[section.settings.menu_left].links %}
+                    <li class="{% if link.links.size > 0 %}navigation__main-navbar-item--has-children {% endif %}h-full flex items-center lg:mr-6 xl:mr-9 last:mr-0">
+                        <a href="{{ link.url }}" class="navigation__menu-link relative js-main-navbar-link" {% if link.links.size > 0 %} aria-expanded="false" {% endif %}>
+                            <span class="uppercase whitespace-nowrap xl:whitespace-normal text-xs font-semibold {% if template.name != 'index' %}text-black{% else %}text-white{% endif %}">{{ link.title }}</span>
+                        </a>
+                        {% if link.links.size > 0 %}
+                            <ul class="navigation__mega-menu absolute hidden top-full left-1/2 transform -translate-x-1/2 bg-white w-full xl:max-w-[120rem] js-mega-menu">
+                                {% for childlink in link.links %}
+                                    <li class="navigation__mega-menu-item pt-9 pb-12 lg:pl-4 xl:pl-5{% if childlink.type == 'collection_link' and forloop.last == true %}{% if childlink.object.image %} !p-0{% endif %} relative lg:w-64 xl:w-auto ml-auto xl:min-w-[21.75rem]{% endif %}">
+                                        {% if childlink.type == 'collection_link' and forloop.last == true and childlink.object.image %}
+                                            {{ childlink.object.image | image_url: width: 348 | image_tag: alt: '', loading: 'lazy', class: 'lazyload object-cover h-full' }}
+                                            <a href="{{ childlink.url }}" class="navigation__menu-link text-lg font-semibold leading-7 text-white inline text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mb-0 js-mega-menu-link">{{ childlink.title }}</a>
+                                        {% else %}
+                                            <a href="{{ childlink.url }}" class="navigation__menu-link relative text-lg font-semibold mb-6 leading-7 js-mega-menu-link">{{ childlink.title }}</a>
+                                        {% endif %}
+
+                                        {% if childlink.links.size > 0 %}
+                                            <ul>
+                                                {% for grandchildlink in childlink.links %}
+                                                    <li>
+                                                        <a href="{{ grandchildlink.url }}" class="text-sm hover:text-orange leading-7">{{ grandchildlink.title }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="flex basis-1/2 lg:flex-row lg:basis-1/3 relative lg:justify-center items-center">
+                <div class="lg:hidden">
+                    <button aria-expanded="false" aria-label="{{ 'navigation.open_menu_label' | t }}" class="navigation__menu-toggle {% if template.name != 'index' %}navigation__menu-toggle--black{% else %}navigation__menu-toggle--white{% endif %} inline-block focus-visible:outline outline-2 outline-orange relative js-mobile-menu-toggle" data-open-label="{{ 'navigation.open_menu_label' | t }}" data-close-label="{{ 'navigation.close_menu_label' | t }}">
+                        <span aria-hidden="true" class="line absolute block"></span>
+                        <span aria-hidden="true" class="line absolute block"></span>
+                        <span aria-hidden="true" class="line absolute block"></span>
+                    </button>
+                </div>
+                <div class="absolute right-0 transform translate-x-1/2 lg:static lg:transform-none">
+                    {% if template.name == 'index' %}
+                        <a class="navigation__brand-link lg:relative block w-44 focus-visible:outline outline-2 outline-orange js-navbar-brand" href="/">
+                            {% if settings.logo_light.src %}
+                            {% render 'c-image',
+                                src: settings.logo_light.src | asset_img_url: '200x',
+                                lazy: false,
+                                alt: shop.name,
+                                fullwidth: true,
+                                width: settings.logo_light.width,
+                                height: settings.logo_light.height,
+                                maxWidth: 200
+                            %}
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                    {% if template.name != 'index' %}
+                        <a class="navigation__brand-link lg:relative block w-44 focus-visible:outline outline-2 outline-orange js-navbar-brand" href="/">
+                            {% if settings.logo_dark.src %}
+                            {% render 'c-image',
+                                src: settings.logo_dark.src | asset_img_url: '200x',
+                                lazy: false,
+                                alt: shop.name,
+                                fullwidth: true,
+                                width: settings.logo_dark.width,
+                                height: settings.logo_dark.height,
+                                maxWidth: 200
+                            %}
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <ul class="flex ml-auto basis-1/3 items-center justify-end js-navigation-right-menu">
+                {% for link in linklists[section.settings.menu_right].links %}
+                    <li class="{% if link.links.size > 0 %}navigation__main-navbar-item--has-children {% endif %}hidden lg:h-full lg:flex items-center lg:mr-6 xl:mr-9">
+                        <a href="{{ link.url }}" class="navigation__menu-link relative">
+                            <span class="p-2 uppercase whitespace-nowrap xl:whitespace-normal text-xs font-semibold {% if template.name != 'index' %}text-black{% else %}text-white{% endif %}">{{ link.title }}</span>
+                        </a>
+                        {% if link.links.size > 0 %}
+                            <ul class="navigation__dropdown-menu absolute hidden justify-center top-full left-1/2 transform -translate-x-1/2 bg-[#F4F9FF] w-full xl:max-w-[120rem] py-2">
+                                {% for childlink in link.links %}
+                                    <li class="lg:mr-12 xl:mr-20">
+                                        <a href="{{ childlink.url }}" class="text-[#262B36] hover:text-orange relative text-xs uppercase font-semibold leading-7">{{ childlink.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                <li class="flex items-center mr-4">
+                  <button data-open-cart="{{ 'navigation.show_cart' | t }}" data-close-cart="{{ 'navigation.close_cart' | t }}" aria-label="{{ 'navigation.show_cart' | t }}" class="navigation__menu-link {% if template.name != 'index' %}navigation__menu-link--white{% else %}navigation__menu-link--black{% endif %} relative inline-block js-cart-button">{% render 'i-basket' %} <span class="cart-items-count inline-flex justify-center items-center">{{ cart.item_count }}</span></button>
+                    {% render 'c-cart-drawer' %}
+                </li>
+
+                <li class="flex items-center lg:mr-4">
+                    <a aria-label="{{ 'navigation.user_page' | t }}" class="navigation__menu-link {% if template.name != 'index' %}navigation__menu-link--white{% else %}navigation__menu-link--black{% endif %} relative inline-block" href="/account">{% render 'i-user' %}</a>
+                </li>
+
+                <li class="hidden lg:flex items-center relative">
+                    {% render 'c-search-form',
+                        mobile: false
+                    %}
+                    <button id="search" class="navigation__menu-link {% if template.name != 'index' %}navigation__menu-link--white icon--white{% else %}navigation__menu-link--black icon--black{% endif %} relative inline-block js-search-input-button" aria-label="{{ 'navigation.open_search_label' | t }}" data-close-label="{{ 'navigation.close_search_label' | t }}">{% render 'i-search' %}</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="navigation__mobile-menu transition-transform hidden -translate-x-full ease-linear absolute top-0 left-0 h-screen bg-alabaster custom-scrollbar overflow-y-auto pt-20 z-negative lg:hidden js-mobile-menu">
+        <ul class="navigation__mobile-menu h-full">
+            {% assign all_menu_items = linklists[section.settings.menu_left].links | concat: linklists[section.settings.menu_right].links %}
+            {% for link in all_menu_items %}
+                <li class="navigation__mobile-menu-parent-item lg:mr-6 xl:mr-9 last:mr-0 border-b border-[#E8E6E6] py-5 pl-7 pr-4 leading-7 flex flex-col items-start js-mobile-menu-parent-item">
+                    <div class="flex justify-between w-full">
+                        <a href="{{ link.url }}" class="navigation__mobile-menu-link relative text-lg font-semibold">{{ link.title }}</a>
+                        {% if link.links.size > 0 %}
+                            <button class="px-3 focus-visible:outline outline-2 outline-offset-2 outline-orange js-mobile-menu-item-button" aria-label="{{ 'navigation.nested_menu_label' | t }}" aria-expanded="false">
+                                <span aria-hidden="true" class="pointer-events-none js-icon-plus">
+                                    {% render 'i-plus' %}
+                                </span>
+                                <span aria-hidden="true" class="pointer-events-none js-icon-minus hidden">
+                                    {% render 'i-minus' %}
+                                </span>
+                            </button>
+                        {% endif %}
+                    </div>
+
+                    {% if link.links.size > 0 %}
+                        <ul class="navigation__mobile-menu-child-list max-h-0 invisible opacity-0 transition-accordion duration-300 js-mobile-menu-child-list">
+                            {% for childlink in link.links %}
+                                <li class="mt-4">
+                                    <a href="{{ childlink.url }}" class="navigation__mobile-menu-nested-link relative text-sm font-semibold js-hidden-element">
+                                        {{ childlink.title }}
+                                    </a>
+
+                                    {% if childlink.links.size > 0 %}
+                                        <ul>
+                                            {% for grandchildlink in childlink.links %}
+                                                <li class="mt-3">
+                                                    <a href="{{ grandchildlink.url }}" class="navigation__mobile-menu-nested-link relative text-sm text-dove-gray js-hidden-element">{{ grandchildlink.title }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            <li class="navigation__mobile-menu-parent-item lg:mr-6 xl:mr-9 last:mr-0 border-b border-[#E8E6E6] py-5 pl-7 pr-4 leading-7 flex flex-col items-start">
+                {% render 'c-search-form',
+                    mobile: true
+                %}
+            </li>
+        </ul>
+    </div>
+</nav>
+
+{% schema 'navbar' %}

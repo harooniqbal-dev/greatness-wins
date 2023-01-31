@@ -1,0 +1,43 @@
+<style>
+{{ settings.font_heading | font_face: font_display: 'swap' }}
+{{ settings.font_heading | font_modify: 'weight', 'lighter' | font_face: font_display: 'swap' }}
+{{ settings.font_base | font_face: font_display: 'swap' }}
+
+:root {
+  /* Layout */
+  --font-family-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+  --font-family-base: {{ settings.font_base.family }}, {{ settings.font_base.fallback_families }};
+  --font-weight-heading: {{ settings.font_heading.weight }};
+  --font-weight-base: {{ settings.font_base.weight }};
+  --font-style-heading: {{ settings.font_heading.style }};
+  --font-style-base: {{ settings.font_base.style }};
+
+  --color-primary-300: {{ settings.color_primary_300 }};
+  --color-primary-500: {{ settings.color_primary_500 }};
+  --color-primary-700: {{ settings.color_primary_700 }};
+
+  --color-secondary-300: {{ settings.color_secondary_300 }};
+  --color-secondary-500: {{ settings.color_secondary_500 }};
+  --color-secondary-700: {{ settings.color_secondary_700 }};
+
+  --color-alternative-300: {{ settings.color_alternative_300 }};
+  --color-alternative-500: {{ settings.color_alternative_500 }};
+  --color-alternative-700: {{ settings.color_alternative_700 }};
+
+  --color-white: {{ settings.color_white }};
+  --color-gray-100: {{ settings.color_gray_100 }};
+  --color-gray-200: {{ settings.color_gray_200 }};
+  --color-gray-300: {{ settings.color_gray_300 }};
+  --color-gray-400: {{ settings.color_gray_400 }};
+  --color-gray-500: {{ settings.color_gray_500 }};
+  --color-gray-600: {{ settings.color_gray_600 }};
+  --color-gray-700: {{ settings.color_gray_700 }};
+  --color-gray-800: {{ settings.color_gray_800 }};
+  --color-gray-900: {{ settings.color_gray_900 }};
+  --color-black: {{ settings.color_black }};
+
+  --color-success: {{ settings.color_success }};
+  --color-warning: {{ settings.color_warning }};
+  --color-error: {{ settings.color_error }};
+}
+</style>

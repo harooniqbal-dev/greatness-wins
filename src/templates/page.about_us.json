@@ -1,0 +1,89 @@
+{
+    "sections": {
+        "hero": {
+            "type": "hero",
+            "settings": {
+            }
+        },
+        "quote": {
+            "type": "quote",
+            "settings": {
+                "heading": "Our Story",
+                "leading_paragraph": "<p>It all started with a conversation about the current state of athletic apparel. Navigating this saturated market, one major question kept coming up: what happened to the ‘sport’ in sportswear? Quality and durability are questionable with many athletic brands, while the focus of athleisure is more on fashion than fitness.<\/p>",
+                "quote": "<p>The industry has forgotten its most important players: athletes. Athletes of all kinds, shapes and sizes. The professional athlete, the intense athlete and the casual athlete. It’s not important how celebrated of an athlete you are. What is important is when you’re making an athletic move, big or small, you’re wearing the apparel that will benefit you the most. Greatness Wins saw there’s a need for something better. All athletes deserve something better, and we’re stepping up to the plate.<\/p>",
+                "closing_paragraph": "<p>Derek Jeter and e-commerce entrepreneur and UNTUCKit Founder Chris Riccobono have joined forces with American Ballet Theatre Principal Dancer Misty Copeland as well as the Great One, Wayne Gretzky, to introduce Greatness Wins: athleticwear for the modern athlete.<\/p>",
+                "hidden_paragraph": "<p>At Greatness Wins, our vision is simple: to create the next great athletic brand. Curated and tested by some of world’s greatest competitors, this is the gear we always dreamed existed: Meeting our exacting standards for quality, construction and endurance; Using only premium fabrics that can withstand your toughest workouts; Ensuring our signature clean, consistent fit every time. Committing to sustainable practices, we aim to inspire future generations of athletes to dream big and put in the effort in pursuit of those dreams.<br\/><br\/>You’ve heard all the buzzwords – moisture wicking, quick dry, anti-microbial, etc. – and those features are undoubtedly important. But many brands offer these. What sets a superior athletic outfitter apart is simple: fit and fabrication. We take pride in our fastidious attention to detail. We use the same, precise specifications over and over again to ensure a great fit the first time and every time. No matter the product. Season to season. Our obsession with quality isn’t about being fancy; it’s about the performance of the clothing itself. We searched the globe to find durable tech fabrics that won’t rip, pill or lose their shape after working out or in the wash. With their clean, crisp, uncluttered style, these pieces are truly built to last. <br\/><br\/>Here, you’ll find a curated assortment of the best purpose-built athletic wear anywhere. We’ve simplified your shopping experience, so there’s no more endless scrolling through a dizzying array of products. Finding the right gear for your activity has never been easier, so you can put your time in where it counts.<br\/><br\/>Greatness Wins is more than a name. It’s our founding principle and philosophy. It means doing everything possible to achieve a dream–and then going way above and beyond that. It’s about innate drive to propel past those first successes and remain motivated to succeed over and over again. What separates good from greatness is the ability to stand the test of time … to shape the game and how it’s played, forever.<br\/><br\/>We won’t deliver anything less than great.<\/p>",
+                "button_label": "READ MORE"
+            }
+        },
+        "three_cols_image": {
+            "type": "three-cols-image",
+            "blocks": {
+  
+            },
+            "block_order": [
+            ],
+            "settings": {
+            }
+        },
+        "full_width_image-boxes": {
+            "type": "full-width-image-boxes",
+            "blocks": {
+            },
+            "block_order": [
+       
+            ],
+            "settings": {
+                "styling": "with_description"
+            }
+        },
+        "letter": {
+            "type": "letter",
+            "blocks": {
+           
+            },
+            "block_order": [
+           
+            ],
+            "settings": {
+                "title": "Letter from the Athletes",
+                "content": "<p>As athletes who have competed at the highest level of sports, we recognize that you don’t stumble into success. Success is the recognition of all the hard work you’ve put in to get to that point. Whether at the gym or on the practice field, the effort you put into pushing yourself to be your best is when future victories are made. Wearing the right apparel in these moments is vitally important – it can make or break what you get out of each session.<\/p><p><br\/>Over the many years of our combined careers, we’ve trained in athletic gear for countless hours, putting it all to the ultimate test. It turns out there’s plenty of room for improvement in today’s sportswear market. Greatness Wins is here to change the game.<br\/><br\/>We aim to be the new authority in premium sportswear. Our team is deeply involved in the design process, curating each collection from start to finish. We ensure we are creating products that outperform anything on the market while also being elevated with the clean styling and details of athleisure. All products are rigorously tested by skilled athletes, and only a select assortment of winning designs makes the cut. <\/p><p><\/p><p>We’ve also made shopping a no-brainer. No more navigating confusing pages of products or<br\/>guessing the difference between one product and the next. Finally, it’s quick and easy to find the best products for all your sport and training needs.<\/p><p><br\/>And that’s just out of the gate. Greatness Wins will soon launch a women's collection and expand into tennis, soccer, and other exciting sport categories. <\/p><p><br\/>Even as the company scales up, we’ll always keep our team and values close to heart. We’re confident in that vision, thanks to the expertise of co-founder, Chris Riccobono, who brings ten years of apparel design and e-commerce experience to the table.<\/p><p><br\/>Join us, and let the games begin.<\/p>"
+            }
+        },
+        "background_image": {
+            "type": "background-image",
+            "settings": {
+                "heading_link_label": "Shop Men"
+            }
+        },
+        "insta_feed": {
+            "type": "insta-feed",
+            "settings": {}
+        },
+        "video": {
+            "type": "video",
+            "disabled": true,
+            "settings": {
+                "url": ""
+            }
+        },
+        "newsletter": {
+            "type": "newsletter",
+            "settings": {
+                "heading": "Sign up for exclusive access & limited releases.",
+                "arrow": true
+            }
+        }
+    },
+    "order": [
+        "hero",
+        "quote",
+        "three_cols_image",
+        "full_width_image-boxes",
+        "letter",
+        "background_image",
+        "insta_feed",
+        "video",
+        "newsletter"
+    ]
+}

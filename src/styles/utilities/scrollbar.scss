@@ -1,0 +1,40 @@
+/**
+ * Custom Scrollbar
+ *
+ * -webkit-scrollbar applies to Blink and WebKit based browsers (Chrome, Edge, Opera, Safari)
+ * scrollbar-width and scrollbar-color applies to the Firefox
+ *
+ */
+
+.custom-scrollbar {
+    /* Maximum thickness of an element’s scrollbars: none, thin, auto */
+    scrollbar-width: thin;
+
+    /* The first applies to the thumb of the scrollbar, the second to the track. */
+    scrollbar-color: theme('colors.silver') theme('colors.alabaster');
+
+    /* The track (progress bar) of the scrollbar */
+    &::-webkit-scrollbar-track {
+        background-color: theme('colors.alabaster');
+    }
+
+    /* The entire scrollbar */
+    &::-webkit-scrollbar {
+        width: 0.375rem;
+        height: 0.375rem;
+        background-color: theme('colors.alabaster');
+    }
+
+    /* The draggable scrolling handle. */
+    &::-webkit-scrollbar-thumb {
+        background-color: theme('colors.silver');
+
+        &:hover {
+            background-color: theme('colors.grey');
+        }
+
+        &:active {
+            background-color: theme('colors.shark');
+        }
+    }
+}

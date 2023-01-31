@@ -1,0 +1,79 @@
+<section class="container mx-auto my-20">
+    <div class="flex flex-row items-center">
+        <h2 class="text-4xl flex-1">{{ 'user.main.my_account' | t }}</h2>
+
+        <div class="flex-initial">
+            <a href="/account/logout/" class="underline underline-offset-1 hover:no-underline focus-visible:outline outline-2 outline-offset-2 outline-orange">{{ 'user.main.logout' | t }}</a>
+        </div>
+    </div>
+
+    <div class="mt-8 pt-12 border-t border-black">
+        <div class="grid grid-cols-4 gap-8">
+            <div class="col-span-4 lg:col-span-3">
+                <h3 class="text-lg uppercase font-semibold">{{ 'user.orders.heading' | t }}</h3>
+
+                {% if customer.orders.size != 0 %}
+                    <table class="mt-6 table-auto w-full text-left border-collapse">
+                        <thead>
+                            <tr>
+                                <th class="py-2 border-t border-black">
+                                    <p>{{ 'user.orders.table.name' | t }}</p>
+                                </th>
+
+                                <th class="py-2 border-t border-black">
+                                    <p>{{ 'user.orders.table.created_at' | t }}</p>
+                                </th>
+
+                                <th class="py-2 border-t border-black">
+                                    <p>{{ 'user.orders.table.payment_status' | t }}</p>
+                                </th>
+
+                                <th class="py-2 border-t border-black">
+                                    <p>{{ 'user.orders.table.fulfillment_status' | t }}</p>
+                                </th>
+
+                                <th class="py-2 border-t border-black">
+                                    <p>{{ 'user.orders.table.total' | t }}</p>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for order in customer.orders %}
+                                <tr>
+                                    <td class="py-2 border-t border-black">
+                                        <a href="{{ order.customer_url }}" class="underline underline-offset-1 hover:no-underline focus-visible:outline outline-2 outline-offset-2 outline-orange">{{ order.name }}</a>
+                                    </td>
+                                    
+                                    <td class="py-2 border-t border-black">{{ order.created_at | date: "%b %d, %Y" }}</td>
+
+                                    <td class="py-2 border-t border-black">{{ order.financial_status_label }}</td>
+
+                                    <td class="py-2 border-t border-black">{{ order.fulfillment_status_label }}</td>
+
+                                    <td class="py-2 border-t border-black">{{ order.total_price | money }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>{{ 'user.orders.table.no_orders' | t }}</p>
+                {% endif %}
+            </div>
+
+            <div class="col-span-4 lg:col-span-1">
+                <div class="bg-alabaster px-8 py-6">
+                    <h3 class="text-lg uppercase font-semibold">{{ 'user.orders.details' | t }}</h3>
+
+                    <address class="mt-4">
+                        <p>{{ customer.default_address | format_address }}</p>
+                    </address>
+
+                    <p class="mt-4">
+                        <a href="/account/addresses" class="underline underline-offset-1 hover:no-underline focus-visible:outline outline-2 outline-offset-2 outline-orange">{{ 'user.orders.addresses_link' | t }} ({{ customer.addresses_count }})</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

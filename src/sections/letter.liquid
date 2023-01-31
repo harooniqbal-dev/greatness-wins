@@ -1,0 +1,28 @@
+{% assign s = section.settings %}
+
+<section class="container mx-auto my-24 text-center flex flex-col justify-center">
+   <div class="{{ s.margin_top }} {{ s.margin_bottom }} {{ s.padding_top }} {{ s.padding_bottom }}">
+      <h2 class="text-[1.875rem] mb-9">{{ section.settings.title }}</h2>
+      <div class="text-base mt-4 max-w-[62.125rem] mx-auto leading-normal">
+         {{ section.settings.content }}
+      </div>
+      {% if section.blocks.size > 0 %}
+         <ul class="grid grid-cols-2 md:grid-cols-3 lg:flex lg:flex-row mt-8 lg:items-center lg:justify-center w-full">
+            {% for block in section.blocks %}
+               <li class="w-full sm:w-48 h-auto sm:h-24 mx-auto xl:mx-4 my-2 xl:my-0">
+                  {% render 'c-image',
+                     src: block.settings.image_block.src,
+                     lazy: true,
+                     alt: block.settings.image_block.alt,
+                     customClass: 'w-full h-full object-contain md:object-cover lg:object-contain',
+                     width: block.settings.image_block.width,
+                     height: block.settings.image_block.height
+                  %}
+               </li>
+            {% endfor %}
+         </ul>
+      {% endif %}
+   </div>
+</section>
+
+{% schema "letter" %}

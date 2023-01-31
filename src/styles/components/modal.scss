@@ -1,0 +1,17 @@
+.modal {
+    @apply pointer-events-none;
+
+    &__background,
+    &__content {
+        @apply invisible opacity-0;
+    }
+
+    &--visible {
+        @apply pointer-events-auto;
+
+        .modal__background,
+        .modal__content {
+            @apply visible opacity-100;
+        }
+    }
+}

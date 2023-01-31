@@ -1,0 +1,61 @@
+<a
+    href="{{ product.url }}"
+    class="product-tile block relative text-black hover:text-orange"
+>
+    {% if product.tags %}
+    <div class="absolute z-10 left-6 right-6 top-4 border border-black text-center text-xxs uppercase font-semibold p-2 text-black">{{ product.tags.first }}</div>
+    {% endif %}
+
+    <div class="relative bg-gray-50">
+        {% if product.featured_image %}
+        <img
+            src="data:,"
+            data-src="{{ product.featured_image | image_url: width: 550 }}"
+            class="{% if product.images[1] %} product-tile__img absolute left-0 top-0 {% endif %} aspect-[3/4] object-cover w-full block lazyload"
+            width="{{ product.featured_image.width }}"
+            height="{{ product.featured_image.height }}"
+            alt="{{ product.featured_image.alt }}"
+        />
+        {% else %}
+        {{ 'collection-5' | placeholder_svg_tag: 'aspect-[3/4] object-cover w-full block' }}
+        {% endif %}
+
+        {% if product.images[1] %}
+        <img
+            src="data:,"
+            data-src="{{ product.images[1] | image_url: width: 550 }}"
+            class="aspect-[3/4] object-cover w-full block bg-gray-50 lazyload"
+            width="{{ product.images[1].width }}"
+            height="{{ product.images[1].height }}"
+            alt="{{ product.images[1].alt }}"
+        />
+        {% endif %}
+    </div>
+
+    <div class="mt-4 flex flex-row items-end">
+        <h5 class="flex-auto text-sm font-semibold text-inherit transition-colors">{{ product.title }}</h5>
+
+        <p class="flex-initial ml-1 text-xs font-medium whitespace-nowrap text-black">{{ product.price | money }}</p>
+    </div>
+
+    {% assign description = product.description | split: "." %}
+
+    {% if description.first %}
+        <p class="hidden mt-1 text-sm font-medium text-black">{{ description.first | strip_html }}.</p>
+    {% endif %}
+
+    <p class="mt-1 text-xs font-medium text-[#6F6E6E]">
+        {%- for product_option in product.options_with_values -%}
+            {% assign size = product_option.values | size %}
+            {{ size }} {{ product_option.name }}{% if size > 1 %}s{% endif %}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+    </p>
+
+    <!-- YOTPO STAR RATING (CATEGORY PAGE) | location: snippets > c-product-tile.liquid -->
+        <div id="yotpo-category-stars">
+            <div class="yotpo bottomLine" data-product-id="{{ product.id }}" style="padding: 4px 0 0 0;"></div>
+        </div>
+    <style> #yotpo-category-stars .text-m { padding-left: 4px; } </style>
+    <!-- END | YOTPO STAR RATING (CATEGORY PAGE) -->
+
+</a>

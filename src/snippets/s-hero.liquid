@@ -1,0 +1,4 @@
+<div class="relative h-[20rem] lg:h-[25rem]">
+    <img class="absolute left-0 top-0 w-full h-full object-cover{% if lazyload %} lazyload{% endif %}" {% if lazyload %} src="data:," data-src="{{ background_image | img_url: '1920x' }}" {% else %} src="{{ background_image | img_url: '1920x' }}" {% endif %} width="{{ background_image.width }}" height="{{ background_image.height }}"
+        alt="{{ background_image.alt }}">
+</div>

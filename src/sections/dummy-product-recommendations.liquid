@@ -1,0 +1,86 @@
+<section class="mt-5 mb-5 lg:mt-[4.6875rem]">
+  <div class="container mx-auto">
+    <div class="flex flex-row items-center">
+      <h2 class="flex-auto font-family-heading uppercase text-lg">{{ 'sections.product_recommendations.pairs_well_with' | t }}</h2>
+
+      <div class="flex-initial">
+        <div class="flex flex-row">
+          <div
+            role="button"
+            class="swiper-button-prev-{{ section.id }} w-8 h-8 -rotate-45 cursor-pointer group"
+            aria-label="{{ 'sections.products_slider.prev' | t }}">
+            <div class="m-2 w-4 h-4 border-t border-l border-t-black border-l-black border-solid transition-colors group-hover:border-t-orange group-hover:border-l-orange group-focus:border-t-orange group-focus:border-l-orange"></div>
+          </div>
+
+          <div
+            role="button"
+            class="swiper-button-next-{{ section.id }} w-8 h-9 rotate-45 cursor-pointer group"
+            aria-label="{{ 'sections.products_slider.next' | t }}">
+            <div class="m-2 w-4 h-4 border-t border-r border-t-black border-r-black border-solid transition-colors group-hover:border-t-orange group-hover:border-r-orange group-focus:border-t-orange group-focus:border-r-orange"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="mt-10 swiper js-swiper-product-cards"
+    data-button-next=".swiper-button-next-{{ section.id }}"
+    data-button-prev=".swiper-button-prev-{{ section.id }}">
+    <ul class="swiper-wrapper">
+      {% for collection in product.collections %}
+        {%- paginate collection.products by 12 -%}
+          {% for recommendedProduct in collection.products %}
+            {% unless recommendedProduct.id == product.id %}
+
+              <li class="swiper-slide xl:w-[16.25rem]">
+                <a href="{{ recommendedProduct.url }}" class="group block">
+                  <div class="overflow-hidden h-80 relative">
+                    {% if recommendedProduct.featured_image %}
+                      {% render 'c-image'
+                       , lazy: true,
+                       src: recommendedProduct.featured_image,
+                       customClass: 'w-full h-full object-cover group-hover:scale-110 group-focus-visible:scale-110 transition-transform',
+                       height: recommendedProduct.featured_image.height,
+                       width: recommendedProduct.featured_image.width,
+                       alt: recommendedProduct.title, %}
+                    {% else %}
+                      {{ 'collection-5' | placeholder_svg_tag: 'block w-full h-full object-cover group-hover:scale-110 group-focus-visible:scale-110 transition-transform' }}
+                    {% endif %}
+
+                    <div class="absolute z-10 bottom-0 left-0 w-full opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div
+                        class="js-product-quick-add-to-cart"
+                        data-product='{{ recommendedProduct | json | escape }}'
+                        data-product-is-available='{{ recommendedProduct.available }}'
+                        data-product-variants='{{ recommendedProduct.variants | json | escape }}'
+                        data-options-with-values='{{ recommendedProduct.options_with_values | json | escape }}'
+                        data-default-variant-id="{{ recommendedProduct.metafields.my_fields.default_variant_id }}"
+                        data-lang-quick-buy="{{ 'product.quick_buy' | t }}"
+                        data-lang-product-unavailable="{{ 'product.product_unavailable' | t }}"></div>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 flex flex-row items-end">
+                    <h5 class="flex-auto text-sm font-semibold text-inherit transition-colors">{{ recommendedProduct.title }}</h5>
+
+                    <p class="flex-initial ml-1 text-xs font-medium whitespace-nowrap text-black">{{ recommendedProduct.price | money }}</p>
+                  </div>
+
+                  <p class="mt-1 text-xs font-medium text-[#6F6E6E]" data-test="{{ product_option }}">
+                    {%- for product_option in recommendedProduct.options_with_values -%}
+                      {%- if product_option.name == 'Color' -%}
+                        {%- assign color = recommendedProduct.metafields.my_fields.color | split: '|' -%}
+                        {{ color[1] | strip }}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </p>
+                </a>
+              </li>
+            {% endunless %}
+          {% endfor %}
+        {% endpaginate %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>

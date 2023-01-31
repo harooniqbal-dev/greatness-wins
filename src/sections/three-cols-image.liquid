@@ -1,0 +1,26 @@
+{% assign s = section.settings %}
+<section class="mx-auto bg-shark">
+    <div class="py-10 mx-auto max-w-[62.5rem]">
+        <div class="mb-12 px-4 sm:px-0">
+            <h2 class="font-semibold text-3xl text-white text-center leading-10 mb-4">{{ s.title }}</h2>
+            <div class="font-semibold text-base text-white text-center max-w-[62rem] px-0 md:px-[12rem] lg:px-[16rem]">{{ s.description }}</div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-6 mx-auto w-full">
+            {% for block in section.blocks %}
+                <div class="mb-24 px-4 sm:px-0 max-w-[24rem] sm:max-w-[36rem] lg:max-w-[20.75rem] mx-auto">
+                    {% render 'c-image',
+                        src: block.settings.col_image.src,
+                        lazy: true,
+                        alt: block.settings.col_image.alt,
+                        customClass: 'w-full max-h-[20rem] sm:max-h-[30rem] lg:max-h-[19rem] object-cover',
+                        width: block.settings.col_image.width,
+                        height: block.settings.col_image.height
+                    %}
+                    <h4 class="font-semibold text-lg text-white my-4">{{ block.settings.col_title }}</h4>
+                    <div class="text-sm text-white">{{ block.settings.col_desc }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% schema "three-cols-image" %}

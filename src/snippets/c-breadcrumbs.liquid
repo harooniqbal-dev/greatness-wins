@@ -1,0 +1,135 @@
+{%- assign t = template | split: '.' | first -%}
+
+<nav class="breadcrumbs font-family-heading text-xxs uppercase" role="navigation" aria-label="breadcrumbs">
+    <ol class="breadcrumbs__list flex flex-row">
+
+        {%- case t -%}
+
+            {%- when 'product' -%}
+                {% for collection in product.collections %}
+                    {% assign firstCollection = collection %}
+                    {% break %}
+                {% endfor %}
+
+                {%- if firstCollection.url -%}
+                    <li class="breadcrumbs__item">
+                        {{ firstCollection.title | link_to: firstCollection.url }}
+                    </li>
+                {%- endif -%}
+                <li class="breadcrumbs__item">
+                    <a class="breadcrumbs__link" href="{{ product.url }}" aria-current="page">{{ product.title }}</a>
+                </li>
+
+                <script type="application/ld+json">
+                    {
+                        "@context": "http://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                            {%- if firstCollection.url -%}
+                                {
+                                    "@type": "ListItem",
+                                    "position": 1,
+                                    "item": {
+                                        "@id": "{{ firstCollection.id }}",
+                                        "name": "{{ firstCollection.title }}",
+                                        "url": "{{ firstCollection.url }}"
+                                    }
+                                },
+                            {%- endif -%}
+                            {
+                                "@type": "ListItem",
+                                "position": {%- if firstCollection.url -%}2{%- else -%}1{%- endif -%},
+                                "item": {
+                                    "@id": "{{ product.id }}",
+                                    "name": "{{ product.title }}",
+                                    "url": "{{ product.url }}"
+                                }
+                            }
+                        ]
+                    }
+                </script>
+
+            {%- when 'collection' and collection.handle -%}
+                {% assign first = "" %}
+                {% assign second = "" %}
+                {% assign third = "" %}
+
+                {% for link in linklists.collections.links %}
+                    {% if link.active or link.child_active %}
+                        {% assign first = link.object %}
+                    {% endif %}
+                    {% for childlink in link.links %}
+                        {% if childlink.active or childlink.child_active  %}
+                            {% assign second = childlink.object %}
+                        {% endif %}
+                        {% for grandchildlink in childlink.links %}
+                            {% if grandchildlink.active %}
+                                {% assign third = grandchildlink.object %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% endfor %}
+
+                <li class="breadcrumbs__item">
+                    <a class="breadcrumbs__link" href="/" aria-current="page">{{ 'collection.root' | t }}</a>
+                </li>
+
+                {% if first != "" %}
+                <li class="breadcrumbs__item">
+                    <a class="breadcrumbs__link" href="{{ first.url }}" aria-current="page">{{ first.title }}</a>
+                </a>
+                {% endif %}
+
+                {% if second != "" %}
+                <li class="breadcrumbs__item">
+                    <a class="breadcrumbs__link" href="{{ second.url }}" aria-current="page">{{ second.title }}</a>
+                </a>
+                {% endif %}
+
+                {% if third != "" %}
+                <li class="breadcrumbs__item">
+                    <a class="breadcrumbs__link" href="{{ third.url }}" aria-current="page">{{ third.title }}</a>
+                </a>
+                {% endif %}
+
+                <script type="application/ld+json">
+                    {
+                        "@context": "http://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                            {% if first != "" %}
+                            {
+                                "@type": "ListItem",
+                                "position": 1,
+                                "item": {
+                                    "@id": "{{ first.id }}",
+                                    "name": "{{ first.title }}",
+                                    "url": "{{ first.url }}"
+                                }
+                            }{% endif %}{% if second != "" %},
+                            {
+                                "@type": "ListItem",
+                                "position": 2,
+                                "item": {
+                                    "@id": "{{ second.id }}",
+                                    "name": "{{ second.title }}",
+                                    "url": "{{ second.url }}"
+                                }
+                            }{% endif %}{% if third != "" %},
+                            {
+                                "@type": "ListItem",
+                                "position": 3,
+                                "item": {
+                                    "@id": "{{ third.id }}",
+                                    "name": "{{ third.title }}",
+                                    "url": "{{ third.url }}"
+                                }
+                            }
+                            {% endif %}
+                        ]
+                    }
+                </script>
+        {%- endcase -%}
+    </ol>
+</nav>
+

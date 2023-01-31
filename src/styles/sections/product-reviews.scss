@@ -1,0 +1,158 @@
+/**
+ * Product Reviews Section Styles
+ */
+
+.product-reviews {
+    .yotpo {
+        &.yotpo-main-widget {
+            @apply mt-4 lg:mt-12;
+        }
+
+        .yotpo-small-box {
+            @apply hidden;
+        }
+
+        .yotpo-regular-box {
+            @apply mx-0 border-t-black;
+        }
+
+        .yotpo-bottomline {
+            .yotpo-icon-star,
+            .yotpo-icon-half-star,
+            .yotpo-icon-empty-star {
+                @apply text-black;
+            }
+
+        }
+
+        .yotpo-first-review {
+            .yotpo-first-review-stars {
+                @apply hidden;
+            }
+        }
+
+        .write-review {
+            .yotpo-header {
+                .yotpo-icon {
+                    @apply text-black;
+                }
+            }
+        }
+
+        input,
+        .y-input,
+        .text-box,
+        .yotpo-text-box {
+            @apply w-full bg-mercury p-2 border border-solid border-mercury focus:border-black focus-visible:outline-none transition-colors;
+        }
+
+        .yotpo-default-button,
+        input[type="button"].yotpo-default-button {
+            font-weight: var(--font-weight-heading);
+            font-style: var(--font-style-heading);
+            font-family: var(--font-family-heading);
+            @apply inline-block text-center text-xxs py-3 px-5 uppercase leading-loose rounded-3xl border border-solid tracking-widest focus-visible:outline-none transition-colors focus:outline focus:outline-2 focus:outline-orange focus:outline-offset-2 text-white border-black bg-black hover:text-black hover:bg-transparent focus:text-black focus:bg-transparent;
+
+            &.yotpo-icon-btn {
+                @apply flex flex-row justify-center items-center;
+            }
+
+            .yotpo-icon,
+            .yotpo-icon-button-text {
+                font-weight: var(--font-weight-heading);
+                font-style: var(--font-style-heading);
+                font-family: var(--font-family-heading);
+                @apply text-xxs transition-colors;
+            }
+
+            .yotpo-icon-button-text {
+                @apply ml-1;
+            }
+
+            &:hover,
+            &:focus-visible {
+                border: 1px solid theme('colors.black') !important;
+                background-color: transparent !important;
+
+                .yotpo-icon,
+                .yotpo-icon-button-text {
+                    @apply text-black;
+                }
+            }
+        }
+
+        .yotpo-review {
+            .yotpo-header {
+                .yotpo-icon-profile {
+                    @apply hidden;
+                }
+
+                .yotpo-header-element {
+                    .yotpo-user-name {
+                        font-weight: var(--font-weight-heading);
+                        font-style: var(--font-style-heading);
+                        font-family: var(--font-family-heading);
+                        @apply text-sm;
+                    }
+
+                    .yotpo-review-stars {
+                        .yotpo-icon {
+                            @apply text-black;
+                        }
+                    }
+
+                    .yotpo-review-date {
+                        @apply text-dove-gray;
+                    }
+                }
+            }
+
+            .yotpo-main {
+                @apply ml-0;
+
+                .content-title {
+                    font-weight: var(--font-weight-heading);
+                    font-style: var(--font-style-heading);
+                    font-family: var(--font-family-heading);
+                    @apply text-sm text-black;
+                }
+
+                .yotpo-review-wrapper {
+                    .content-review {
+                        @apply text-xs text-black;
+                    }
+                }
+            }
+
+            .yotpo-footer {
+                @apply ml-0;
+
+                .yotpo-helpful {
+                    .vote-btn {
+                        span.yotpo-icon {
+                            @apply text-dove-gray;
+                        }
+
+                        &.voted {
+                            span.yotpo-icon {
+                                @apply text-black;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        span,
+        .y-label {
+            @apply text-dove-gray;
+        }
+
+        a {
+            &:hover,
+            &:focus-visible {
+                color: theme('colors.black') !important;
+            }
+        }
+    }
+}

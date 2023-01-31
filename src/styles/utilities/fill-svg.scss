@@ -1,0 +1,29 @@
+.icon {
+    &--white {
+        svg {
+            path {
+                @apply fill-black;
+            }
+
+            ellipse {
+                @apply stroke-black;
+            }
+        }
+    }
+
+    &--black {
+        svg {
+            path {
+                @apply fill-white;
+            }
+
+            ellipse {
+                @apply stroke-white;
+            }
+
+            .path {
+                @apply stroke-white;
+            }
+        }
+    }
+}

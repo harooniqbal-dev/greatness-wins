@@ -1,0 +1,68 @@
+{% assign s = section.settings %}
+
+<section class="relative text-white text-center pt-10 pb-10 bg-center bg-no-repeat bg-cover" style="{% if s.background_color %}background-color: {{ s.background_color }};{% endif %}" data-anim>
+    {% if s.background_image %}
+        <img fetchpriority="low" src="data:," alt="newsletter.background_alt" data-src="{{ s.background_image | img_url: '1920x' }}" class="hidden md:block absolute left-0 top-0 w-full h-full object-cover lazyload" width="{{ s.background_image.width }}" height="{{ s.background_image.height }}"/>
+        <img fetchpriority="low" src="data:," alt="newsletter.background_alt" data-src="{{ s.background_image | img_url: '540x' }}" class="md:hidden absolute left-0 top-0 w-full h-full object-cover lazyload" width="{{ s.background_image.width }}" height="{{ s.background_image.height }}"/>
+    {% endif %}
+
+    <div class="relative z-1 container mx-auto">
+        <h3 class="text-[1.75rem] leading-10">{{ s.heading }}</h3>
+
+        <div class="mt-6 mx-auto md:w-[28.4375rem]">
+            {% form 'customer' %}
+                <input id="contact_tags" name="contact[tags]" type="hidden" value="prospect,newsletter"/>
+
+                {% render 'c-input-button',
+                    label: 'newsletter.form.email',
+                    type: 'email',
+                    name: 'contact[email]',
+                    required: true,
+                    arrow: s.arrow,
+                    buttonOpaque: true,
+                    cta: 'newsletter.form.cta'
+                %}
+
+                {% if form.posted_successfully? %}
+                    <p class="text-sm mt-4 text-green-500">{{ 'newsletter.form.post_success' | t }}</p>
+                {% else %}
+                    <p class="text-sm mt-4 text-red-500">{{ form.errors | default_errors }}</p>
+                {% endif %}
+            {% endform %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Newsletter",
+    "settings": [
+      {
+        "label": "Heading",
+        "id": "heading",
+        "type": "text"
+      },
+      {
+        "label": "Arrow submit",
+        "id": "arrow",
+        "type": "checkbox"
+      },
+      {
+        "label": "Background Color",
+        "id": "background_color",
+        "type": "color"
+      },
+      {
+        "label": "Background Image",
+        "id": "background_image",
+        "type": "image_picker"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Newsletter",
+        "category": "Section"
+      }
+    ]
+  }
+{% endschema %}

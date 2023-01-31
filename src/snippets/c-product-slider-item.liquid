@@ -1,0 +1,33 @@
+{% comment %}
+  image: p.image,
+  date: a.published_at,
+  title: a.title,
+  excerpt: a.excerpt,
+  url: a.url
+  ctaLabe
+{% endcomment %}
+
+<a href="{{ product.url }}" class="block">
+    {% comment %} {{ product | json }} {% endcomment %}
+    {% if product.featured_image %}
+    <img src="data:," data-src="{{ product.featured_image | image_url: width: 550 }}" class="aspect-[3/4] object-cover w-full block lazyload" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" alt="{{ product.featured_image.alt }}" />
+    {% else %}
+    {{ 'collection-5' | placeholder_svg_tag: 'aspect-[3/4] object-cover w-full block' }}
+    {% endif %}
+
+    <div class="mt-4 flex flex-row items-end">
+        <h5 class="flex-auto text-sm font-semibold">{{ product.title }}</h5>
+        <p class="flex-initial ml-1 text-xs font-medium whitespace-nowrap">{{ product.price | money }}</p>
+    </div>
+
+    {% if product.description %}
+        <div class="mt-1 text-sm font-medium">{{ product.description | truncate: 40 | strip_html }}</div>
+    {% endif %}
+
+    <p class="mt-1 text-xs font-medium text-neutral-500">
+        {%- for product_option in product.options_with_values -%}
+            {% assign size = product_option.values | size %}
+            {{ size }} {{ product_option.name }}{% if size > 1 %}s{% endif %}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+    </p>
+</a>

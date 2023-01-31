@@ -1,0 +1,62 @@
+@charset 'UTF-8';
+
+/* stylelint-disable */
+/* Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* stylelint-enable */
+
+.main-content {
+    .shopify-section {
+        content-visibility: auto;
+
+        &:nth-child(1), &:nth-child(2) {
+            content-visibility: visible;
+        }
+    }
+}
+
+/* Swiper */
+@import "../../node_modules/swiper/swiper";
+
+/* Splide */
+@import "../../node_modules/@splidejs/splide/src/css/themes/default/index";
+
+/* Typography */
+@import "./typography";
+
+/* Shared Components */
+@import "./components/input-button";
+@import "./components/challenge";
+@import "./components/collection";
+@import "./components/entry-content";
+@import "./components/video";
+@import "./components/modal";
+@import "./components/skip-links";
+@import "./components/breadcrumbs";
+@import "./components/order-table-footer";
+@import "./components/article";
+@import "./components/product-tile";
+@import "./components/collection-tile";
+@import "./components/boost-pfs";
+@import "./components/cart";
+@import "./components/hear-about-us.scss";
+
+/* Sections */
+@import "./sections/header";
+@import "./sections/main";
+@import "./sections/quote";
+@import "./sections/footer";
+@import "./sections/full-width-image-boxes";
+@import "./sections/product-reviews";
+@import "./sections/three-cols-full-width";
+@import "./sections/comparison";
+@import "./sections/images-slider";
+@import "./sections/instafeed";
+@import "./sections/background-image";
+
+/* Utilities */
+@import "./utilities/autofill-clear";
+@import "./utilities/fill-svg";
+@import "./utilities/scrollbar";

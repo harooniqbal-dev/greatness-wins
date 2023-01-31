@@ -1,0 +1,125 @@
+{% assign s = section.settings %}
+
+<section class="relative flex flex-col lg:flex-row">
+    <div class="basis-1/2">
+        <div class="max-w-[32.8125rem] mx-auto pt-6 pb-14 md:pt-10 md:pb-28 2xl:pt-28">
+            <div class="px-5">
+                <ul class="flex flex-row border-b border-black">
+                    <li class="basis-1/2">
+                        <a href="/account/login" class="block text-center p-5 uppercase font-semibold text-xxs border-black focus-visible:outline outline-2 outline-offset-2 outline-orange">Log-in</a>
+                    </li>
+
+                    <li class="basis-1/2">
+                        <a href="/account/register" class="block text-center p-5 uppercase font-semibold text-xxs border-black border-b-2 focus-visible:outline outline-2 outline-offset-2 outline-orange">Sign-up</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mt-8 text-center">
+                <h2 class="font-semibold text-4xl">{{ s.heading }}</h2>
+
+                <div class="mt-2 font-medium">{{ s.content }}</div>
+            </div>
+
+            <div class="mt-8 px-5">
+                {% form 'create_customer', novalidate: 'novalidate' %}
+                    {% if form.errors %}
+                        <div class="p-4 bg-alizarin-crimson mb-4">
+                            {{ form.errors | default_errors }}
+                        </div>
+                    {% endif %}
+
+                    {% render 'form-field',
+                        type: 'text',
+                        name: 'customer[first_name]',
+                        id: 'first_name',
+                        label: 'register.form.first_name',
+                        has_error: form.errors.messages['first_name'],
+                        margin_top: '0',
+                        required: true
+                    %}
+
+                    {% render 'form-field',
+                        type: 'text',
+                        name: 'customer[last_name]',
+                        id: 'last_name',
+                        label: 'register.form.last_name',
+                        has_error: form.errors.messages['last_name'],
+                        margin_top: '2',
+                        required: true
+                    %}
+
+                    {% render 'form-field',
+                        type: 'email',
+                        name: 'customer[email]',
+                        id: 'email',
+                        label: 'register.form.email',
+                        has_error: form.errors.messages['email'],
+                        margin_top: '2',
+                        required: true
+                    %}
+
+                    {% render 'form-field',
+                        type: 'password',
+                        name: 'customer[password]',
+                        id: 'password',
+                        label: 'register.form.password',
+                        has_error: form.errors.messages['password'],
+                        margin_top: '2',
+                        required: true
+                    %}
+
+                    {% render 'checkbox-field',
+                        name: 'customer[accepts_marketing]',
+                        id: 'accepts-marketing',
+                        label: 'register.form.marketing',
+                        margin_top: '4',
+                        required: false
+                    %}
+
+                    <div class="text-center mt-12">
+                        <button
+                            class="font-family-heading uppercase text-xxs px-6 py-3 leading-loose rounded-full border border-solid border-black tracking-widest hover:text-white hover:bg-orange hover:border-orange focus-visible:text-white focus-visible:bg-orange focus-visible:border-orange focus-visible:outline-none transition-colors"
+                            type="submit"
+                        >{{ 'register.form.cta' | t }}</button>
+                    </div>
+                {% endform %}
+            </div>
+        </div>
+    </div>
+
+    <div class="basis-1/2 relative min-h-[50vw] self-stretch">
+        {% if s.image %}
+            <img src="{{ s.image | img_url: '1920x' }}" class="absolute w-full h-full object-cover" width="{{ s.image.width }}" height="{{ s.image.height }}" />
+        {% endif %}
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Sign-up",
+    "settings": [
+        {
+            "label": "Heading",
+            "id": "heading",
+            "type": "text"
+        },
+        {
+            "label": "Content",
+            "id": "content",
+            "type": "richtext"
+        },
+        {
+            "label": "Image",
+            "id": "image",
+            "type": "image_picker"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Sign-up",
+            "category": "Section"
+        }
+    ]
+  }
+{% endschema %}

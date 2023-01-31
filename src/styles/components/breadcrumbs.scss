@@ -1,0 +1,17 @@
+/**
+ * Breadcrumbs Template Part Styles
+ */
+
+.breadcrumbs {
+    &__item {
+        @apply flex flex-row pl-2 after:content-['>'] after:block after:pl-2 last-of-type:after:hidden;
+
+        &:first-child {
+            @apply pl-0;
+        }
+
+        .breadcrumbs__link, a {
+            @apply transition-colors hover:text-orange focus-visible:text-orange;
+        }
+    }
+}

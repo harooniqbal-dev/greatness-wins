@@ -1,0 +1,38 @@
+{% assign s = section.settings %}
+
+<div class="images-slider {{ s.margin_top }} {{ s.margin_bottom }} {{ s.padding_top }} {{ s.padding_bottom }}">
+    <div class="splide relative js-splide">
+        <div class="splide__track">
+            <div class="splide__list">
+
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                        {% when 'image_slider_item' %}
+
+                            <div class="splide__slide relative text-center">
+                                <a href="{{ block.settings.image_slider_item_url }}" class="block w-full h-full overflow-hidden group">
+
+                                    {% render 'c-image',
+                                        src: block.settings.image_slider_item_image.src,
+                                        lazy: true,
+                                        alt: block.settings.image_slider_item_image.alt,
+                                        customClass: 'w-full h-full object-cover group-hover:scale-110 max-h-[33.75rem]',
+                                        width: block.settings.image_slider_item_image.width,
+                                        height: block.settings.image_slider_item_image.height
+                                    %}
+
+                                    <span class="font-family-heading block absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-white text-2xl lg:text-4xl group-hover:text-white group-focus:text-white after:absolute after:bottom-0 after:left-0 after:w-0 after:border-b after:border-b-white after:border-solid after:transition-[width] after:ease-in-out after:duration-150 group-hover:after:w-full group-focus:after:w-full">
+                                        {{ block.settings.image_slider_item_title }}
+                                    </span>
+                                </a>
+                            </div>
+
+                    {% endcase %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema 'images-slider' %}

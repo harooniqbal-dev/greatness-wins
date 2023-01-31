@@ -1,0 +1,5 @@
+.skip-links {
+    &__item {
+        @apply sr-only focus-visible:not-sr-only m-2 px-4 py-2 z-30 bg-black text-white focus-visible:fixed;
+    }
+}

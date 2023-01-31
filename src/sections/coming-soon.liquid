@@ -1,0 +1,101 @@
+{% assign s = section.settings %}
+
+<section class="min-h-screen relative text-white text-center pt-10 pb-20 bg-center bg-no-repeat bg-cover flex flex-col justify-center items-center" style="{% if s.background_color %}background-color: {{ s.background_color }};{% endif %}">
+  {% if s.background_image %}
+    <img
+      src="data:,"
+      data-src="{{ s.background_image | img_url: '1920x' }}"
+      class="absolute left-0 top-0 w-full h-full object-cover lazyload"
+      width="{{ s.background_image.width }}"
+      height="{{ s.background_image.height }}"
+      alt="{{ s.background_image.alt }}" />
+  {% endif %}
+
+  <div class="relative z-1 container">
+    <div class="mx-auto lg:max-w-[42rem]">
+      <h1 class="max-w-xl mx-auto">
+        <img
+          class="mx-auto"
+          src="{{ s.logo | img_url: '1280x' }}"
+          alt="{{ shop.name }}"
+          width="{{ s.logo.width }}"
+          height="{{ s.logo.height }}">
+      </h1>
+
+      <h2 class="mx-auto max-w-[31rem] font-semibold mt-8 md:mt-24 text-3xl">{{ s.heading }}</h2>
+
+      <div class="font-semibold mt-3 text-lg">{{ s.content }}</div>
+    </div>
+
+    <div class="mt-14 md:mt-28 mx-auto max-w-[37rem]">
+      {% form 'customer' %}
+        <h3 class="text-lg font-bold uppercase">{{ 'coming_soon.form.header' | t }}</h3>
+
+        <input
+          id="contact_tags"
+          name="contact[tags]"
+          type="hidden"
+          value="prospect,newsletter" />
+
+        <div class="mt-6">
+          {% render 'c-input-button'
+           , label: 'coming_soon.form.email',
+           type: 'email',
+           name: 'contact[email]',
+           required: true,
+           arrow: s.arrow,
+           buttonOpaque: s.arrow,
+           cta: 'coming_soon.form.cta' %}
+        </div>
+
+        {% if form.posted_successfully? %}
+          <p class="text-sm mt-4 text-green-500">{{ 'coming_soon.form.post_success' | t }}</p>
+        {% else %}
+          <p class="text-sm mt-4 text-red-500">{{ form.errors | default_errors }}</p>
+        {% endif %}
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Coming Soon",
+    "settings": [
+      {
+        "label": "Heading",
+        "id": "heading",
+        "type": "text"
+      },
+      {
+        "label": "Content",
+        "id": "content",
+        "type": "richtext"
+      },
+      {
+        "label": "Arrow submit",
+        "id": "arrow",
+        "type": "checkbox"
+      },
+      {
+        "label": "Background Color",
+        "id": "background_color",
+        "type": "color"
+      }, {
+        "label": "Logo",
+        "id": "logo",
+        "type": "image_picker"
+      }, {
+        "label": "Background Image",
+        "id": "background_image",
+        "type": "image_picker"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Coming Soon",
+        "category": "Section"
+      }
+    ]
+  }
+{% endschema %}

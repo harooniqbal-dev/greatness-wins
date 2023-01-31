@@ -1,0 +1,30 @@
+<div class="swiper relative js-swiper">
+    <div class="swiper-wrapper aspect-[1440/640]">
+        {% for block in section.blocks %}
+            <div class="swiper-slide relative text-center">
+                {% render 'c-image',
+                    src: block.settings.testimonial_slider_item_image.src,
+                    lazy: true,
+                    alt: block.settings.testimonial_slider_item_image.alt,
+                    customClass: 'object-cover h-full w-full',
+                    width: block.settings.testimonial_slider_item_image.width,
+                    height: block.settings.testimonial_slider_item_image.height
+                %}
+
+                <div class="absolute aspect-[1440/640] bg-[#6F6F6F99] w-full h-full flex flex-col items-center justify-center px-12 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-white group-hover:text-white group-focus:text-white after:absolute after:bottom-0 after:left-0 after:w-0 after:border-b after:border-b-white after:border-solid after:transition-[width] after:ease-in-out after:duration-150 group-hover:after:w-full group-focus:after:w-full">
+                    <div class="max-w-[44rem] 2xl:max-w-[66rem] text-white text-sm md:text-base lg:text-[1.875rem] 2xl:text-4xl font-semibold 2xl:leading-[2.8rem] opacity-100 pt-0 lg:pt-10">{{ block.settings.testimonial_slider_item_quote }}</div>
+                    <div class="max-w-[66rem] text-sm md:text-lg font-semibold leading-6 mt-2 md:mt-12">- {{ block.settings.testimonial_slider_item_author }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div role="button" class="swiper-button-prev absolute top-1/2 -translate-y-1/2 left-4 lg:left-24 z-10 w-8 h-8 -rotate-45 cursor-pointer group" aria-label="{{ 'sections.images_slider.prev' | t }}">
+        <div class="m-2 w-4 h-4 border-t border-l border-t-white border-l-white border-solid transition-colors group-hover:border-t-orange group-hover:border-l-orange group-focus:border-t-orange group-focus:border-l-orange"></div>
+    </div>
+    <div role="button" class="swiper-button-next absolute top-1/2 -translate-y-1/2 right-4 lg:right-24 z-10 w-8 h-9 rotate-45 cursor-pointer group" aria-label="{{ 'sections.images_slider.next' | t }}">
+        <div class="m-2 w-4 h-4 border-t border-r border-t-white border-r-white border-solid transition-colors group-hover:border-t-orange group-hover:border-r-orange group-focus:border-t-orange group-focus:border-r-orange"></div>
+    </div>
+</div>
+
+{% schema "testimonial-slider" %}

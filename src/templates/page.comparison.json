@@ -1,0 +1,48 @@
+{
+    "sections": {
+      "hero": {
+        "type": "hero",
+        "settings": {
+        }
+      },
+      "comparison_block": {
+        "type": "comparison-block",
+        "settings": {
+        }
+      },
+      "comparison_data": {
+        "type": "comparison-data",
+        "blocks": {
+
+        },
+        "block_order": [
+     
+        ],
+        "settings": {
+        }
+      },
+      "athletes": {
+        "type": "athletes",
+        "settings": {
+          "title": "",
+          "description": "",
+          "button_label": "show more",
+          "button_aria_label": "Show more sponsored athletes cards"
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+          "heading": "",
+          "arrow": false,
+        }
+      }
+    },
+    "order": [
+      "hero",
+      "comparison_block",
+      "comparison_data",
+      "athletes",
+      "newsletter"
+    ]
+  }

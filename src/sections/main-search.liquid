@@ -1,0 +1,112 @@
+{% comment %}
+  Info: Search template
+  URL:
+    * /search
+    * /search?q={search-term}
+{% endcomment %}
+
+{% render "boost-pfs-theme-config" %}
+
+<section class="collection">
+    {% assign s = section.settings %}
+
+    {% render 's-hero',
+      background_image: s.image,
+      lazyload: s.lazyload
+    %}
+    
+    <div class="hidden lg:flex px-6 py-2 shadow-sm items-center">
+        <div class="flex-grow">
+            <p class="font-family-heading text-xxs uppercase">{{ 'collection.search_breadcrumb' | t }}</p>
+        </div>
+
+        <div class="flex-initial relative">
+            <div class="boost-pfs-filter-top-sorting"></div>
+        </div>
+    </div>
+
+    <div class="js-mobile-sort fixed transition-all opacity-0 pointer-events-none left-0 top-0 w-full h-full bg-white z-20 p-10 lg:hidden">
+        <div class="mb-10 lg:hidden">
+            <button aria-label="{{ 'collection.sort.close' | t }}" class="js-mobile-sort-toggle">
+                {% render 'i-close' %}
+            </button>
+        </div>
+
+        <div class="js-mobile-sort-toggle boost-pfs-filter-top-sorting"></div>
+    </div>
+
+    <div class="px-6 py-12">
+        <div class="flex flex-wrap lg:flex-nowrap">
+            <div class="flex-initial w-full lg:w-64">
+                <div class="grid gap-4 grid-cols-2 lg:hidden text-center mt-8">
+                    <div class="py-1 border-y border-black border-solid">
+                        <button class="js-mobile-filter-toggle flex items-center py-3">
+                            <span class="block flex-initial">
+                                {% render "i-filters" %}
+                            </span>
+
+                            <span class="block flex-auto ml-3 font-semibold text-sm">{{ 'collection.filters.heading' | t }}</span>
+                        </button>
+                    </div>
+
+                    <div class="py-1 border-y border-black border-solid">
+                        <button class="js-mobile-sort-toggle flex items-center py-3">
+                            <span class="block flex-initial">
+                                {% render "i-sort" %}
+                            </span>
+
+                            <span class="block flex-auto ml-3 font-semibold text-sm">{{ 'collection.sort.heading' | t }}</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="js-mobile-filter fixed transition-all opacity-0 pointer-events-none left-0 top-0 w-full h-full bg-white z-20 p-10 lg:p-0 lg:opacity-100 lg:pointer-events-auto overflow-auto lg:static lg:w-auto lg:h-auto lg:block">
+                    <div class="mb-10 lg:hidden">
+                        <button aria-label="{{ 'collection.filters.close' | t }}" class="js-mobile-filter-toggle">
+                            {% render 'i-close' %}
+                        </button>
+                    </div>
+
+                    <div class="mt-10 sm:mt-0">
+                        <h5 class="p-4 pl-0 flex items-center">
+                            <span class="flex-initial">
+                                {% render "i-filters" %}
+                            </span>
+
+                            <span class="ml-4 font-semibold text-sm flex-grow">{{ 'collection.filters.heading' | t }}</span>
+                        </h5>
+
+                        <div class="boost-pfs-filter-tree boost-pfs-filter-tree-v"></div>
+                    </div>
+
+                    <div class="mt-10 lg:hidden">
+                        <button
+                            class="js-mobile-filter-toggle block w-full font-family-heading text-xxs p-4 uppercase leading-loose rounded-full border border-solid border-black bg-black text-white tracking-widest hover:bg-orange hover:border-orange focus-visible:text-white focus-visible:bg-orange focus-visible:border-orange focus-visible:outline-none transition-colors"
+                            aria-label="{{ 'collection.filters.show_results' | t }}"
+                        >{{ 'collection.filters.show_results' | t }}</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-initial w-full lg:flex-1 lg:ml-10 lg:w-auto mt-10 lg:mt-0">
+                <h1 class="font-family-heading text-3xl leading-8 capitalize lg:pl-16 mb-8">
+                    <span class="boost-pfs-search-result-header"></span>
+                </h1>
+
+                <div class="grid gap-4 lg:gap-8 lg:pl-16 collection__grid boost-pfs-filter-products">
+                    {% for result in search.results %}
+                        {% if result.object_type == 'product' %}
+                            {% render "c-product-tile",
+                                product: result
+                            %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="boost-pfs-filter-bottom-pagination"></div>
+                <div class="boost-pfs-filter-load-more"></div>
+            </div>
+        </div>
+    </div>
+</section>
+

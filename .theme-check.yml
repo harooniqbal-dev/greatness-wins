@@ -1,0 +1,19 @@
+root: dist
+UndefinedObject:
+  enabled: false
+ImgLazyLoading:
+  enabled: false
+LiquidTag:
+  enabled: false
+SpaceInsideBraces:
+  enabled: false
+RemoteAsset:
+  enabled: false
+DeprecateLazysizes:
+  enabled: false
+SchemaJsonFormat:
+  enabled: false
+DeprecatedFilter:
+  enabled: false
+NestedSnippet:
+  enabled: false

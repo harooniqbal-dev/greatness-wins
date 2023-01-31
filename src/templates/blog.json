@@ -1,0 +1,24 @@
+{
+    "sections": {
+      "main": {
+        "type": "main-blog",
+        "settings": {
+        }
+      },
+      "featured": {
+        "type": "featured-post",
+        "settings": {
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+        }
+      }
+    },
+    "order": [
+      "featured",
+      "main",
+      "newsletter"
+    ]
+  }

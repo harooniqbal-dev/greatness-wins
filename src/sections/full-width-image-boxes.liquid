@@ -1,0 +1,51 @@
+<div class="{{ s.margin_top }} {{ s.margin_bottom }} {{ s.padding_top }} {{ s.padding_bottom }}">
+<div class="flex flex-row flex-wrap gap-0">
+    {% for block in section.blocks %}
+        {% case block.type %}
+            {% when 'item' %}
+
+            <{% if block.settings.url %}a href="{{ block.settings.url }}"{% else %}div{% endif %} class="full-width-image-boxes__item full-width-image-boxes__item--{% if section.settings.styling == 'simple' %}simple lg:aspect-[351/720]{% elsif section.settings.styling == 'with_description' %}with-description lg:aspect-square{% endif %} group js-full-width-image-box" tabindex="0"{% if section.settings.styling == 'with_description' %} style="background-image: url('{{ block.settings.image.src | image_url: width: 1920 }}');"{% endif %}>
+
+                {% if section.settings.styling == 'simple' %}
+                    {% render 'c-image',
+                        lazy: true,
+                        src: block.settings.image,
+                        customClass: 'w-full h-full object-cover',
+                        height: block.settings.image.height,
+                        width: block.settings.image.width,
+                        alt: block.settings.image.alt,
+                    %}
+                {% endif %}
+
+                {% if block.settings.title %}
+                    <div class="full-width-image-boxes__caption full-width-image-boxes__caption--{% if section.settings.styling == 'simple' %}simple{% elsif section.settings.styling == 'with_description' %}with-description{% endif %} js-full-width-image-box-inner">
+
+                        {% if section.settings.styling == 'with_description' %}
+                            <div class="h-100 flex flex-col justify-center items-center lg:absolute lg:top-0 lg:left-0 w-full lg:py-8 px-8 lg:px-20 lg:transition-[top,padding-top] lg:group-hover:top-1/2 lg:group-hover:-translate-y-1/2 lg:group-hover:pt-0 lg:group-focus-visible:top-1/2">
+                        {% endif %}
+
+                        <span class="{% if section.settings.styling == 'with_description' %}block text-center {% endif %}text-2xl leading-none font-family-heading text-white uppercase transition-colors">
+                            {{ block.settings.title }}
+                        </span>
+
+                        {% if section.settings.styling == 'with_description' and block.settings.description %}
+                            <div class="full-width-image-boxes__entry-content entry-content text-center text-white mt-9 leading-[1.2] text-linear-gradient-white">
+                                {{ block.settings.description }}
+                            </div>
+                        {% endif %}
+
+                        {% if section.settings.styling == 'with_description' %}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                {% endif %}
+
+            </{% if block.settings.url %}a{% else %}div{% endif %}>
+
+        {% endcase %}
+    {% endfor %}
+    </div>
+</div>
+
+{% schema "full-width-image-boxes" %}

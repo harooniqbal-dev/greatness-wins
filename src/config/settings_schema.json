@@ -1,0 +1,309 @@
+[
+    {
+        "name": "theme_info",
+        "theme_name": "Greatness Wins",
+        "theme_version": "0.1.0",
+        "theme_author": "Acclaim",
+        "theme_support_email": "devteam@acclaim.agency",
+        "theme_documentation_url": "https://help.shopify.com/manual/using-themes/sections"
+    },
+    {
+        "name": "Brand",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "logo_dark",
+                "label": "Dark Logo"
+            },
+            {
+                "type": "image_picker",
+                "id": "logo_light",
+                "label": "Light Logo"
+            },
+            {
+                "type": "image_picker",
+                "id": "favicon",
+                "label": "Favicon"
+            }
+        ]
+    },
+    {
+        "name": "Cart",
+        "settings": [
+            {
+                "type": "url",
+                "id": "cart_empty_1_link",
+                "label": "Empty Cart first button link"
+            },
+            {
+                "type": "text",
+                "id": "cart_empty_1_link_label",
+                "label": "Label"
+            },
+            {
+                "type": "url",
+                "id": "cart_empty_2_link",
+                "label": "Empty Cart second button link"
+            },
+            {
+                "type": "text",
+                "id": "cart_empty_2_link_label",
+                "label": "Label"
+            }
+        ]
+    },
+    {
+        "name": "Shipping",
+        "settings": [
+            {
+                "type": "number",
+                "id": "free_shipping_from",
+                "label": "Free shipping from",
+                "default": 100
+            }
+        ]
+    },
+    {
+        "name": "Layout",
+        "settings": [
+            {
+                "content": "Breakpoints",
+                "type": "header"
+            },
+            {
+                "type": "number",
+                "id": "breakpoint_sm",
+                "label": "Breakpoint SM",
+                "default": 680
+            },
+            {
+                "type": "number",
+                "id": "breakpoint_md",
+                "label": "Breakpoint MD",
+                "default": 1024
+            },
+            {
+                "type": "number",
+                "id": "breakpoint_lg",
+                "label": "Breakpoint LG",
+                "default": 1440
+            },
+            {
+                "type": "number",
+                "id": "breakpoint_xlg",
+                "label": "Breakpoint XLG",
+                "default": 1920
+            }
+        ]
+    },
+    {
+        "name": "Typography",
+        "settings": [
+            {
+                "content": "Fonts",
+                "type": "header"
+            },
+            {
+                "type": "font_picker",
+                "label": "Heading font",
+                "id": "font_heading",
+                "default": "montserrat_n6"
+            },
+            {
+                "type": "font_picker",
+                "label": "Base font",
+                "id": "font_base",
+                "default": "montserrat_n5"
+            }
+        ]
+    },
+    {
+        "name": "Colors",
+        "settings": [
+            {
+                "content": "Primary",
+                "type": "header"
+            },
+            {
+                "type": "color",
+                "label": "Primary 300",
+                "id": "color_primary_300",
+                "default": "#00f"
+            },
+            {
+                "type": "color",
+                "label": "Primary 500",
+                "id": "color_primary_500",
+                "default": "#00f"
+            },
+            {
+                "type": "color",
+                "label": "Primary 700",
+                "id": "color_primary_700",
+                "default": "#00f"
+            },
+            {
+                "content": "Secondary",
+                "type": "header"
+            },
+            {
+                "type": "color",
+                "label": "Secondary 300",
+                "id": "color_secondary_300",
+                "default": "#0f0"
+            },
+            {
+                "type": "color",
+                "label": "Secondary 500",
+                "id": "color_secondary_500",
+                "default": "#0f0"
+            },
+            {
+                "type": "color",
+                "label": "Secondary 700",
+                "id": "color_secondary_700",
+                "default": "#0f0"
+            },
+            {
+                "content": "Alternative",
+                "type": "header"
+            },
+            {
+                "type": "color",
+                "label": "Alternative 300",
+                "id": "color_alternative_300",
+                "default": "#0f0"
+            },
+            {
+                "type": "color",
+                "label": "Alternative 500",
+                "id": "color_alternative_500",
+                "default": "#0f0"
+            },
+            {
+                "type": "color",
+                "label": "Alternative 700",
+                "id": "color_alternative_700",
+                "default": "#0f0"
+            },
+            {
+                "content": "Gray",
+                "type": "header"
+            },
+            {
+                "type": "color",
+                "label": "White",
+                "id": "color_white",
+                "default": "#fff"
+            },
+            {
+                "type": "color",
+                "label": "Gray 100",
+                "id": "color_gray_100",
+                "default": "#606267"
+            },
+            {
+                "type": "color",
+                "label": "Gray 200",
+                "id": "color_gray_200",
+                "default": "#606267"
+            },
+            {
+                "type": "color",
+                "label": "Gray 300",
+                "id": "color_gray_300",
+                "default": "#606267"
+            },
+            {
+                "type": "color",
+                "label": "Gray 400",
+                "id": "color_gray_400",
+                "default": "#606267"
+            },
+            {
+                "type": "color",
+                "label": "Gray 500",
+                "id": "color_gray_500",
+                "default": "#606267"
+            },
+            {
+                "type": "color",
+                "label": "Gray 600",
+                "id": "color_gray_600",
+                "default": "#606267"
+            },
+            {
+                "type": "color",
+                "label": "Gray 700",
+                "id": "color_gray_700",
+                "default": "#606267"
+            },
+            {
+                "type": "color",
+                "label": "Gray 800",
+                "id": "color_gray_800",
+                "default": "#606267"
+            },
+            {
+                "type": "color",
+                "label": "Gray 900",
+                "id": "color_gray_900",
+                "default": "#606267"
+            },
+            {
+                "type": "color",
+                "label": "Black",
+                "id": "color_black",
+                "default": "#000"
+            },
+            {
+                "content": "Indicators",
+                "type": "header"
+            },
+            {
+                "type": "color",
+                "label": "Color Success",
+                "id": "color_success",
+                "default": "#0f0"
+            },
+            {
+                "type": "color",
+                "label": "Color Warning",
+                "id": "color_warning",
+                "default": "#f00"
+            },
+            {
+                "type": "color",
+                "label": "Color Error",
+                "id": "color_error",
+                "default": "#0f0"
+            }
+        ]
+    },
+    {
+        "name": "Social Media",
+        "settings": [
+            {
+                "content": "Social Accounts",
+                "type": "header"
+            },
+            {
+                "type": "image_picker",
+                "id": "share_image",
+                "label": "Sharing Image"
+            },
+            {
+                "id": "social_facebook_link",
+                "label": "Facebook",
+                "type": "url",
+                "info": "https://facebook.com/shopify"
+            },
+            {
+                "id": "social_linkedin_link",
+                "label": "LinkedIn",
+                "type": "url",
+                "info": "https://linkedin.com"
+            }
+        ]
+    }
+]

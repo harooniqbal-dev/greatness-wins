@@ -1,0 +1,23 @@
+<div class="{% if margin_top %}mt-{{ margin_top }}{% else %}mt-4{% endif %}">
+    <label for="{{ id }}" class="font-family-heading text-sm{% if has_error %} text-alizarin-crimson{% endif %}">{{ label | t }}</label>
+
+    <div class="relative mt-1">
+        {% if has_error %}
+            <div class="absolute top-1/2 left-2 w-4 h-4 -translate-y-1/2">
+                {% render 'i-exclamation-circle' %}    
+            </div>
+        {% endif %}
+
+        <select 
+            class="w-full bg-mercury p-2 border border-solid{% if has_error %} pl-8 border-alizarin-crimson{% else %} border-mercury{% endif %} focus:border-black focus-visible:outline-none transition-colors" 
+            name="{{ name }}" 
+            id="{{ id }}" 
+            value="{{ value }}" 
+            {% if required %} required {% endif %}
+        >{{ options }}</select>
+    </div>
+
+    {% if has_error %}
+        <span class="block text-alizarin-crimson text-sm mt-1">{{ label | t }} {{ has_error }}</span>
+    {% endif %}
+</div>

@@ -1,0 +1,20 @@
+<section class="mx-auto my-0">
+    {% for block in section.blocks %}
+        {%
+          render 'c-image-and-content',
+          image_position: block.settings.image_position,
+          image: block.settings.image_block,
+          lazy_load: block.settings.lazy_load,
+          title: block.settings.title,
+          paragraph: block.settings.paragraph,
+          link_url: block.settings.link_url,
+          link_label: block.settings.link_label,
+          lead_text: block.settings.lead_text,
+          first_product: block.settings.first_product,
+          second_product: block.settings.second_product,
+          third_product: block.settings.third_product,
+          fourth_product: block.settings.fourth_product,
+        %}
+    {% endfor %}
+</section>
+{% schema 'multi-image-and-content' %}

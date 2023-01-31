@@ -1,0 +1,13 @@
+.collection {
+    &__grid {
+        @apply grid-cols-2;
+
+        @screen md {
+            @apply grid-cols-3;
+        }
+
+        @screen 2xl {
+            grid-template-columns: repeat(auto-fit, minmax(20.625rem, 1fr));
+        }
+    }
+}

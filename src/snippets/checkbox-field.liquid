@@ -1,0 +1,14 @@
+
+<div class="{% if margin_top %}mt-{{ margin_top }}{% else %}mt-4{% endif %}">
+    <input type="hidden" name="{{ name }}" value="" />
+
+    <input 
+        id="{{ id }}" 
+        type="checkbox" 
+        name="{{ name }}" 
+        class="appearance-none w-4 h-4 border border-black bg-white align-text-top bg-no-repeat bg-center bg-contain mr-2 checked:bg-black cursor-pointer bg-[length:0.9375rem_0.9375rem]" 
+        style="background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoIHN0cm9rZT0iI2ZmZiIgZD0ibTEuNzY4IDEuNzY4IDMuNTM1IDMuNTM1TTEuNzY4IDUuMzAzbDMuNTM1LTMuNTM1Ii8+Cjwvc3ZnPg==);"
+    />
+
+    <label for="{{ id }}">{{ label | t }}</label>
+</div>

@@ -1,0 +1,7 @@
+.product-tile {
+    &:hover {
+        .product-tile__img {
+            @apply opacity-0;
+        }
+    }
+}

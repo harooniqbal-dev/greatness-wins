@@ -1,0 +1,87 @@
+<div class="flex {% if image_position == "left" %} flex-col lg:flex-row {% elsif image_position == "right" %} flex-col lg:flex-row-reverse {% endif %} lg:h-[33.75rem] my-0">
+    {%
+        render 'c-image',
+        src: image.src,
+        lazy: lazy_load,
+        alt: image.alt,
+        customClass: 'w-full lg:w-1/2 min-h-[33.75rem] md:h-full object-cover',
+        width: image.width,
+        height: image.height
+    %}
+    <div class="container mx-auto flex flex-col w-full my-14 lg:my-0 lg:w-1/2 min-h-[33.75rem] lg:h-full justify-center items-center">
+        <div class="max-w-[36.125rem] text-center">
+            <h2 class="text-[1.75rem] leading-10 mb-7">{{ title }}</h2>
+            <div class="text-sm">{{ paragraph }}</div>
+
+            {% if link_url and first_product == "" %}
+                <div class="text-center mt-12">
+                    <a
+                        href="{{ link_url }}"
+                        class="border border-solid border-black px-4 py-2 rounded-full text-[0.625rem] leading-6 tracking-widest hover:border-orange hover:text-white hover:bg-orange focus-visible:text-white focus-visible:bg-orange focus-visible:border-orange transition-colors uppercase"
+                    >{{ link_label }}</a>
+                </div>
+            {% endif %}
+        </div>
+        {% if first_product != "" %}
+            <p class="text-lg mt-8 mb-5 font-semibold">{{ lead_text }}</p>
+            <div class="grid grid-cols-4 gap-4 max-w-[38rem] w-full justify-between">
+                <a
+                    class="focus-visible:text-white focus-visible:border-orange"
+                    href="{{ first_product.url }}"
+                >
+                    {%
+                        render 'c-image',
+                        src: first_product.images[0],
+                        lazy: true,
+                        alt: first_product.alt,
+                        customClass: 'max-w-32 h-32 object-contain',
+                        width: first_product.images[0].width,
+                        height: first_product.images[0].height
+                    %}
+                </a>
+                <a
+                    class="focus-visible:text-white focus-visible:border-orange"
+                    href="{{ second_product.url }}"
+                >
+                    {%
+                        render 'c-image',
+                        src: second_product.images[0],
+                        lazy: true,
+                        alt: second_product.alt,
+                        customClass: 'max-w-32 h-32 object-contain',
+                        width: second_product.images[0].width,
+                        height: second_product.images[0].height
+                    %}
+                </a>
+                <a
+                    class="focus-visible:text-white focus-visible:border-orange"
+                    href="{{ third_product.url }}"
+                >
+                    {%
+                        render 'c-image',
+                        src: third_product.images[0],
+                        lazy: true,
+                        alt: third_product.alt,
+                        customClass: 'max-w-32 h-32 object-contain',
+                        width: third_product.images[0].width,
+                        height: third_product.images[0].height
+                    %}
+                </a>
+                <a
+                    class="focus-visible:text-white focus-visible:border-orange"
+                    href="{{ fourth_product.url }}"
+                >
+                    {%
+                        render 'c-image',
+                        src: fourth_product.images[0],
+                        lazy: true,
+                        alt: fourth_product.alt,
+                        customClass: 'max-w-32 h-32 object-contain',
+                        width: fourth_product.images[0].width,
+                        height: fourth_product.images[0].height
+                    %}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>

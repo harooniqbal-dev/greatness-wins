@@ -1,0 +1,11 @@
+/**
+ * Article Template Part Styles
+ */
+
+.article {
+    &__entry-content {
+        > p {
+            @apply mt-6;
+        }
+    }
+}

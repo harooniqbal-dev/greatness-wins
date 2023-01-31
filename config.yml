@@ -1,0 +1,9 @@
+development:
+  password: shptka_83a734c97f005c08628dc14cf2193fb0
+  theme_id: "142893416763"
+  store: 10c616.myshopify.com
+  directory: dist
+  ignore_files:
+  - config/settings_data.json
+    src/templates/**/*
+  timeout: 1m0s

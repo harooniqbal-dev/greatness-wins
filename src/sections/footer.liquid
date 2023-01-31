@@ -1,0 +1,55 @@
+<div class="bg-shark">
+    <div class="container mx-auto">
+        <div class="py-5 border-b border-solid border-white">
+            <div class="flex flex-col lg:flex-row">
+                <div class="basis-1/4 lg:pt-12">
+                    <a href="/">
+                        {% render 'c-image',
+                            src: section.settings.logo,
+                            maxWidth: section.settings.logo_width,
+                            width: section.settings.logo_width,
+                            height: section.settings.logo.height,
+                            lazy: false,
+                            alt: shop.name,
+                            width: section.settings.logo_width,
+                            height: section.settings.logo.height,
+                            customClass: 'w-full'
+                        %}
+                    </a>
+                </div>
+                <div class="basis-1/2 mt-4 lg:mt-0 lg:px-4 xl:px-20">
+                    <div class="flex flex-col lg:flex-row">
+                        {%- for block in section.blocks -%}
+                            {%- if block.type == "menu" -%}
+                                {%- assign min = 1 -%}
+                                {%- assign max = 1000 -%}
+                                {%- assign diff = max | minus: min -%}
+                                {%- assign randomNumber = "now" | date: "%N" | modulo: diff | plus: min -%}
+                                <div class="basis-1/2">
+                                    <nav aria-label="Footer Navigation" class="footer__nav" id="footer_nav--{{ randomNumber }}">
+                                    {%- if linklists[block.settings.menu].links.size > 0 -%}
+                                        <ul>
+                                            {%- for link in linklists[block.settings.menu].links -%}
+                                                {%- render 'footer-menu-item',
+                                                    link: link
+                                                -%}
+                                            {%- endfor -%}
+                                        </ul>
+                                    {%- endif -%}
+                                    </nav>
+                                </div>
+                            {%- endif -%}
+                        {%- endfor -%}
+                    </div>
+                </div>
+                <div class="basis-1/4 mt-9 lg:mt-0">
+                    {%- render 'c-socials' -%}
+                </div>
+            </div>
+        </div>
+        <div class="py-4">
+            <span class="text-xs leading-relaxed text-white">All Rights Reserved&nbsp;&nbsp;Copyright {{ "now" | date: "%Y" }}</span>
+        </div>
+    </div>
+</div>
+{% schema 'footer' %}

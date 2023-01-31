@@ -1,0 +1,166 @@
+{% assign s = section.settings %}
+
+<section class="login relative flex flex-col lg:flex-row">
+    <div class="basis-1/2">
+        <div class="js-login-section hidden max-w-[32.8125rem] mx-auto pt-6 pb-14 md:pt-10 md:pb-28 2xl:pt-28">
+            <div class="px-5">
+                <ul class="flex flex-row border-b border-black">
+                    <li class="basis-1/2">
+                        <a href="/account/login" class="block text-center p-5 uppercase font-semibold text-xxs border-black border-b-2 focus-visible:outline outline-2 outline-offset-2 outline-orange">Log-in</a>
+                    </li>
+
+                    <li class="basis-1/2">
+                        <a href="/account/register" class="block text-center p-5 uppercase font-semibold text-xxs border-black focus-visible:outline outline-2 outline-offset-2 outline-orange">Sign-up</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mt-8 text-center">
+                <h2 class="font-semibold text-4xl">{{ s.heading }}</h2>
+
+                <div class="mt-2 font-medium">{{ s.content }}</div>
+            </div>
+
+            <div class="mt-8 px-5">
+                {% form 'customer_login' %}
+                    {% if form.posted_successfully? %}
+                        <span class="block bg-lima mb-4 p-4">
+                            {{ 'login.form.post_success' | t }}
+                        </span>
+                    {% endif %}
+
+                    {% if form.errors %}
+                        <div class="p-4 bg-alizarin-crimson mb-4">
+                            {{ form.errors | default_errors }}
+                        </div>
+                    {% endif %}
+
+                    {% render 'form-field',
+                        type: 'email',
+                        name: 'customer[email]',
+                        id: 'login_email',
+                        label: 'login.form.email',
+                        has_error: form.errors.messages['email'],
+                        margin_top: '0',
+                        required: true
+                    %}
+
+                    {% render 'form-field',
+                        type: 'password',
+                        name: 'customer[password]',
+                        id: 'customer_password',
+                        label: 'login.form.password',
+                        has_error: form.errors.messages['password'],
+                        margin_top: '2',
+                        required: true
+                    %}
+
+                    <div class="mt-4">
+                        <a href="/account/login?restore_password" class="underline underline-offset-1 hover:no-underline focus-visible:outline outline-2 outline-offset-2 outline-orange">{{ 'login.recover_password' | t }} </a>
+                    </div>
+
+                    <div class="text-center mt-12">
+                        <button
+                            class="font-family-heading uppercase text-xxs px-6 py-3 leading-loose rounded-full border border-solid border-black tracking-widest hover:text-white hover:bg-orange hover:border-orange focus-visible:text-white focus-visible:bg-orange focus-visible:border-orange focus-visible:outline-none transition-colors"
+                            type="submit"
+                        >{{ 'login.form.cta' | t }}</button>
+                    </div>
+                {% endform %}
+            </div>
+        </div>
+
+        <div class="js-recover-section hidden max-w-[32.8125rem] mx-auto py-14 md:py-28 2xl:pt-64">
+            <div class="text-center">
+                <h2 class="font-semibold text-4xl">{{ s.heading_password }}</h2>
+
+                <div class="mt-2 font-medium">{{ s.content_password }}</div>
+            </div>
+
+            <div class="mt-8 px-5">
+                {% form 'recover_customer_password' %}
+                    {% if form.posted_successfully? %}
+                        <span class="block bg-lima mb-4 p-4">
+                            {{ 'revover_password.form.post_success' | t }}
+                        </span>
+                    {% endif %}
+
+                    {% if form.errors %}
+                        <div class="p-4 bg-alizarin-crimson mb-4">
+                            {{ form.errors | default_errors }}
+                        </div>
+                    {% endif %}
+
+                    {% render 'form-field',
+                        type: 'email',
+                        name: 'email',
+                        id: 'recover_email',
+                        label: 'recover_password.form.email',
+                        has_error: form.errors.messages['email'],
+                        margin_top: '0',
+                        required: true
+                    %}
+
+                    <div class="text-center mt-12">
+                        <button
+                            class="font-family-heading uppercase text-xxs px-6 py-3 leading-loose rounded-full border border-solid border-black tracking-widest hover:text-white hover:bg-orange hover:border-orange focus-visible:text-white focus-visible:bg-orange focus-visible:border-orange focus-visible:outline-none transition-colors"
+                            type="submit"
+                        >{{ 'recover_password.form.cta' | t }}</button>
+                    </div>
+                {% endform %}
+            </div>
+        </div>
+    </div>
+
+    <div class="basis-1/2 relative min-h-[50vw] self-stretch">
+        {% if s.image %}
+            <img src="{{ s.image | img_url: '1920x' }}" class="absolute w-full h-full object-cover" width="{{ s.image.width }}" height="{{ s.image.height }}" />
+        {% endif %}
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Log-in",
+    "settings": [
+        {
+            "content": "Log in",
+            "type": "header"
+        },
+        {
+            "label": "Heading",
+            "id": "heading",
+            "type": "text"
+        },
+        {
+            "label": "Content",
+            "id": "content",
+            "type": "richtext"
+        },
+        {
+            "content": "Restore password",
+            "type": "header"
+        },
+        {
+            "label": "Heading",
+            "id": "heading_password",
+            "type": "text"
+        },
+        {
+            "label": "Content",
+            "id": "content_password",
+            "type": "richtext"
+        },
+        {
+            "label": "Image",
+            "id": "image",
+            "type": "image_picker"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Log-in",
+            "category": "Section"
+        }
+    ]
+  }
+{% endschema %}

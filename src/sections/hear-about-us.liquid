@@ -1,0 +1,77 @@
+<div class="form-vertical js-cart-block">
+    <span class="js-hau-form--error" style="display:none">{{ settings.hau_error_message }}</span>
+    <select class="js-hau-form" name="attributes[how-did-you-hear-about-us]">
+    <option value=""{% if cart.attributes.how-did-you-hear-about-us == "" %} selected{% endif %}>{{ section.settings.title }}</option>
+    {% assign optionsArray = section.settings.blocks %}
+    {% for block in section.blocks %}
+        <option value="{{ block.settings.title }}">{{ block.settings.title }}</option>
+    {% endfor %}
+    <option value="Other"{% if cart.attributes.how-did-you-hear-about-us == "Other" %} selected{% endif %}>Other</option>
+    </select>
+</div>
+
+<script>
+    const cartPage = document.querySelector(".js-cart-block");
+
+    if(!cartPage) {
+        return;
+    }
+
+(function() {
+
+    document.addEventListener("DOMContentLoaded", initForm);
+    document.addEventListener("shopify:section:load", initForm);
+
+    function initForm(){
+        const formElement = document.querySelector(".js-hau-form");
+        const formError = document.querySelector(".js-hau-form--error");
+        const checkoutButtons = document.querySelectorAll(
+            "[name='checkout'], [name='goto_pp'], [name='goto_gc']"
+        );
+
+    function checkFormElement(){
+        if (formElement.value.length == 0){
+            formElement.classList.add('error');
+            formError.style.display = '';
+        } else {
+            if (formElement.classList.contains('error')) {
+                formElement.classList.remove('error');
+                formError.style.display = 'none';
+            }
+        }
+    }
+
+    formElement.addEventListener("change", function() {
+        showOrHideForm();
+        {% if settings.hau_form_validation %}
+            checkFormElement();
+        {% endif %}
+    });
+
+    checkoutButtons.forEach(function(element){
+        element.addEventListener("click", function(evt) {
+            {% if settings.hau_form_validation %}
+                const validated = true;
+                if (formElement.value.length == 0){
+                    checkFormElement();
+                    validated = false;
+                }
+                if (formElement.value == 'Other'){
+                    if (otherFormElement.value.length == 0){
+                        checkOtherFormElement();
+                        validated = false;
+                    }
+                }
+                if (!validated) {
+                    evt.preventDefault();
+                    evt.stopPropagation();
+                }
+            {% endif %}
+        });
+    });
+
+    }
+})()
+</script>
+
+{% schema "hear-about-us" %}

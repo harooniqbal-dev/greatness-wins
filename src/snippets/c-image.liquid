@@ -1,0 +1,33 @@
+{% if maxWidth %}
+  {%- assign size = maxWidth | times: 2 | append: 'x' -%}
+{%- else -%}
+  {%- assign size = 1920 -%}
+{%- endif -%}
+
+{%- capture classCpt -%}
+  image{% if center %}
+    image--center{% endif %}
+  {% if lazy %}
+    lazyload{% endif %}
+  {% if customClass %}
+    {{ customClass }}{% endif %}
+{% endcapture %}
+{%- assign class = classCpt | strip_newlines | strip -%}
+
+{%- if lazy -%}
+  <img
+    data-src="{{ src | image_url: width: size, height: size }}"
+    src="data:,"
+    alt="{{ alt }}"
+    class="{{ class }} transition-transform"
+    {% if maxWidth %}
+    style="max-width: {{ maxWidth }}px;"
+    {% endif %}
+    width="{{ width }}"
+    height="{{ height }}">
+{%- else -%}
+  <img
+    src="{{ src | image_url: width: size, height: size }}"alt="{{ alt }}"class="{{ class }} transition-transform"{% if maxWidth %}style="max-width: {{  maxWidth }}px"{% endif %}
+    width="{{ width }}"
+    height="{{ height }}">
+{%- endif -%}

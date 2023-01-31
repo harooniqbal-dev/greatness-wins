@@ -1,0 +1,30 @@
+{% assign s = section.settings %}
+
+<div class="sr-only js-collection-dataset" data-collection-array="{%- for block in section.blocks -%}{{ block.settings.selected_collection.id }},{%- endfor -%}"></div>
+
+{% schema %}
+{
+    "name": "comparison-data",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "list",
+        "name": "Collection",
+        "limit": 10,
+        "settings": [
+          {
+            "type": "collection",
+            "label": "Select a colection",
+            "id": "selected_collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Comparison Data",
+        "category": "Section"
+      }
+    ]
+}
+{% endschema %}

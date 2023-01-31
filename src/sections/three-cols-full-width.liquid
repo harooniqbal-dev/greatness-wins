@@ -1,0 +1,33 @@
+{% assign s = section.settings %}
+<section class="mx-auto">
+    <div class="grid gird-cols-1 lg:grid-cols-3">
+        {% for block in section.blocks %}
+            <div class="three-cols-full-width__column" tabindex="0">
+                    {%
+                        render 'c-image',
+                        src: block.settings.col_image.src,
+                        lazy: true,
+                        alt: block.settings.col_image.alt,
+                        customClass: 'three-cols-full-width__column__item--image',
+                        width: block.settings.col_image.width,
+                        height: block.settings.col_image.height
+                    %}
+                    <div class="three-cols-full-width__column-mask">
+                        <div class="three-cols-full-width__column-mask-title">
+                            {{ block.settings.col_title }}
+                        </div>
+                    </div>
+                    <div class="three-cols-full-width__column-content">
+                        <div class="three-cols-full-width__column-content-title">
+                            {{ block.settings.col_title }}
+                        </div>
+                        <div class="three-cols-full-width__column-content-description">
+                            {{ block.settings.col_desc }}
+                        </div>
+                    </div>
+                
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% schema "three-cols-full-width" %}

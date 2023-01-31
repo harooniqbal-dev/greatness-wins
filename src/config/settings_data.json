@@ -1,0 +1,11 @@
+{
+    "current": {
+        "font_heading": "montserrat_n6",
+        "font_base": "montserrat_n5",
+        "font_alternative": "montserrat_n5",
+        "content_for_index": []
+    },
+    "presets": {
+        "Default": {}
+    }
+}

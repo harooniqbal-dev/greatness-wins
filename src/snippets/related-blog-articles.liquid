@@ -1,0 +1,65 @@
+{% capture articles %}
+    {% comment %} Loop through articles in blog {% endcomment %}
+    {% for article in blog.articles %}
+        {% assign flagMatchesTag = false %}
+        {% unless article.id == extArticle.id %}
+            {% comment %} Look for articles that matches by tags with this article {% endcomment %}
+            {% for tag in article.tags %}
+                {% for extTag in extArticle.tags %}
+                    {% if extTag == tag %}
+                        {% assign flagMatchesTag = true %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            {% comment %} Flag that articles found {% endcomment %}
+            {% if flagMatchesTag == true %}
+                {% assign hasArticles = true %}
+            {% else %}
+                {% continue %}
+            {% endif %}
+
+            {% comment %} Article miniature template {% endcomment %}
+            <a href="{{ article.url }}" class="block group swiper-slide">
+                {% if article.image %}
+                    <div class="overflow-hidden">
+                        {% render 'c-image',
+                            lazy: true,
+                            src: article.image,
+                            customClass: 'w-full h-full object-cover group-hover:scale-110 group-focus-visible:scale-110',
+                            height: article.image.height,
+                            width: article.image.width,
+                        %}
+                    </div>
+                {% endif %}
+                <div class="py-6 px-5 bg-white">
+                    <span class="block text-xs font-family-heading">{{ article.author }} / {{ article.created_at | date: "%a, %b %d, %y" }}</span>
+                    <span class="block text-sm font-family-heading mt-3 transition-colors group-hover:text-orange group-focus-visible:text-orange">{{ article.title }}</span>
+                    <hr class="h-px bg-black mt-4">
+                    <p class="text-sm mt-4">
+                        {{ article.excerpt }}
+                    </p>
+                </div>
+            </a>
+        {% endunless %}
+    {% endfor %}
+{% endcapture %}
+
+{% if hasArticles %}
+    <div class="bg-alabaster px-4 lg:px-0">
+        <div class="lg:max-w-[59.75rem] mx-auto pt-8 pb-12">
+            <div class="swiper js-related-articles" data-prev="{{ 'article.prev' | t }}" data-next="{{ 'article.next' | t }}">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <span class="block font-family-heading text-lg uppercase">{{ 'article.related_articles' | t }}</span>
+                    <div class="js-related-articles-pagination"></div>
+                </div>
+                    <div class="swiper-pagination"></div>
+
+                <div class="swiper-wrapper mt-10">
+                    {{ articles | raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endif %}

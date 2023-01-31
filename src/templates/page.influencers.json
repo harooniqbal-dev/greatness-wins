@@ -1,0 +1,47 @@
+{
+    "sections": {
+        "hero": {
+            "type": "hero",
+            "settings": {
+            }
+        },
+        "lead_text": {
+            "type": "lead-text",
+            "settings": {
+                "title": "Founders Favorites",
+                "description": "<p>Greatness can’t be bought. Greatness can’t be loaned out, bargained for or given. Greatness must be earned, forged over time, year after year, day after day, hour after hour, because greatness comes from within, self-created, and self-defined. It isn’t the cheers from the crowd, the endorsement deals or the accolades. It isn’t mega contracts or the adoration of the masses, Greatness is personal, individual, something inside. Not something you’re born with, but something you become, something you reveal, something you set free, because greatness unlocks your ultimate potential, Greatness pushes, Greatness drives, Greatness frustrates and motivates, intimidates and Inspires, but most of all, Greatness Wins.<\/p>"
+            }
+        },
+        "multi_image_and_content": {
+            "type": "multi-image-and-content",
+            "blocks": {
+            },
+            "block_order": [
+            ],
+            "settings": {}
+        },
+        "athletes": {
+            "type": "athletes",
+            "settings": {
+                "title": "",
+                "description": "",
+                "button_label": "show more",
+                "button_aria_label": "Show more sponsored athletes cards"
+            }
+        },
+        "newsletter": {
+            "type": "newsletter",
+            "settings": {
+                "heading": "Sign up for exclusive access & limited releases.",
+                "arrow": true,
+            }
+        }
+    },
+    "order": [
+        "hero",
+        "lead_text",
+        "multi_image_and_content",
+        "athletes",
+        "newsletter"
+    ]
+}

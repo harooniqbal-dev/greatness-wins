@@ -1,0 +1,15 @@
+.shopify-challenge {
+    &__container {
+        form {
+            @apply block mb-4;
+        }
+
+        .g-recaptcha {
+            @apply mt-4 mb-4;
+        }
+    }
+
+    &__button {
+        @apply inline-block font-family-heading text-xxs py-3 px-5 uppercase leading-loose rounded-3xl border border-solid border-black tracking-widest hover:text-white hover:bg-black focus-visible:text-white focus-visible:bg-black focus-visible:outline-none transition-colors cursor-pointer;
+    }
+}

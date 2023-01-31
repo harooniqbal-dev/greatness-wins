@@ -1,0 +1,13 @@
+.order-table-footer {
+    > tr:first-child {
+        td {
+            @apply pt-6;
+        }
+    }
+
+    > tr:nth-last-child(2) {
+        td {
+            @apply pb-6;
+        }
+    }
+}

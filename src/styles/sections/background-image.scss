@@ -1,0 +1,10 @@
+/**
+ * Background Image section styles
+ */
+.about-us {
+    &__image-section {
+        .background-image-wrapper {
+            @apply lg:aspect-[1440/720] lg:h-auto;
+        }
+    }
+}

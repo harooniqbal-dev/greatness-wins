@@ -1,0 +1,76 @@
+{
+	"sections": {
+		"hero": {
+			"type": "background-image",
+			"settings": {
+
+			}
+		},
+		"text_in_columns": {
+			"type": "text-in-columns",
+			"settings": {
+
+			}
+		},
+		"image_boxes": {
+			"type": "full-width-image-boxes",
+			"blocks": {
+
+			},
+			"settings": {
+
+			},
+			"block_order": []
+		},
+		"product_slider": {
+			"type": "product-cards-slider",
+			"settings": {
+				"heading": "New arrivals",
+				"collection": "new-arrivals",
+				"cta_label": "View all"
+			}
+		},
+
+		"images_slider": {
+			"type": "images-slider",
+			"blocks": {},
+			"block_order": [],
+			"settings": {}
+		},
+		"articles": {
+			"type": "articles",
+			"blocks": {},
+			"block_order": [],
+			"settings": {}
+		},
+
+		"video": {
+			"type": "video",
+			"blocks": {},
+			"block_order": [],
+			"settings": {}
+		},
+
+		"newsletter": {
+			"type": "newsletter",
+			"blocks": {},
+			"block_order": [],
+			"settings": {
+				"heading": "Sign up for exclusive access & limited releases.",
+				"background_color": "#000000"
+			}
+		}
+
+
+	},
+	"order": [
+		"hero",
+		"text_in_columns",
+		"image_boxes",
+		"product_slider",
+		"images_slider",
+		"articles",
+		"video",
+		"newsletter"
+	]
+}

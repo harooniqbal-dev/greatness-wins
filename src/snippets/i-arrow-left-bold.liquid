@@ -1,0 +1,8 @@
+{% assign min = 1 %}
+{% assign max = 1000 %}
+{% assign diff = max | minus: min %}
+{% assign randomNumber = "now" | date: "%N" | modulo: diff | plus: min %}
+
+<svg aria-hidden="true" fill="none" width="43" height="27" viewBox="0 0 43 27" id="icon__arrow-right-{{ randomNumber }}" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14.286 2 3 13.286l11.286 11.286M41 12.867H3.759" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,21 @@
+{% assign s = section.settings %}
+<div class="relative w-full aspect-[940/690] md:aspect-[1440/690] flex justify-center items-center">
+    {%
+        render 'c-image',
+        src: s.image.src,
+        lazy: true,
+        alt: s.image.alt,
+        customClass: 'absolute w-full h-full object-cover',
+        width: s.image.width,
+        height: s.image.height
+  %}
+
+  <a
+    href="{{ s.button_url }}"
+    class="mt-32 sm:mt-32 lg:mt-48 border border-solid border-black px-8 py-2 rounded-full text-xxs leading-6 tracking-widest z-10 hover:border-orange hover:text-white hover:bg-orange focus-visible:text-white focus-visible:bg-orange focus-visible:border-orange transition-colors uppercase"
+  >
+      {{ s.button_title }}
+  </a>
+</div>
+
+{% schema "page-not-found" %}

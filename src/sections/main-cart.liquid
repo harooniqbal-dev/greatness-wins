@@ -1,0 +1,171 @@
+{% comment %}
+Info: Cart template
+URL:
+* /cart
+{% endcomment %}
+<form
+  action="{{ routes.cart_url }}"
+  method="post"
+  class="demo-testing"></form>
+<div class="flex flex-col md:flex-row max-w-[36rem] md:max-w-[65.625rem] mx-auto">
+  <h1 class="sr-only">{{ page_title }}</h1>
+  <div data-free-shipping-from="{{ settings.free_shipping_from }}" class="w-full md:w-2/3 mt-9 mx-auto js-cart-root"></div>
+  <div class="w-full md:w-1/3 px-3 my-9">
+    <div data-free-shipping-from="{{ settings.free_shipping_from }}" class="{% if cart.item_count == 0 %}hidden {% endif %}js-cart-box-free-ship mb-8"></div>
+    <div class="form-vertical js-cart-block">
+      <p>
+        <span class="js-hau-form--error how-did-you-hear-about-us--error" style="display:none">{{ settings.hau_error_message }}</span>
+        <!-- <select class="js-hau-form how-did-you-hear-about-us" name="attributes[how-did-you-hear-about-us]">
+        <option value=""{% if cart.attributes.how-did-you-hear-about-us == "" %} selected{% endif %}>{{ settings.hau_select_placeholder_title }}</option>
+        {% assign optionsArray = settings.hau_form_options | split: ',' %}
+        {% for o in optionsArray %}
+        {% assign option = o | strip %}
+        <option value="{{ option }}"{% if cart.attributes.how-did-you-hear-about-us == option %} selected{% endif %}>{{ option }}</option>
+        {% endfor %}
+        <option value="Other"{% if cart.attributes.how-did-you-hear-about-us == "Other" %} selected{% endif %}>Other</option>
+        </select> -->
+      </p>
+      <p class="otherFormWrapper" style="{% unless cart.attributes.how-did-you-hear-about-us == 'Other' %}display:none{% endunless %}">
+        <span class="how-did-you-hear-about-us-other--error" style="display:none">{{ settings.hau_error_message_other }}</span>
+        <input
+          class="js-hau-form-other how-did-you-hear-about-us-other"
+          type="text"
+          name="attributes[how-did-you-hear-about-us-other]"
+          value="{{ cart.attributes.how-did-you-hear-about-us-other }}"
+          placeholder="{{ settings.hau_select_placeholder_other }}" />
+      </p>
+    </div>
+    {% if cart.item_count != 0 %}
+
+
+      <div class="shop_pay_inst">
+        {% form 'cart', cart %}
+          {{ form | payment_terms }}
+        {% endform %}
+      </div>
+
+      <div class="flex flex-col w-full js-cart-box--has-items">
+        <ul class="border-t border-black mb-5 mt-auto js-cart-box-summary">
+          <li class="flex flex-row justify-between items-center pt-4 font-semibold uppercase leading-7">
+            <span class="text-xxs">{{ "cart.subtotal" | t }}</span>
+            <span class="js-cart-subtotal-cost">{{ cart.items_subtotal_price | money }}</span>
+          </li>
+        </ul>
+        <div class="text-center text-xxs mb-8">
+          <p class="mt-4">{{ "cart.discount_code" | t }}</p>
+        </div>
+        {% render 'c-button'
+         , text: 'cart.checkout_link',
+         translate: true,
+         type: 'link',
+         href: '/checkout',
+         preset: 'outline-black',
+         customClass: 'text-center',
+         fullWidth: true %}
+      </div>
+    {% endif %}
+    <div class="flex flex-col w-full{% if cart.item_count != 0 %} hidden{% endif %} js-cart-box--no-items">
+      <h2 class="font-medium leading-5 text-center text-sm mt-16">{{ "cart.empty_cart.heading" | t }}</h2>
+      {% render 'c-button'
+       , text: settings.cart_empty_1_link_label,
+       translate: false,
+       type: 'link',
+       href: settings.cart_empty_1_link,
+       preset: 'black',
+       customClass: 'text-center mt-10',
+       fullWidth: true %}
+      {% render 'c-button'
+       , text: settings.cart_empty_2_link_label,
+       translate: false,
+       type: 'link',
+       href: settings.cart_empty_2_link,
+       preset: 'outline-black',
+       customClass: 'text-center mt-4',
+       fullWidth: true %}
+      <p class="text-center leading-7 text-sm mt-11 font-normal">{{ "cart.empty_cart.bottom_copy" | t }}</p>
+    </div>
+  </div>
+</div></form><script>
+const cartPage = document.querySelector(".js-cart-block");
+
+if (cartPage) {
+  (function() {
+    document.addEventListener("DOMContentLoaded", initForm);
+    document.addEventListener("shopify:section:load", initForm);
+
+    function initForm() {
+
+      const formElement = document.querySelector('.how-did-you-hear-about-us');
+      const formError = document.querySelector('.how-did-you-hear-about-us--error');
+      const otherFormElement = document.querySelector('.how-did-you-hear-about-us-other');
+      const otherFormError = document.querySelector('.how-did-you-hear-about-us-other--error');
+      const otherFormWrapper = document.querySelector('.otherFormWrapper');
+      const checkoutButtons = document.querySelectorAll('[name="checkout"], [name="goto_pp"], [name="goto_gc"]');
+
+      function showOrHideForm() {
+        if (formElement.value == 'Other') {
+          otherFormWrapper.style.display = '';
+        } else {
+          otherFormWrapper.style.display = 'none';
+        }
+      }
+
+      function checkFormElement() {
+        if (formElement.value.length == 0) {
+          formElement.classList.add('error');
+          formError.style.display = '';
+        } else {
+          if (formElement.classList.contains('error')) {
+            formElement.classList.remove('error');
+            formError.style.display = 'none';
+          }
+        }
+      }
+
+      function checkOtherFormElement() {
+        if (otherFormElement.value.length == 0) {
+          otherFormElement.classList.add('error');
+          otherFormError.style.display = '';
+        } else {
+          if (otherFormElement.classList.contains('error')) {
+            otherFormElement.classList.remove('error');
+            otherFormError.style.display = 'none';
+          }
+        }
+      }
+
+      otherFormElement.addEventListener("input", function() {
+        {% if settings.hau_form_validation %}checkOtherFormElement();{% endif %}
+      });
+
+      formElement.addEventListener("change", function() {
+        showOrHideForm();{% if settings.hau_form_validation %}checkFormElement();{% endif %}
+      });
+
+      checkoutButtons.forEach(function(element) {
+        element.addEventListener("click", function(evt) {
+
+          {% if settings.hau_form_validation %}
+            var validated = true;
+            if (formElement.value.length == 0) {
+              checkFormElement();
+              validated = false;
+            }
+            if (formElement.value == 'Other') {
+              if (otherFormElement.value.length == 0) {
+                checkOtherFormElement();
+                validated = false;
+              }
+            }
+            if (! validated) {
+              evt.preventDefault();
+              evt.stopPropagation();
+            }
+          {% endif %}
+        });
+      });
+
+    }
+  })()
+}
+</script>{% schema "hear-about-us" %}

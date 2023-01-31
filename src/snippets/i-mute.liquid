@@ -1,0 +1,6 @@
+{% assign min = 1 %}
+{% assign max = 1000 %}
+{% assign diff = max | minus: min %}
+{% assign randomNumber = "now" | date: "%N" | modulo: diff | plus: min %}
+
+<svg id="icon__mute--{{ randomNumber }}" width="82" height="70" viewBox="0 0 82 70" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="transition-colors group-hover:fill-pomegranate" fill-rule="evenodd" clip-rule="evenodd" d="M30.341 1.629c3.48-3.48 9.43-1.015 9.43 3.906v58.93c0 4.921-5.95 7.386-9.43 3.906L15.198 53.228H0V16.772h15.198L30.341 1.629Zm2.801 6.573L17.944 23.4H6.628v23.2h11.316l15.198 15.198V8.202ZM51.79 22.162a3.314 3.314 0 0 1 4.686 0l22.576 22.575a3.314 3.314 0 0 1-4.687 4.687L51.789 26.849a3.314 3.314 0 0 1 0-4.688Z" fill="#fff"/><path class="transition-colors group-hover:fill-pomegranate" fill-rule="evenodd" clip-rule="evenodd" d="M51.789 49.424a3.314 3.314 0 0 1 0-4.687l22.575-22.575a3.314 3.314 0 0 1 4.687 4.687L56.476 49.424a3.314 3.314 0 0 1-4.687 0Z" fill="#fff"/></svg>

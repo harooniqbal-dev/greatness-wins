@@ -1,0 +1,25 @@
+<ul class="flex flex-row lg:justify-end lg:items-end lg:h-full">
+    {%- if settings.social_facebook_link -%}
+        <li>
+            <a href="{{ settings.social_facebook_link }}" class="block w-7 h-7 group" target="_blank" rel="nofollow">
+                <span class="sr-only">{{ shop.name }}
+                    {{ 'footer.socials.on' | t }}
+                    {{ 'footer.socials.facebook' | t }}.
+                    {{ 'footer.socials.opens_in_a_new_tab' | t }}.</span>
+                {%- render 'i-facebook' -%}
+            </a>
+        </li>
+    {%- endif -%}
+
+    {%- if settings.social_linkedin_link -%}
+        <li class="ml-4">
+            <a href="{{ settings.social_linkedin_link }}" class="block w-7 h-7 group" target="_blank" rel="nofollow">
+                <span class="sr-only">{{ shop.name }}
+                    {{ 'footer.socials.on' | t }}
+                    {{ 'footer.socials.facebook' | t }}.
+                    {{ 'footer.socials.opens_in_a_new_tab' | t }}.</span>
+                {%- render 'i-linkedin' -%}
+            </a>
+        </li>
+    {%- endif -%}
+</ul>

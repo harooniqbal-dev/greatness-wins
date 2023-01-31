@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="{{ shop.locale }}">
+    <head>
+        <meta charset="utf-8">
+        <meta content="IE=edge" http-equiv="X-UA-Compatible">
+        <meta content="width=device-width,initial-scale=1" name="viewport">
+        <link rel="canonical" href="{{ canonical_url }}">
+
+        <title>{% render 'meta-title' %}</title>
+
+        {% render 'meta-description' %}
+        {% render 'meta-favicons' %}
+        {% render 'variables-css' %}
+
+        {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+        {{ content_for_header }}
+    </head>
+
+    <body>
+        <div>
+            {{ content_for_layout }}
+        </div>
+
+        {% render 'variables-js' %}
+
+        <script src="{{ 'theme.js' | asset_url }}" defer></script>
+    </body>
+</html>

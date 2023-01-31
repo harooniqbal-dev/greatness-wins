@@ -1,0 +1,5 @@
+.quote-block {
+    a {
+        @apply inline underline hover:text-orange transition-all duration-150 ease-in-out focus-visible:outline outline-2 outline-offset-2 outline-orange
+    }
+}

@@ -1,0 +1,40 @@
+{% assign s = section.settings %}
+
+<section class="pt-10 pb-10 sm:pt-[76px] sm:pb-[76px]">
+    <div class="{{ s.margin_top }} {{ s.margin_bottom }} {{ s.padding_top }} {{ s.padding_bottom }}">
+        <div class="container mx-auto">
+            <h2 class="text-lg uppercase font-semibold">{{ s.heading }}</h2>
+
+            <ul class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12">
+                {% for a in s.blog.articles %}
+                {% if forloop.index == 5 %}{% break %}{% endif %}
+                <li>
+                    {% render "c-article-tile",
+                        image: a.image,
+                        author: a.author,
+                        date: a.published_at,
+                        title: a.title,
+                        excerpt: a.excerpt,
+                        url: a.url,
+                        hide_hr: true,
+                        full_width_link: true,
+                        image_height_class: "h-[9.6875rem]",
+                        read_more_link: true,
+                        ctaLabel: s.article_cta_label
+                    %}
+                </li>
+                {% endfor %}
+            </ul>
+            {% if s.cta_url %}
+            <div class="mt-12 text-center">
+                <a
+                    href="{{ s.cta_url }}"
+                    class="font-family-heading text-xxs p-4 uppercase leading-loose rounded-3xl border border-solid border-black tracking-widest hover:text-white hover:bg-orange hover:border-orange focus-visible:text-white focus-visible:bg-orange focus-visible:border-orange focus-visible:outline-none transition-colors"
+                >{{ s.cta_label }}</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% schema 'articles' %}

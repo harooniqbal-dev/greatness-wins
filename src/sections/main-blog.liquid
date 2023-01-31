@@ -1,0 +1,39 @@
+{% comment %}
+Info: Blog template
+URL:
+* /blogs/{blog-name}
+{% endcomment %}
+
+<div class="relative bg-alabaster js-blog-archive-section">
+  {% if blog.articles_count > 0 %}
+    <ul class="columns-1 md:columns-3 gap-3 space-y-3 px-12 md:px-0 pb-28 mx-auto max-w-[59.75rem] pt-3 mt-24 mx-auto">
+      {% for article in blog.articles %}
+        <li class="{% if forloop.index > 6 %} hidden js-blog-archive-hidden-pastile {% endif %}">
+          {% render 'c-article-tile' 
+           , extArticle: article,
+           extBlog: blog,
+           image: article.image,
+           author: article.author,
+           date: article.published_at,
+           title: article.title,
+           excerpt: article.excerpt,
+           url: article.url %}
+        </li>
+      {% endfor %}
+    </ul>
+    {% if blog.articles_count > 6 %}
+      <div class="flex items-center justify-center pb-12">
+        {% render 'c-button' 
+         , text: 'blog.view_more',
+         translate: true,
+         type: 'button',
+         preset: 'white',
+         customClass: 'js-blog-more-button' %}
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="flex justify-center items-center h-[30.75rem] text-3xl">
+      <p>{{ 'blog.no_blog_posts' | t }}</p>
+    </div>
+  {% endif %}
+</div>

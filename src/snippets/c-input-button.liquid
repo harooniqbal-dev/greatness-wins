@@ -1,0 +1,13 @@
+<div class="input-button border rounded-full border-white flex overflow-hidden">
+    <label for="{{ name }}" class="sr-only">{{ label | t }}</label>
+
+    <input class="input-button__input transition-all grow shrink rounded-full min-w-0 bg-transparent px-6 py-2 font-semibold placeholder-white -mr-20 pr-20 focus-visible:delay-75 focus-visible:outline-none focus-visible:bg-white/20 text-sm leading-6 autofill-clear" type="{{ type }}" name="{{ name }}" id="{{ name }}" value="{{ value }}" placeholder="{{ label | t }}" {%- if required -%} required {%- endif -%} {%- if readonly -%} readonly {%- endif -%}>
+
+    <button class="input-button__button transition-all grow-0 shrink-0 basis-auto uppercase font-semibold border-0 focus-visible:outline-none focus-visible:bg-orange text-white text-xxs leading-5 px-4 rounded-full {% if buttonOpaque %} bg-transparent hover:bg-orange hover:text-white {% else %} hover:bg-orange hover:text-white border-white -m-1 {% endif %}" type="submit" aria-label="{{ cta | t }}">
+        {% if arrow %}
+            {% render 'i-arrow-right' %}
+        {% else %}
+            {{ cta | t }}
+        {% endif %}
+    </button>
+</div>

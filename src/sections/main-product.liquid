@@ -1,0 +1,136 @@
+{% comment %}
+Info: Product template
+URL:
+* /products/{product-handle}
+{% endcomment %}
+
+<div class="px-4 lg:px-11 xl-product:px-0 flex flex-col lg:flex-row lg:items-start lg:max-w-[82.5rem] lg:mx-auto">
+  <div class="flex flex-col md:flex-row md:flex-wrap -mx-[0.4375rem] lg:basis-[74%] -mt-[0.875rem] js-product-images-set">
+
+    {% assign i = 0 %}
+    {% assign shouldLazy = false %}
+    {% for image in product.images %}
+      {% if i > 3 %}
+        {% assign shouldLazy = true %}
+      {% endif %}
+
+      <div class="md:basis-1/2 px-[0.4375rem] mt-[0.875rem]">
+        <figure class="aspect-square h-full w-full group js-zoom-image js-product-image-figure" style="background-image: url({{ image | image_url: width: 1920 }});">
+
+          {% render 'c-image'
+           , lazy: shouldLazy,
+           src: image,
+           customClass: 'w-full h-full object-cover transition-opacity lg:hover:opacity-0',
+           height: image.height,
+           width: image.width,
+           alt: image.alt, %}
+
+        </figure>
+      </div>
+
+      {% assign i = i | plus: 1 %}
+    {% endfor %}
+
+  </div>
+
+  <div class="basis-[26%] mt-4 px-4 lg:pl-10 lg:pr-0 lg:mt-9">
+
+    {% render 'c-breadcrumbs'
+     , template: template,
+     product: product, %}
+
+    <hr class="h-0 border-t border-t-1 border-black w-full mt-5">
+    <h1 class="mt-9 font-family-heading text-3xl">{{ product.title }}</h1>
+    <!-- YOTPO STAR RATING (PRODUCT PAGE) | location: templates > product.liquid -->
+    <div id="yotpo-pdp-stars">
+      <div
+        class="yotpo bottomLine"
+        data-product-id="{{ product.id }}"
+        style="padding: 4px 0 0 0;"></div>
+    </div>
+    <style>
+      #yotpo-pdp-stars .text-m {
+        padding-left: 4px;
+      }
+    </style>
+    <!-- END | YOTPO STAR RATING (PRODUCT PAGE) -->
+    <div
+      id="product-form"
+      data-product='{{ product | json | escape }}'
+      data-options-with-values='{{ product.options_with_values | json | escape }}'
+      data-product-form-id="{{ product_form_id }}"
+      data-type="add-to-cart-form"
+      data-action="/cart/add"
+      data-before-add-to-cart-description="{{ product.metafields.my_fields.before_add_to_cart_description }}"
+      {% for variant in product.variants %}
+      data-variant-object="{{ variant | json | escape }}'"
+      data-variant-color-{{ variant.id }}="{{ variant.metafields.my_fields.color }}"
+      {% endfor %}
+      data-variant-images='[{% for variant in product.variants %}{ "variantId": {{ variant.id }}, "options": {{ variant.options | json | escape }}, "images": [{% if variant.metafields.my_fields.variant_image_1 != blank %}"{{ variant.metafields.my_fields.variant_image_1 | image_url }}",{% endif %}{% if variant.metafields.my_fields.variant_image_2 != blank %}"{{ variant.metafields.my_fields.variant_image_2 | image_url }}",{% endif %}{% if variant.metafields.my_fields.variant_image_3 != blank %}"{{ variant.metafields.my_fields.variant_image_3 | image_url }}",{% endif %}{% if variant.metafields.my_fields.variant_image_4 != blank %}"{{ variant.metafields.my_fields.variant_image_4 | image_url }}",{% endif %}{% if variant.metafields.my_fields.variant_image_5 != blank %}"{{ variant.metafields.my_fields.variant_image_5 | image_url }}",{% endif %}{% if variant.metafields.my_fields.variant_image_6 != blank %}"{{ variant.metafields.my_fields.variant_image_6 | image_url }}"{% endif %}]},{% endfor %}]'
+      {% for product_option in product.options_with_values %}
+      {% if product_option.name == "Color" %}
+      data-variant-colors="{% for color_option in product_option.values %}{{ color_option }}, {% endfor %}"
+      {% endif %}
+      {% endfor %}
+      data-lang-add-to-cart="{{ 'product.add_to_cart' | t }}"
+      data-lang-colors="{{ 'product.colors' | t }}"
+      data-lang-product-unavailable="{{ 'product.product_unavailable' | t }}"></div>
+    <div
+      id="accordion-group"
+      data-headline1="{{ product.metafields.my_fields.accordion_headline_1.value }}"
+      data-description1="{{ product.metafields.my_fields.accordion_description_1.value }}"
+      data-headline2="{{ product.metafields.my_fields.accordion_headline_2.value }}"
+      data-description2="{{ product.metafields.my_fields.accordion_description_2.value }}"
+      data-headline3="{{ product.metafields.my_fields.accordion_headline_3.value }}"
+      data-description3="{{ product.metafields.my_fields.accordion_description_3.value }}"
+      data-headline4="{{ product.metafields.my_fields.accordion_headline_4.value }}"
+      data-description4="{{ product.metafields.my_fields.accordion_description_4.value }}"
+      data-headline5="{{ product.metafields.my_fields.accordion_headline_5.value }}"
+      data-description5="{{ product.metafields.my_fields.accordion_description_5.value }}"
+      data-headline6="{{ 'product.product_inseam' | t }}"
+      data-description6="{{ product.metafields.my_fields.inseam.value }}"></div>
+  </div>
+</div>
+
+{% comment %}
+Enable this section instead of dummy-product-recommendations when some orders will be made.
+{% section 'product-recommendations' %}
+{% endcomment %}{% comment %} {% section 'dummy-product-recommendations' %}
+
+<div class="mt-20">
+{% section 'image-and-content' %}
+</div>
+
+<div class="mt-20">
+{% section 'three-cols-full-width' %}
+</div>
+
+<div class="mt-32 mb-20">
+{% section 'product-reviews' %}
+</div>
+
+{% section 'newsletter' %} {% endcomment %}<script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+          "@type": "Product",
+          "productId": "{{ product.id }}",
+  "brand": "{{ product.vendor }}",
+  "url": "{{ product.url }}",
+  "sku": "{{ product.selected_or_first_available_variant.sku }}",
+  {% for collection in product.collections %}
+    "category": "{{ collection.title }}",
+    {% break %}
+  {% endfor %}
+  {% if product.featured_image %}
+    "image": "{{ product.featured_image.src | image_url: width: 1920 }}",
+  {% endif %}
+  "name": "{{ product.title }}",
+  "description": "{{ product.description | strip_html }}",
+  "offers": {
+              "@type": "Offer",
+              "price": {{ product.price | divided_by: 100 }},
+  "priceCurrency": "USD",
+              "url": "{{ product.url }}",
+  "availability": "{% if product.available %}http://schema.org/InStock{% else %}http://schema.org/OutOfStock{% endif %}"
+  }
+      }</script>

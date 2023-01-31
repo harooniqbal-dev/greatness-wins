@@ -1,0 +1,147 @@
+<section class="container mx-auto my-20">
+    <div class="flex flex-row items-center">
+        <div class="flex-1 flex flex-row items-center">
+            <a href="/account/" class="block text-black hover:text-orange transition-colors">
+                <span class="sr-only">{{ 'user.main.back' | t }}</span>
+
+                {% render "i-arrow-left-bold" %}
+            </a>
+
+            <h2 class="text-4xl ml-8">{{ 'user.main.back' | t }}</h2>
+        </div>
+
+        <div class="flex-initial">
+            <a href="/account/logout/" class="underline underline-offset-1 hover:no-underline focus-visible:outline outline-2 outline-offset-2 outline-orange">{{ 'user.main.logout' | t }}</a>
+        </div>
+    </div>
+
+    <div class="mt-8 pt-12 border-t border-black">
+        <h3 class="text-lg uppercase font-semibold">{{ 'user.order.heading' | t }} {{ order.name }}</h3>
+
+        <div class="grid grid-cols-4 gap-8">
+            <div class="col-span-4 lg:col-span-3">
+                <div class="mt-6">
+                    <p>{{ 'user.order.created_at' | t }} {{ order.created_at | date: "%b %d, %Y %l:%M %P" }}</p>
+
+                    {% if order.cancelled %}
+                        <p class="mt-1">
+                            <span>{{ 'user.order.canceled' | t }}</span>
+                            <span>{{ order.cancelled_at | date: "%b %d, %Y %l:%M %P" }}</span>
+                        </p>
+
+                        <p class="mt-1">{{ order.cancel_reason }}</p>
+                    {% endif %}
+
+                    <p class="mt-1">
+                        <span>{{ 'user.order.payment_status' | t }}</span>
+                        <span>{{ order.financial_status }}</span>
+                    </p>
+
+                    <p class="mt-1">
+                        <span>{{ 'user.order.fulfillment_status' | t }}</span>
+                        <span>{{ order.fulfillment_status }}</span>
+                    </p>
+
+                    <p class="mt-1">
+                        <a href="{{ order.order_status_url }}" class="underline underline-offset-1 hover:no-underline focus-visible:outline outline-2 outline-offset-2 outline-orange">{{ 'user.order.status_page' | t }}</a>
+                    </p>
+                </div>
+
+                <h3 class="text-lg uppercase font-semibold mt-10">{{ 'user.order.summary' | t }}</h3>
+
+                <table class="mt-6 table-auto w-full text-left border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="py-2 border-t border-black">{{ 'user.order.summary_table.title' | t }}</th>
+
+                            <th class="py-2 border-t border-black">{{ 'user.order.summary_table.sku' | t }}</th>
+
+                            <th class="py-2 border-t border-black">{{ 'user.order.summary_table.price' | t }}</th>
+
+                            <th class="py-2 border-t border-black">{{ 'user.order.summary_table.qty' | t }}</th>
+
+                            <th class="py-2 border-t border-black">{{ 'user.order.summary_table.total' | t }}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for line_item in order.line_items %}
+                            <tr id="{{ line_item.id }}">
+                                <td class="py-2 border-t border-black">
+                                    <a href="{{ line_item.product.url }}" class="underline underline-offset-1 hover:no-underline focus-visible:outline outline-2 outline-offset-2 outline-orange">{{ line_item.title }}</a>
+                                </td>
+
+                                <td class="py-2 border-t border-black">{{ line_item.sku }}</td>
+
+                                <td class="py-2 border-t border-black">{{ line_item.price | money }}</td>
+
+                                <td class="py-2 border-t border-black">{{ line_item.quantity }}</td>
+
+                                <td class="py-2 border-t border-black">{{ line_item.quantity | times: line_item.price | money }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                    <tfoot class="order-table-footer border-t border-b border-black">
+                        <tr>
+                            <td class="text-right py-1 pr-12" colspan="4">{{ 'user.order.summary_table.subtotal' | t }}</td>
+
+                            <td class="py-1">{{ order.subtotal_price | money }}</td>
+                        </tr>
+
+                        {% for discount in order.discounts %}
+                            <tr>
+                                <td class="text-right py-1 pr-12" colspan="4">{{ discount.code }} {{ 'user.order.summary_table.discount' | t }}</td>
+
+                                <td class="py-1">{{ discount.savings | money }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        {% for shipping_method in order.shipping_methods %}
+                            <tr>
+                                <td class="text-right py-1 pr-12" colspan="4">{{ 'user.order.summary_table.shipping' | t }} ({{ shipping_method.title }}):</td>
+
+                                <td class="py-1">{{ shipping_method.price | money }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        {% for tax_line in order.tax_lines %}
+                            <tr>
+                                <td class="text-right py-1 pr-12" colspan="4">{{ 'user.order.summary_table.tax' | t }} ({{ tax_line.title }}
+                                    {{ tax_line.rate | times: 100 }}%):</td>
+
+                                <td class="py-1">{{ tax_line.price | money }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        <tr>
+                            <td class="text-right py-4 pr-12 border-t border-black uppercase font-semibold" colspan="4">{{ 'user.order.summary_table.final_total' | t }}</td>
+
+                            <td class="py-4 border-t border-black font-semibold">{{ order.total_price | money }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="col-span-4 lg:col-span-1">
+                <div class="bg-alabaster px-8 py-6">
+                    <h3 class="text-lg uppercase font-semibold">{{ 'user.order.billing_address' | t }}</h3>
+
+                    <address class="mt-4">
+                        <p>{{ order.billing_address | format_address }}</p>
+                    </address>
+                </div>
+
+                {% if order.shipping_address %}
+                    <div class="bg-alabaster px-8 py-6 mt-8">
+                        <h3 class="text-lg uppercase font-semibold">{{ 'user.order.shipping_address' | t }}</h3>
+
+                        <address class="mt-4">
+                            <p>{{ order.shipping_address | format_address }}</p>
+                        </address>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

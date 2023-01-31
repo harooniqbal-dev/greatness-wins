@@ -1,0 +1,65 @@
+<section class="mx-auto my-24">
+    <div class="container lg:max-w-[58.5rem] mx-auto text-left justify-center">
+        <h2 class="text-4xl text-center">{{section.settings.heading}}</h2>
+        <div class="text-base leading-6 mt-7">{{section.settings.leading_paragraph}}</div>
+        <div class="quote-block max-w-[43.25rem] text-2xl mx-auto leading-7 font-semibold my-8">{{section.settings.quote}}</div>
+        <div class="text-base leading-6">{{section.settings.closing_paragraph}}</div>
+        
+        {% if section.settings.btn_url %}
+            <div class="text-center mt-12">
+                <a 
+                    href="{{section.settings.btn_url}}"
+                    class="border border-solid border-black px-4 py-2 rounded-full text-[0.625rem] leading-6 tracking-widest hover:border-orange hover:text-white hover:bg-orange focus-visible:text-white focus-visible:bg-orange focus-visible:border-orange transition-colors uppercase"
+                >{{section.settings.button_label}}</a>  
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% schema %}
+{
+    "name": "Quote",
+    "settings": [
+        {
+            "label": "Heading",
+            "id": "heading",
+            "type": "text"
+        },
+        {
+            "label": "Leading paragraph",
+            "id": "leading_paragraph",
+            "type": "richtext"
+        },
+        {
+            "label": "Quote",
+            "id": "quote",
+            "type": "richtext"
+        },
+        {
+            "label": "Closing paragraph",
+            "id": "closing_paragraph",
+            "type": "richtext"
+        },
+        {
+            "content": "Button",
+            "type": "header"
+        },
+        {
+            "label": "URL",
+            "id": "btn_url",
+            "type": "url"
+        },
+        {
+            "label": "Label",
+            "id": "button_label",
+            "type": "text",
+            "default": "READ MORE"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Quote",
+            "category": "Section"
+        }
+    ]
+}
+{% endschema %}

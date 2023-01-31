@@ -1,0 +1,53 @@
+{% comment %}
+  Info: Collections list template
+  URL:
+    * /collections
+    * /products
+{% endcomment %}
+
+<section>
+    {% render 's-hero',
+        background_image: section.settings.image,
+        lazyload: false
+    %}
+
+    <div class="container mx-auto px-6 py-12">
+        <div class="grid gap-4 lg:gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+            {% for c in collections %}
+                <a href="{{ c.url }}" class="collection-tile block relative bg-black flex justify-center items-center text-center h-[100vw] sm:h-[33vw] xl:h-[24rem] text-white hover:text-orange transition-colors focus-visible:text-white focus-visible:border-orange">
+                    {% if c.image %}
+                    <img
+                        class="collection-tile__img transition-transform absolute left-0 top-0 w-full h-full object-cover lazyload"
+                        src="data:,"
+                        data-src="{{ product.collections.first.image | img_url: '720x' }}"
+                        alt="{{ product.collections.first.title }}"
+                        width="{{ product.collections.first.image.width }}" height="{{ product.collections.first.image.height }}
+                    >
+                    {% endif %}
+
+                    <span class="relative text-3xl font-bold uppercase">{{ c.title }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+{% schema %}
+    {
+        "name": "Background Image",
+        "settings": [
+            {
+                "label": "Image",
+                "id": "image",
+                "type": "image_picker"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Collections List",
+                "category": "Section"
+            }
+        ]
+    }
+    {% endschema %}

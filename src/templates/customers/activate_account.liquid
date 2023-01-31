@@ -1,0 +1,26 @@
+{% layout settings.customer_layout %}
+
+<div id="template">
+    <div class="template_header">
+        <h2 class="title">Activate Account</h2>
+        <p class="note">Create your password to activate your account</p>
+    </div>
+
+    {% form 'activate_customer_password' %}
+        {{ form.errors | default_errors }}
+
+        <div class="clearfix large_form" id="password">
+            <label class="large" for="password">Password</label>
+            <input class="large password" id="customer_password" name="customer[password]" size="16" type="password" value=""/>
+        </div>
+        <div class="clearfix large_form" id="password_confirm">
+            <label class="large" for="password_confirmation">Password Confirmation</label>
+            <input class="large password" id="customer_password_confirmation" name="customer[password_confirmation]" size="16" type="password" value=""/>
+        </div>
+        <div class="action_bottom">
+            <input class="btn" type="submit" value="Activate Account"/>
+            <span class="note">or</span>
+            <input class="cancel" id="customer_decline" name="decline" type="submit" value="Decline Invitation"/>
+        </div>
+    {% endform %}
+</div>

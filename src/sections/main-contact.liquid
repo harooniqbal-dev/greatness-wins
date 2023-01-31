@@ -1,0 +1,141 @@
+<div class="container mt-24 mx-auto pb-12" data-anim>
+    <div class="lg:max-w-[43.25rem] lg:mx-auto">
+
+        <h1 class="text-center text-4xl">{{ page.title }}</h1>
+
+        <div class="text-center text-lg mt-11 xl:mx-auto xl:max-w-[36.875rem]">
+            {{ page.content }}
+        </div>
+
+        <div class="mt-9">
+
+            {% form 'contact' %}
+
+                {% if form.posted_successfully? %}
+                    <span class="block bg-lima mt-4 p-4">
+                        {{ 'contact.form.post_success' | t }}
+                    </span>
+
+                    {% else %}
+
+
+                {% endif %}
+
+                {% if form.errors %}
+                    <div class="p-4 bg-alizarin-crimson mt-4">
+                        {{ form.errors | default_errors }}
+                    </div>
+                {% endif %}
+
+                {% if form[topic] %}
+                    {% assign value = form[topic] %}
+                {% else %}
+                    {% assign value = '' %}
+                {% endif %}
+
+                {% render 'form-field',
+                    type: 'text',
+                    name: 'contact[topic]',
+                    id: 'ContactFormTopic',
+                    label: 'contact.form.topic',
+                    value: value,
+                    has_error: form.errors.messages['topic'],
+                    margin_top: '1',
+                    required: true
+                %}
+
+                <div class="flex flex-col lg:flex-row lg:gap-8">
+                    <div class="basis-1/2">
+
+                        {% if form[first_name] %}
+                            {% assign value = form[first_name] %}
+                        {% elsif customer %}
+                            {% assign value = customer.first_name %}
+                        {% endif %}
+
+                        {% render 'form-field',
+                            type: 'text',
+                            name: 'contact[first_name]',
+                            id: 'ContactFormFirstName',
+                            label: 'contact.form.first_name',
+                            autocomplete: 'given-name',
+                            value: value,
+                            has_error: form.errors.messages['first_name'],
+                            required: true
+                        %}
+
+                    </div>
+                    <div class="basis-1/2">
+
+                        {% if form[last_name] %}
+                            {% assign value = form[last_name] %}
+                        {% elsif customer %}
+                            {% assign value = customer.last_name %}
+                        {% endif %}
+
+                        {% render 'form-field',
+                            type: 'text',
+                            name: 'contact[last_name]',
+                            id: 'ContactFormLastName',
+                            label: 'contact.form.last_name',
+                            autocomplete: 'family-name',
+                            value: value,
+                            has_error: form.errors.messages['last_name'],
+                            required: true
+                        %}
+
+                    </div>
+                </div>
+
+                {% if form[email] %}
+                    {% assign value = form[email] %}
+                {% elsif customer %}
+                    {% assign value = customer.email %}
+                {% endif %}
+
+                {% render 'form-field',
+                    type: 'email',
+                    name: 'contact[email]',
+                    id: 'ContactFormEmail',
+                    label: 'contact.form.email',
+                    value: value,
+                    has_error: form.errors.messages['email'],
+                    spellcheck: 'false',
+                    autocomplete: 'email',
+                    autocapitalize: 'off',
+                    required: true
+                %}
+
+                {% if form.body %}
+                    {% assign value = form.body %}
+                {% else %}
+                    {% assign value = '' %}
+                {% endif %}
+
+                {% render 'form-field',
+                    type: 'textarea',
+                    name: 'contact[body]',
+                    id: 'ContactFormMessage',
+                    label: 'contact.form.message',
+                    value: value,
+                    has_error: form.errors.messages['message'],
+                    rows: 3,
+                    required: true
+                %}
+
+                <div class="text-center mt-12">
+
+                    {% render 'c-button',
+                        text: 'contact.form.confirm_and_send',
+                        type: 'submit',
+                        translate: true,
+                        preset: 'outline-black'
+                    %}
+
+                </div>
+
+            {% endform %}
+
+        </div>
+    </div>
+</div>

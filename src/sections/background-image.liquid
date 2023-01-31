@@ -1,0 +1,79 @@
+{% assign s = section.settings %}
+
+<div
+    class="relative background-image-wrapper {% if s.size == 'sm' %} h-[17.5rem] sm:h-[21.25rem] lg:h-[25rem] {% elsif s.size == 'md' %} h-[17.5rem] sm:h-[25rem] lg:h-[33.75rem] {% elsif s.size == 'lg' %} h-[20rem] sm:h-[33.75rem] lg:h-[45rem] {% endif %}"
+>
+    {% if s.image %}
+        <img fetchpriority="high" decoding="async" src="{{ s.image.src | img_url: '480x' }}" class="absolute left-0 top-0 w-full h-full object-cover" alt="{{ image.alt | escape }}" srcset="{% if s.image.width > 640 %}{{ s.image.src | img_url: '640x' }} 640w{% endif %}{% if s.image.width > 720 %},{{ s.image.src | img_url: '720x' }} 720w{% endif %}{% if s.image.width > 900 %},{{ s.image.src | img_url: '900x' }} 900w{% endif %}" sizes="(min-width: 960px) 450px, (min-width: 720px) 50vw, 100vw" />
+    {% endif %}
+    {% if s.mask_color != "" %}
+        <div class="absolute left-0 top-0 w-full h-full object-cover" style="background-color: {{ s.mask_color }}; opacity: {{ s.mask_opacity | divided_by: 100 }}"></div>
+    {% endif %}
+</div>
+{% schema %}
+{
+    "name": "Background Image",
+    "settings": [
+        {
+            "label": "Image",
+            "id": "image",
+            "type": "image_picker"
+        },
+        {
+            "label": "Lazyload?",
+            "id": "lazyload",
+            "type": "checkbox",
+            "default": true
+        },
+        {
+            "type": "header",
+            "content": "Mask"
+        },
+        {
+            "label": "Color",
+            "id": "mask_color",
+            "type": "color"
+        },
+        {
+            "label": "Opacity",
+            "id": "mask_opacity",
+            "type": "range",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "default": 0
+        },
+        {
+            "type": "header",
+            "content": "Size"
+        },
+        {
+            "type": "radio",
+            "id": "size",
+            "label": "Section size",
+            "options": [
+                {
+                    "value": "sm",
+                    "label": "Small"
+                },
+                {
+                    "value": "md",
+                    "label": "Medium"
+                },
+                {
+                    "value": "lg",
+                    "label": "Large"
+                }
+            ],
+            "default": "md"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Background Image",
+            "category": "Section"
+        }
+    ]
+}
+{% endschema %}

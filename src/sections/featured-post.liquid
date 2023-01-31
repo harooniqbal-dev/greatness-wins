@@ -1,0 +1,24 @@
+{% assign s = section.settings %}
+<section class="flex flex-col md:flex-row w-full">
+    {% render 'c-image',
+        src: s.article_pick.image.src,
+        lazy: false,
+        alt: s.article_pick.image.alt,
+        customClass: 'w-full md:w-1/2 h-full object-cover group-hover:scale-110 h-[33.75rem]',
+        width: s.article_pick.image.width,
+        height: s.article_pick.image.height
+    %}
+    <div class="w-full md:w-1/2 bg-white flex flex-col items-center justify-center text-center px-8 lg:px-16 h-[33.75rem]">
+        <h1 class="font-semibold text-3xl">{{ s.article_pick.title }}</h1>
+        <div class="font-semibold text-lg mt-7 mb-12">{{ s.article_pick.excerpt }}</div>
+        {% render 'c-button',
+            text: 'blog.view_more',
+            translate: true,
+            href: s.article_pick.url,
+            type: 'link',
+            preset: 'white',
+        %}
+    </div>
+</section>
+
+{% schema "featured-post" %}

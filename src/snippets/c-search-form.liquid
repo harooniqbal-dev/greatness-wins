@@ -1,0 +1,24 @@
+{%- capture classCpt -%}
+    {% if template.name != 'index' %}
+        bg-white
+    {% else %}
+        bg-black
+    {% endif %}
+{%- endcapture -%}
+
+{%- assign classPreset = classCpt | strip_newlines | strip -%}
+
+<div class="{% if mobile == false %}hidden js-search-input-wrapper{% else %}w-full{% endif %}">
+    <h2 class="sr-only">{{ 'navigation.search_hidden_heading' | t }}</h2>
+    <form class="navigation__form-input flex items-center justify-between{% if mobile == false %} h-11 p-2 flex-row-reverse absolute right-0 -bottom-2 z-10 {{ classPreset }}{% endif %} js-search-form" action="{{ routes.search_url }}">
+        <label class="sr-only" for="{% if mobile == false %}navigation-search-input-desktop{% else %}navigation-search-input-mobile{% endif %}">{{ 'navigation.search_hidden_text' | t }}</label>
+        <input class="navigation__search-input text-[16px] outline-none focus-visible:outline-orange autofill-clear transition-[width] w-0 placeholder:uppercase bg-transparent border-b {% if template.name != 'index' %}not-index text-black border-b-black{% endif %}{% if mobile == true %}mobile text-black border-b-black{% endif %}{% if template.name == 'index' %} lg:text-white lg:border-b-white{% endif %} focus-visible:border-transparent truncate{% if mobile == true %} bg-transparent flex-1{% else %} pr-14 ml-6{% endif %} js-search-input" type="text" name="q" value="{{ search.terms | escape }}" id="{% if mobile == false %}navigation-search-input-desktop{% else %}navigation-search-input-mobile{% endif %}" {% if mobile == true %}placeholder="{{ 'navigation.search_placeholder' | t }}"{% endif %}>
+        {% if mobile == false %}
+        <span aria-hidden="true" class="absolute right-2 uppercase pointer-events-none font-semibold text-xs {% if template.name != 'index' %}text-black{% else %}text-white{% endif %}">{{ 'navigation.search_placeholder' | t }}</span>
+        {% endif %}
+        <button class="ml-1 relative left-0.5 after:content-[''] after:block after:absolute after:h-0.5 after:bg-orange after:w-0 hover:after:w-full after:-bottom-1 after:transition-[width] after:duration-150 after:ease-in-out outline-none focus-visible:outline-orange {% if mobile == false %}{% if template.name != 'index' %}icon--white{% else %}icon--black{% endif %} {% endif %} js-search-input-submit" type="submit">
+            {%- render 'i-search' -%}
+            <span class="sr-only">{{ 'navigation.search_placeholder' | t }}</span>
+        </button>
+    </form>
+</div>

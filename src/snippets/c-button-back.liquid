@@ -1,0 +1,23 @@
+{% if type == 'submit' or type == 'button' %}
+    <button type="{{ type }}"
+{% elsif type == 'link' %}
+    <a href="{{ href }}"
+{% endif %}
+    class="flex flex-row items-center group{% if customClass %} {{ customClass }}{% endif %}"
+>
+
+    <svg id="icon__long-arrow-left" class="block" width="29" height="17" viewBox="0 0 29 17" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="transition-colors group-hover:stroke-orange group-focus-visible:stroke-orange" d="M9.5 1 2 8.5 9.5 16M27.253 8.222H2.504" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg>
+
+    <span class="block font-family-heading text-lg uppercase ml-4 transition-colors group-hover:text-orange group-focus-visible:text-orange">
+        {% if translate %}
+            {{ text | t }}
+        {% else %}
+            {{ text }}
+        {% endif %}
+    </span>
+
+{% if type == 'submit' or type == 'button' %}
+    </button>
+{% elsif type == 'link' %}
+    </a>
+{% endif %}

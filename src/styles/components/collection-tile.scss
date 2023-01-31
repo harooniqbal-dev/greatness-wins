@@ -1,0 +1,7 @@
+.collection-tile {
+    &:hover {
+        .collection-tile__img {
+            @apply scale-110;
+        }
+    }
+}

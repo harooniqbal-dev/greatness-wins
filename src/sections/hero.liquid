@@ -1,0 +1,8 @@
+{% assign s = section.settings %}
+
+{% render 's-hero',
+  background_image: s.image,
+  lazyload: s.lazyload
+%}
+
+{% schema 'hero-banner' %}

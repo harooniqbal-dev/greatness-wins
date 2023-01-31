@@ -1,0 +1,57 @@
+/**
+ * Full Width Image Boxes Section Styles
+ */
+
+.full-width-image-boxes {
+    &__item {
+        @apply block relative w-full overflow-hidden;
+
+        &--simple {
+            @apply md:w-1/2 before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-black/70 before:z-[1] lg:before:invisible lg:before:opacity-0 lg:before:transition-[opacity,visibility] lg:hover:before:visible lg:hover:before:opacity-100 lg:focus-visible:before:visible lg:focus-visible:before:opacity-100;
+        }
+
+        &--with-description {
+            @apply lg:w-1/2 bg-cover bg-center bg-no-repeat;
+
+            @media (min-width: 64rem) {
+                @apply after:content-[''] after:absolute after:bottom-0 after:block after:z-[3] after:w-full after:h-[33%];
+
+                &:after {
+                    background: linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(255, 255, 255, 0) 60%);
+
+                    @apply transition-all;
+                }
+
+                &:hover,
+                &:focus-visible {
+                    &:after {
+                        opacity: 0;
+                        visibility: hidden;
+                    }
+                }
+            }
+        }
+
+        &:hover,
+        &:focus-visible {
+            .full-width-image-boxes {
+                &__entry-content {
+                    @media (min-width: 64rem) {
+                        background: transparent;
+                        -webkit-text-fill-color: theme("colors.white");
+                    }
+                }
+            }
+        }
+    }
+
+    &__caption {
+        &--simple {
+            @apply absolute z-[2] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:opacity-0 lg:invisible lg:transition-all group-hover:opacity-100 group-hover:visible;
+        }
+
+        &--with-description {
+            @apply py-16 h-full custom-scrollbar bg-black/70 lg:transition-all lg:translate-y-2/3 lg:group-hover:translate-y-0;
+        }
+    }
+}

@@ -1,0 +1,36 @@
+/**
+ * Cart Component Styles
+ */
+
+.cart {
+    &__qunatity-input {
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+
+            @apply hidden m-0;
+        }
+
+        &[type="number"] {
+            -moz-appearance: textfield;
+        }
+    }
+
+    &__list-item {
+        &--loading {
+            .cart__list-item-loader {
+                @apply opacity-100 visible;
+            }
+        }
+    }
+
+    &__list-item-link {
+        &:focus {
+            outline: none;
+
+            img {
+                @apply outline outline-2 outline-orange outline-offset-[-2px];
+            }
+        }
+    }
+}

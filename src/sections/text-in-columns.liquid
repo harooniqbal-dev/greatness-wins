@@ -1,0 +1,27 @@
+
+<{% if section.settings.title %}section{%else%}div{%endif%} class="container mx-auto mt-24">
+	<div class="{{ section.settings.margin_top }} {{ section.settings.margin_bottom }} {{ section.settings.padding_top }} {{ section.settings.padding_bottom }}">
+		<div class="lg:max-w-[62.125rem] lg:mx-auto">
+			{% if section.settings.title %}
+				<h2 class="text-4xl">{{ section.settings.title }}</h2>
+			{% endif %}
+
+			<div class="flex flex-col lg:flex-row lg:gap-6 mt-[3.25rem]">
+				<div class="entry-content font-family-heading leading-6 basis-1/2 border-t border-t-black border-solid pt-6">
+					{% if section.settings.left_column_lead %}
+						<div class="text-2xl leading-8">
+							{{ section.settings.left_column_lead }}
+						</div>
+					{% endif %}
+
+					{{ section.settings.left_column }}
+				</div>
+				<div class="entry-content font-family-heading basis-1/2 mt-[0.625rem] lg:mt-0 lg:border-t lg:border-t-black lg:border-solid lg:pt-6">
+					{{ section.settings.right_column }}
+				</div>
+			</div>
+		</div>
+	</div>
+</{% if section.settings.title %}section{%else%}div{%endif%}>
+
+{% schema 'text-in-columns' %}

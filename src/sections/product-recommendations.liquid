@@ -1,0 +1,53 @@
+{%- if recommendations.products_count > 0 -%}
+    
+    <section class="px-4 lg:px-0 lg:max-w-[69.6875rem] lg:mx-auto mt-5 lg:mt-[4.6875rem]">
+        <h2 class="font-family-heading uppercase text-lg">{{ 'sections.product_recommendations.pairs_well_with' | t }}</h2>
+
+        <div class="flex flex-row flex-wrap -mx-3">
+
+            {% assign i = 0 %}
+            {% for recommendedProduct in recommendations.products %}
+
+                <div class="w-full sm:w-1/2 lg:w-1/4 mt-6 px-3">
+                    <a href="{{ recommendedProduct.url }}" class="group block">
+                        <div class="overflow-hidden h-80">
+                            {% if recommendedProduct.featured_image %}
+                                {% render 'c-image',
+                                    lazy: true,
+                                    src: recommendedProduct.featured_image,
+                                    customClass: 'w-full h-full object-cover group-hover:scale-110 group-focus-visible:scale-110 transition-transform',
+                                    height: recommendedProduct.featured_image.height,
+                                    width: recommendedProduct.featured_image.width,
+                                    alt: recommendedProduct.title,
+                                %}
+                            {% else %}
+                                {{ 'collection-5' | placeholder_svg_tag: 'block w-full h-full object-cover group-hover:scale-110 group-focus-visible:scale-110 transition-transform' }}
+                            {% endif %}
+                        </div>
+
+                        <span class="block font-family-heading mt-2 text-sm">{{ recommendedProduct.title }}{% unless recommendedProduct.type == '' %} / {{ recommendedProduct.type }}{% endunless %}</span>
+                        <div class="entry-content text-sm mt-1">
+                            {{ recommendedProduct.description }}
+                        </div>
+
+                        {% if recommendedProduct.options_by_name['Color'] %}
+
+                            <span class="block text-dove-gray text-xs leading-5 mt-1">{{ recommendedProduct.options_by_name['Color'].values | size }} {{ 'sections.product_recommendations.colors' | t }}</span>
+
+                        {% endif %}
+
+                        <span class="block text-xs leading-5 mt-1">{{ recommendedProduct.price | money }}</span>
+                    </a>
+                </div>
+
+                {% if i >= 3 %}
+                    {% break %}
+                {% endif %}
+
+                {% assign i = i | plus: 1 %}
+            {% endfor %}
+
+        </div>
+    </section>
+
+{% endif %}

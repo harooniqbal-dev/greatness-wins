@@ -1,0 +1,16 @@
+.comparison-section {
+
+    @apply flex flex-row max-w-[65.125rem] mx-auto py-10 px-4 uppercase text-base relative;
+
+    &__pastile {
+        @apply w-full relative;
+    }
+
+    &__select {
+        @apply flex flex-col py-2 bg-white absolute top-2;
+    }
+
+    &__title {
+        @apply font-bold text-center uppercase px-2;
+    }
+}

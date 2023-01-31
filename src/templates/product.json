@@ -1,0 +1,41 @@
+{
+    "sections": {
+      "main": {
+        "type": "main-product",
+        "settings": {}
+      },
+      "product-recommendations": {
+        "type": "dummy-product-recommendations",
+        "settings": {
+        }
+      },
+      "image-and-content": {
+        "type": "image-and-content",
+        "settings": {
+         
+        }
+      },
+      "three-cols-full-width": {
+        "type": "three-cols-full-width",
+        "blocks": {
+        },
+        "block_order": [
+        ],
+        "settings": {
+        }
+      },
+      "product-reviews": {
+        "type": "product-reviews",
+        "settings": {
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+          "heading": "Sign up for exclusive access & limited releases.",
+          "arrow": true
+        }
+      }
+    },
+    "order": ["main","product-recommendations","image-and-content","three-cols-full-width","product-reviews","newsletter"]
+}

@@ -1,0 +1,13 @@
+<li>
+    <a href="{{ link.url }}" class="footer__nav-item font-family-heading inline-block relative text-white uppercase text-sm leading-relaxed tracking-wider hover:text-white after:absolute after:bottom-0 after:left-0 after:w-0 after:border-b after:border-b-white after:border-solid after:transition-[width] after:ease-in-out after:duration-150 hover:after:w-full focus-visible:after:w-full">{{ link.title }}</a>
+
+    {%- if link.links.size > 0 -%}
+        <ul>
+            {%- for sublink in link.links -%}
+                {% render 'footer-menu-item',
+                    link: sublink
+                %}
+            {%- endfor -%}
+        </ul>
+    {%- endif -%}
+</li>

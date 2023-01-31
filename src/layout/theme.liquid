@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="{{ shop.locale }}">
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <title>{%- render 'meta-title' -%}</title>
+
+    {%- render 'meta-description' -%}
+    {%- render 'meta-favicons' -%}
+    {%- render 'meta-og' -%}
+    {%- render 'variables-css' -%}
+
+    {{ 'default_page.css' | asset_url | stylesheet_tag }}
+
+    {{ content_for_header }}
+
+    {%- if request.page_type == 'collection' or request.page_type == 'search' -%}
+      {%- include 'boost-pfs-style' -%}
+    {%- endif -%}
+
+    <script type="application/ld+json">
+      {
+      "@context": "https://schema.org",
+                            "@type": "WebSite",
+                            "@id": "{{ shop.secure_url }}/#website",
+      "url": "{{ shop.secure_url }}",
+      "potentialAction": {
+                                "@type": "SearchAction",
+                                "target": "{{ shop.secure_url }}/search?q={query}",
+      "query-input": "required name=query"
+                            }
+                        }
+    </script>
+    <script type="application/ld+json">
+      {
+      "@context": "https://schema.org",
+                            "@type": "Organization",
+                            "@id": "{{ shop.secure_url }}/#org",
+      "name": "{{ shop.name }}",
+      "url": "{{ shop.secure_url }}",
+      "description": "{{ shop.description }}",
+      "telephone": "{{ shop.phone }}",
+      "logo": "{{ settings.logo_dark | img_url }}",
+      "image": "{{ settings.logo_dark | img_url }}",
+      "address": {
+                                "@type": "PostalAddress",
+                                "streetAddress": "{{ shop.address.street }}",
+      "addressLocality": "{{ shop.address.city }}",
+      "addressRegion": "{{ shop.address.province }}",
+      "postalCode": "{{ shop.address.zip }}",
+      "addressCountry": "{{ shop.address.country }}"
+      }
+                        }
+    </script>
+
+    <!-- YOTPO JAVASCRIPT | location: layout > theme.liquid  -->
+    <script type="text/partytown">
+      (function e(){
+      var e=document.createElement("script");
+                                e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/UkCHsjiu6UpW1ZMqTBR8woLNu0isrYeXSs5lbFfO/widget.js";
+                                var t=document.getElementsByTagName("script")[0];
+                                t.parentNode.insertBefore(e,t)
+                            })();
+    </script>
+    <!-- END | YOTPO JAVASCRIPT -->
+  </head>
+
+  <body class="overflow-x-hidden">
+    <img
+      width="99999"
+      height="99999"
+      style="pointer-events: none; position: absolute; top: 0; left: 0; width: 99vw; height: 99vh; max-width: 99vw; max-height: 99vh;"
+      src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSI5OTk5OXB4IiBoZWlnaHQ9Ijk5OTk5cHgiIHZpZXdCb3g9IjAgMCA5OTk5OSA5OTk5OSIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48ZyBzdHJva2U9Im5vbmUiIGZpbGw9Im5vbmUiIGZpbGwtb3BhY2l0eT0iMCI+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9Ijk5OTk5IiBoZWlnaHQ9Ijk5OTk5Ij48L3JlY3Q+IDwvZz4gPC9zdmc+">
+
+    <ul class="skip-links absolute top-2 left-2">
+      <li>
+        <a class="skip-links__item js-skip-link" href="#main-navbar">{{ 'navigation.skip_links.nav' | t }}</a>
+      </li>
+      <li class="hidden lg:block">
+        <a class="skip-links__item js-skip-link" href="#search">{{ 'navigation.skip_links.search' | t }}</a>
+      </li>
+      <li>
+        <a class="skip-links__item js-skip-link" href="#main-content">{{ 'navigation.skip_links.main' | t }}</a>
+      </li>
+      <li>
+        <a class="skip-links__item js-skip-link" href="#main-footer">{{ 'navigation.skip_links.footer' | t }}</a>
+      </li>
+    </ul>
+
+    <header class="main-header w-full fixed top-0 left-0 right-0 transition-transform z-20 js-main-header" id="header">
+      <div class="flex justify-center bg-[#C4C4C4] text-black w-full text-center transition-[max-height] h-11 js-top-banner">
+        <div class="container relative xl:max-w-[83.25rem] flex justify-center items-center py-2">
+          <p class="text-sm sm:text-base lg:text-lg font-semibold">{{ 'navigation.top_banner_text' | t }}</p>
+          <button aria-label="{{ 'navigation.top_banner_close_button_label' | t }}" class="top-banner__button absolute right-2 lg:right-0 top-1/2 -translate-y-1/2 focus-visible:outline-2 outline-offset-2 outline-orange js-top-banner-button">
+            <span aria-hidden="true">{%- render 'i-close' -%}</span>
+          </button>
+        </div>
+      </div>
+      {%- section 'navbar' -%}
+    </header>
+
+    <main
+      class="main-content main-content--additional-margin js-main-content"
+      style="margin-top: -0px;"
+      id="main-content">
+      {%- if template.name == "index" -%}
+        <h1 class="sr-only">{{ page_title }}</h1>
+      {%- endif -%}
+      {{ content_for_layout }}
+    </main>
+
+    <footer class="js-main-footer" id="main-footer">
+      {%- section 'footer' -%}
+    </footer>
+
+    {%- render 'variables-js' -%}
+
+    <script src="{{ 'default_page.js' | asset_url }}" defer></script>
+
+    {%- if request.page_type == 'collection' or request.page_type == 'search' -%}
+      {%- include 'boost-pfs' -%}
+    {%- endif -%}
+
+    {%- if request.page_type == 'product' -%}
+      <script src="{{ 'product_page.js' | asset_url }}" defer></script>
+    {%- endif -%}
+
+    {%- if request.page_type == 'blog' or request.page_type == 'article' -%}
+      <script src="{{ 'blog_page.js' | asset_url }}" defer></script>
+    {%- endif -%}
+  </body>
+</html>

@@ -1,0 +1,90 @@
+/**
+ * Video section styles
+ */
+
+.player {
+    &__video-wrapper {
+        @apply h-0;
+        padding-bottom: 56.25%;
+    }
+
+    &__controls-playpause {
+        &[data-state="play"] {
+            .player {
+                &__controls-playpause-play {
+                    @apply block;
+                }
+
+                &__controls-playpause-pause {
+                    @apply hidden;
+                }
+            }
+        }
+
+        &[data-state="pause"] {
+            .player {
+                &__controls-playpause-play {
+                    @apply hidden;
+                }
+
+                &__controls-playpause-pause {
+                    @apply block;
+                }
+            }
+        }
+    }
+
+    &__controls-mute {
+        svg {
+            @apply h-full max-w-full;
+        }
+
+        &[data-state="mute"] {
+            .player {
+                &__controls-mute-name {
+                    &--mute {
+                        @apply block;
+                    }
+
+                    &--unmute {
+                        @apply hidden;
+                    }
+                }
+
+                &__controls-mute-icon {
+                    &--mute {
+                        @apply inline;
+                    }
+
+                    &--unmute {
+                        @apply hidden;
+                    }
+                }
+            }
+        }
+
+        &[data-state="unmute"] {
+            .player {
+                &__controls-mute-name {
+                    &--mute {
+                        @apply hidden;
+                    }
+
+                    &--unmute {
+                        @apply block;
+                    }
+                }
+
+                &__controls-mute-icon {
+                    &--mute {
+                        @apply hidden;
+                    }
+
+                    &--unmute {
+                        @apply inline;
+                    }
+                }
+            }
+        }
+    }
+}

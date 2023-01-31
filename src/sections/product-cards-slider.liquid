@@ -1,0 +1,50 @@
+{% assign s = section.settings %}
+
+<section class="pt-10 pb-10 sm:pt-[4.75rem] sm:pb-[4.75rem]">
+    <div class="{{ s.margin_top }} {{ s.margin_bottom }} {{ s.padding_top }} {{ s.padding_bottom }}">
+        <div class="container mx-auto">
+            <div class="flex flex-row items-center">
+                <h2 class="flex-auto text-lg uppercase font-semibold">{{ s.heading }}</h2>
+
+                <div class="flex-initial">
+                    <div class="flex flex-row">
+                        <div role="button" class="swiper-button-prev-{{ section.id }} w-8 h-8 -rotate-45 cursor-pointer group" aria-label="{{ 'sections.products_slider.prev' | t }}">
+                            <div class="m-2 w-4 h-4 border-t border-l border-t-black border-l-black border-solid transition-colors group-hover:border-t-orange group-hover:border-l-orange group-focus:border-t-orange group-focus:border-l-orange"></div>
+                        </div>
+
+                        <div role="button" class="swiper-button-next-{{ section.id }} w-8 h-9 rotate-45 cursor-pointer group" aria-label="{{ 'sections.products_slider.next' | t }}">
+                            <div class="m-2 w-4 h-4 border-t border-r border-t-black border-r-black border-solid transition-colors group-hover:border-t-orange group-hover:border-r-orange group-focus:border-t-orange group-focus:border-r-orange"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="mt-10 swiper js-swiper-product-cards"
+            data-button-prev=".swiper-button-prev-{{ section.id }}"
+            data-button-next=".swiper-button-next-{{ section.id }}"
+        >
+            <ul class="swiper-wrapper">
+                {% for product in s.collection.products %}
+                <li class="swiper-slide xl:w-[16.25rem]">
+                    {% render "c-product-tile",
+                        product: product
+                    %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="mt-12 text-center">
+            {% render 'c-button',
+                text: s.cta_label,
+                href: s.collection.url,
+                type: 'link',
+                preset: 'white',
+            %}
+        </div>
+    </div>
+</section>
+
+{% schema 'products-slider' %}

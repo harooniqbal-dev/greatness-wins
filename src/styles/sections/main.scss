@@ -1,0 +1,7 @@
+.main-content {
+    @apply pt-mobile-header md:pt-20 lg:pt-28;
+
+    &--additional-margin {
+        @apply mt-mobile-header md:mt-11;
+    }
+}

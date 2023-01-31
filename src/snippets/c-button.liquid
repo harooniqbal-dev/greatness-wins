@@ -1,0 +1,46 @@
+{% comment %}
+    Available options:
+    text - the text to display
+    translate - whenever you wish to use translate mechanizm in text
+    type - the type of button (submit|button|link)
+    href - the href for the link
+    customCLass - custom class you like to add to the button
+    preset - preset of button to display (white|black|[your custom color name available from tailwind])
+    fillWidth - if true, the button will fill the width of the container it is in
+{% endcomment %}
+
+{% capture classCpt %}
+    {% if preset == 'white' %}
+        text-black border-black bg-transparent hover:text-white hover:bg-orange hover:border-orange focus-visible:text-white focus-visible:bg-orange
+    {% elsif preset == 'black' %}
+        text-white border-black bg-black hover:text-black hover:bg-transparent focus-visible:text-black focus-visible:bg-transparent
+    {% elsif preset == 'outline-black' %}
+        text-black border-black bg-transparent hover:text-white hover:bg-black focus-visible:text-black focus-visible:bg-transparent
+    {% elsif preset == 'orange' %}
+        text-orange border-orange bg-tranparent hover:text-white hover:bg-orange focus-visible:text-white focus-visible:bg-orange
+    {% else %}
+        text-white border-{{ preset }} bg-{{ preset }} hover:text-{{ preset }} hover:bg-transparent focus-visible:text-{{ preset }} focus-visible:bg-transparent
+    {% endif %}
+{% endcapture %}
+{% assign classPreset = classCpt | strip_newlines | strip %}
+
+
+{% if type == 'submit' or type == 'button' %}
+    <button type="{{ type }}"
+{% elsif type == 'link' %}
+    <a href="{{ href }}"
+{% endif %}
+    class="font-family-heading text-xxs py-3 px-5 uppercase leading-loose rounded-3xl border border-solid tracking-widest focus-visible:outline-none transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-orange focus-visible:outline-offset-2 {{ classPreset }}{% if fullWidth %} block w-full{% endif %}{% if customClass %} {{ customClass }}{% endif %}"
+>
+
+    {% if translate %}
+        {{ text | t }}
+    {% else %}
+        {{ text }}
+    {% endif %}
+
+{% if type == 'submit' or type == 'button' %}
+    </button>
+{% elsif type == 'link' %}
+    </a>
+{% endif %}

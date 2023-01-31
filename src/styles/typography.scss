@@ -1,0 +1,45 @@
+html {
+    font-weight: var(--font-weight-base);
+    font-style: var(--font-style-base);
+    font-family: var(--font-family-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    @apply text-[14px] md:text-[16px];
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-weight: var(--font-weight-heading);
+    font-style: var(--font-style-heading);
+    font-family: var(--font-family-heading);
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+
+    &:focus {
+        @apply outline outline-2 outline-offset-2 outline-orange;
+    }
+}
+
+.font-family-heading {
+    font-weight: var(--font-weight-heading);
+    font-style: var(--font-style-heading);
+    font-family: var(--font-family-heading);
+}
+
+.link-indicator {
+    @apply hover:text-orange focus-visible:outline outline-2 outline-orange;
+}
