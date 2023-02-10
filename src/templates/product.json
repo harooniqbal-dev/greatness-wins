@@ -1,41 +1,58 @@
 {
-    "sections": {
-      "main": {
-        "type": "main-product",
-        "settings": {}
-      },
-      "product-recommendations": {
-        "type": "dummy-product-recommendations",
-        "settings": {
-        }
-      },
-      "image-and-content": {
-        "type": "image-and-content",
-        "settings": {
-         
-        }
-      },
-      "three-cols-full-width": {
-        "type": "three-cols-full-width",
-        "blocks": {
-        },
-        "block_order": [
-        ],
-        "settings": {
-        }
-      },
-      "product-reviews": {
-        "type": "product-reviews",
-        "settings": {
-        }
-      },
-      "newsletter": {
-        "type": "newsletter",
-        "settings": {
-          "heading": "Sign up for exclusive access & limited releases.",
-          "arrow": true
-        }
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
       }
     },
-    "order": ["main","product-recommendations","image-and-content","three-cols-full-width","product-reviews","newsletter"]
+    "product-recommendations": {
+      "type": "dummy-product-recommendations",
+      "settings": {
+      }
+    },
+    "image-and-content": {
+      "type": "image-and-content",
+      "settings": {
+        "image_block": "shopify:\/\/shop_images\/Jeter-Frame.jpg",
+        "lazy_load": "true",
+        "image_position": "left",
+        "title": "Our Promise",
+        "paragraph": "<p>At Greatness Wins, our vision is simple: to create the next great athletic brand. Curated and tested by some of world’s greatest competitors, this is the gear <em>we <\/em>always dreamed existed: Meeting our exacting standards for quality, construction and endurance; Using only premium fabrics that can withstand your toughest workouts; Ensuring our signature clean, consistent fit every time. Committing to sustainable practices, we aim to inspire future generations of athletes to dream big and put in the effort in pursuit of those dreams.<\/p>",
+        "paragraph_size": "default",
+        "link_url": "",
+        "link_label": "READ MORE",
+        "lead_text": ""
+      }
+    },
+    "three-cols-full-width": {
+      "type": "three-cols-full-width",
+      "settings": {
+        "margin_top": "mt-0",
+        "margin_bottom": "mb-0",
+        "padding_top": "pt-0",
+        "padding_bottom": "pb-0"
+      }
+    },
+    "product-reviews": {
+      "type": "product-reviews",
+      "settings": {
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Sign up for exclusive access & limited releases.",
+        "arrow": true,
+        "background_color": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product-recommendations",
+    "image-and-content",
+    "three-cols-full-width",
+    "product-reviews",
+    "newsletter"
+  ]
 }

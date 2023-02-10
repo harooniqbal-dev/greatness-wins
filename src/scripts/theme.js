@@ -48,3 +48,4 @@ import "./components/cart/index";
 import "./templates/comparison/index";
 import "./templates/cart/index";
 import "./templates/product";
+import "./snippets/quickbuy";

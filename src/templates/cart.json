@@ -1,19 +1,20 @@
 {
-    "sections": {
-      "main": {
-        "type": "main-cart",
-        "blocks": {},
-        "block_order": [],
-        "settings": {}
-      },
-
-      "newsletter": {
-        "type": "newsletter",
-        "settings": {
-          "heading": "Sign up for exclusive access & limited releases.",
-          "arrow": true
-        }
+  "sections": {
+    "main": {
+      "type": "main-cart",
+      "settings": {
       }
     },
-    "order": ["main","newsletter"]
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Sign up for exclusive access & limited releases.",
+        "arrow": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "newsletter"
+  ]
 }

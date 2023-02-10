@@ -1,61 +1,199 @@
-<a
-    href="{{ product.url }}"
-    class="product-tile block relative text-black hover:text-orange"
->
-    {% if product.tags %}
-    <div class="absolute z-10 left-6 right-6 top-4 border border-black text-center text-xxs uppercase font-semibold p-2 text-black">{{ product.tags.first }}</div>
-    {% endif %}
+{% if product.metafields.custom.check_mark_for_cooton_gray_card %}
+  
+      <a data-product-title="{{ product.metafields.my_fields.promo_box_title }}"
+          href="{{ product.url }}"
+          class="product-tile block relative text-black hover:text-orange group"
+      >
+          {% if product.metafields.my_fields.tag_badge_field %}
+          <div class="boost-pfs-label absolute aspect-square z-[1] flex items-center justify-center left-5 top-5 border border-black text-center text-xxs uppercase font-semibold p-2">{{ product.metafields.my_fields.tag_badge_field }} </div>
+          {% endif %}
+      <span class="smartwishlist pro-thumb-swlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></span>
+          <div class="relative bg-gray-50">
+            
+      
+              {% if product.featured_image %}
+                  <img
+                      src="data:,"
+                      data-src="{{ product.featured_image | image_url: width: 550 }}"
+                      class="{% if product.images[1] %} product-tile__img absolute left-0 top-0 {% endif %} aspect-[3/4] object-cover w-full block lazyload"
+                      width="{{ product.featured_image.width }}"
+                      height="{{ product.featured_image.height }}"
+                      alt="{{ product.featured_image.alt }}"
+                  />
+              {% else %}
+                  {{ 'collection-5' | placeholder_svg_tag: 'aspect-[3/4] object-cover w-full block' }}
+              {% endif %}
+      
+              {% if product.images[1] %}
+                  <img
+                      src="data:,"
+                      data-src="{{ product.images[1] | image_url: width: 550 }}"
+                      class="aspect-[3/4] object-cover w-full block bg-gray-50 lazyload"
+                      width="{{ product.images[1].width }}"
+                      height="{{ product.images[1].height }}"
+                      alt="{{ product.images[1].alt }}"
+                  />
+              {% endif %}
+      
+              <div class="absolute z-10 bottom-0 left-0 w-full opacity-0 group-hover:opacity-100 transition-opacity" id="product_{{product.id}}">
+                  <div
+                      class="js-product-quick-add-to-cart"
+                      data-product='{{ product | json | escape }}'
+                      data-productid = '{{ product.id }}'
+                      data-product-is-available='{{ product.available }}'
+                      data-product-variants='{{ product.variants | json | escape }}'
+                      data-options-with-values='{{ product.options_with_values | json | escape }}'
+                      data-default-variant-id="{{ product.metafields.my_fields.default_variant_id }}"
+                      data-lang-quick-buy="{{ 'product.quick_buy' | t }}"
+                      data-lang-product-unavailable="{{ 'product.product_unavailable' | t }}"
+                  ></div>
+              </div>
+          </div>
+      
+          <div class="mt-4 flex flex-row items-end">
+              <h5 class="flex-auto text-sm font-semibold text-inherit transition-colors">{{ product.title }}</h5>
+      
+              <p class="flex-initial ml-1 text-xs font-medium whitespace-nowrap text-black "> 
+                <!-- START | COMPARE AT PRICE LOGIC -->
+                {% if product.compare_at_price_max > 0 %}
+                    <span class="gnw-copm-pric" style="text-decoration: line-through;">
+                      {{ product.compare_at_price_max|money }}
+                    </span>
+                {% endif %}
+              <!-- END | COMPARE AT PRICE LOGIC --> 
+              {% if product.compare_at_price_max > 0 %}
+                  <span class="gnw-sale-pric" >{{ product.price | money }} <span>
+                {% else %}
+                 {{ product.price | money }}
+              {% endif %}
+       </p>
+          </div>
+      
+          {% assign description = product.description | split: "." %}
+      
+          <p class="mt-1 text-xs font-medium text-[#6F6E6E]" data-test="{{ product_option }}">
+              {%- for product_option in product.options_with_values -%}
+                  {%- if product_option.name == 'Color' -%}
+                     {%- assign color = product.metafields.my_fields.color | split: '|' -%}
+                     {{ color[1] | strip }}
+                  {%- endif -%}
+              {%- endfor -%}
+          </p>
+      
+          <!-- YOTPO STAR RATING (CATEGORY PAGE) | location: snippets > c-product-tile.liquid -->
+          <div id="yotpo-category-stars">
+              <div class="yotpo bottomLine" data-product-id="{{ product.id }}" style="padding: 4px 0 0 0;"></div>
+          </div>
+          <style> #yotpo-category-stars .text-m { padding-left: 4px; } </style>
+          <!-- END | YOTPO STAR RATING (CATEGORY PAGE) -->
+      
+      </a>
 
-    <div class="relative bg-gray-50">
-        {% if product.featured_image %}
-        <img
-            src="data:,"
-            data-src="{{ product.featured_image | image_url: width: 550 }}"
-            class="{% if product.images[1] %} product-tile__img absolute left-0 top-0 {% endif %} aspect-[3/4] object-cover w-full block lazyload"
-            width="{{ product.featured_image.width }}"
-            height="{{ product.featured_image.height }}"
-            alt="{{ product.featured_image.alt }}"
-        />
-        {% else %}
-        {{ 'collection-5' | placeholder_svg_tag: 'aspect-[3/4] object-cover w-full block' }}
-        {% endif %}
+{%- else -%}
+      <a data-product-title="{{product.title}}"
+          href="{{ product.url }}"
+          class="product-tile block relative text-black hover:text-orange group"
+      >
+          {% if product.metafields.my_fields.tag_badge_field %}
+          <div class="boost-pfs-label absolute aspect-square z-[1] flex items-center justify-center left-5 top-5 border border-black text-center text-xxs uppercase font-semibold p-2">{{ product.metafields.my_fields.tag_badge_field }} </div>
+          {% endif %}
+      <span class="smartwishlist pro-thumb-swlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></span>
+          
+  
+  
+            <!--       code start for flat discount for shorts -->
+          
+                {% for collection in product.collections %}
+                  {% if collection.title == "Men's Shorts" %}
+                      <div class="shorts_discount collection_shorts_discount">
+                        <h2 class="shorts_discount_h2 collection_shorts_discount_h2">30% automatically applied at Checkout</h2>
+                      </div>
+                    
+                 {% endif %}
+                {% endfor %}
+                
+          <!--       code end for flat discount for shorts -->
+         
+  
+          <div class="relative bg-gray-50">
+            
+      
+              {% if product.featured_image %}
+                  <img
+                      src="data:,"
+                      data-src="{{ product.featured_image | image_url: width: 550 }}"
+                      class="{% if product.images[1] %} product-tile__img absolute left-0 top-0 {% endif %} aspect-[3/4] object-cover w-full block lazyload"
+                      width="{{ product.featured_image.width }}"
+                      height="{{ product.featured_image.height }}"
+                      alt="{{ product.featured_image.alt }}"
+                  />
+              {% else %}
+                  {{ 'collection-5' | placeholder_svg_tag: 'aspect-[3/4] object-cover w-full block' }}
+              {% endif %}
+      
+              {% if product.images[1] %}
+                  <img
+                      src="data:,"
+                      data-src="{{ product.images[1] | image_url: width: 550 }}"
+                      class="aspect-[3/4] object-cover w-full block bg-gray-50 lazyload"
+                      width="{{ product.images[1].width }}"
+                      height="{{ product.images[1].height }}"
+                      alt="{{ product.images[1].alt }}"
+                  />
+              {% endif %}
+      
+              <div class="absolute z-10 bottom-0 left-0 w-full opacity-0 group-hover:opacity-100 transition-opacity" id="product_{{product.id}}">
+                  <div
+                      class="js-product-quick-add-to-cart"
+                      data-product='{{ product | json | escape }}'
+                      data-productid = '{{ product.id }}'
+                      data-product-is-available='{{ product.available }}'
+                      data-product-variants='{{ product.variants | json | escape }}'
+                      data-options-with-values='{{ product.options_with_values | json | escape }}'
+                      data-default-variant-id="{{ product.metafields.my_fields.default_variant_id }}"
+                      data-lang-quick-buy="{{ 'product.quick_buy' | t }}"
+                      data-lang-product-unavailable="{{ 'product.product_unavailable' | t }}"
+                  ></div>
+              </div>
+          </div>
+      
+          <div class="mt-4 flex flex-row items-end">
+              <h5 class="flex-auto text-sm font-semibold text-inherit transition-colors">{{ product.title }}</h5>
+      
+              <p class="flex-initial ml-1 text-xs font-medium whitespace-nowrap text-black "> 
+                <!-- START | COMPARE AT PRICE LOGIC -->
+                {% if product.compare_at_price_max > 0 %}
+                    <span class="gnw-copm-pric" style="text-decoration: line-through;">
+                      {{ product.compare_at_price_max|money }}
+                    </span>
+                {% endif %}
+              <!-- END | COMPARE AT PRICE LOGIC --> 
+              {% if product.compare_at_price_max > 0 %}
+                  <span class="gnw-sale-pric" >{{ product.price | money }} <span>
+                {% else %}
+                 {{ product.price | money }}
+              {% endif %}
+       </p>
+          </div>
+      
+          {% assign description = product.description | split: "." %}
+      
+          <p class="mt-1 text-xs font-medium text-[#6F6E6E]" data-test="{{ product_option }}">
+              {%- for product_option in product.options_with_values -%}
+                  {%- if product_option.name == 'Color' -%}
+                     {%- assign color = product.metafields.my_fields.color | split: '|' -%}
+                     {{ color[1] | strip }}
+                  {%- endif -%}
+              {%- endfor -%}
+          </p>
+      
+          <!-- YOTPO STAR RATING (CATEGORY PAGE) | location: snippets > c-product-tile.liquid -->
+          <div id="yotpo-category-stars">
+              <div class="yotpo bottomLine" data-product-id="{{ product.id }}" style="padding: 4px 0 0 0;"></div>
+          </div>
+          <style> #yotpo-category-stars .text-m { padding-left: 4px; } </style>
+          <!-- END | YOTPO STAR RATING (CATEGORY PAGE) -->
+      
+      </a>
 
-        {% if product.images[1] %}
-        <img
-            src="data:,"
-            data-src="{{ product.images[1] | image_url: width: 550 }}"
-            class="aspect-[3/4] object-cover w-full block bg-gray-50 lazyload"
-            width="{{ product.images[1].width }}"
-            height="{{ product.images[1].height }}"
-            alt="{{ product.images[1].alt }}"
-        />
-        {% endif %}
-    </div>
-
-    <div class="mt-4 flex flex-row items-end">
-        <h5 class="flex-auto text-sm font-semibold text-inherit transition-colors">{{ product.title }}</h5>
-
-        <p class="flex-initial ml-1 text-xs font-medium whitespace-nowrap text-black">{{ product.price | money }}</p>
-    </div>
-
-    {% assign description = product.description | split: "." %}
-
-    {% if description.first %}
-        <p class="hidden mt-1 text-sm font-medium text-black">{{ description.first | strip_html }}.</p>
-    {% endif %}
-
-    <p class="mt-1 text-xs font-medium text-[#6F6E6E]">
-        {%- for product_option in product.options_with_values -%}
-            {% assign size = product_option.values | size %}
-            {{ size }} {{ product_option.name }}{% if size > 1 %}s{% endif %}{% unless forloop.last %},{% endunless %}
-        {%- endfor -%}
-    </p>
-
-    <!-- YOTPO STAR RATING (CATEGORY PAGE) | location: snippets > c-product-tile.liquid -->
-        <div id="yotpo-category-stars">
-            <div class="yotpo bottomLine" data-product-id="{{ product.id }}" style="padding: 4px 0 0 0;"></div>
-        </div>
-    <style> #yotpo-category-stars .text-m { padding-left: 4px; } </style>
-    <!-- END | YOTPO STAR RATING (CATEGORY PAGE) -->
-
-</a>
+{%- endif -%}

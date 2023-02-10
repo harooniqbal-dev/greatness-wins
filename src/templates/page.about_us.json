@@ -56,10 +56,6 @@
                 "heading_link_label": "Shop Men"
             }
         },
-        "insta_feed": {
-            "type": "insta-feed",
-            "settings": {}
-        },
         "video": {
             "type": "video",
             "disabled": true,
@@ -82,7 +78,6 @@
         "full_width_image-boxes",
         "letter",
         "background_image",
-        "insta_feed",
         "video",
         "newsletter"
     ]

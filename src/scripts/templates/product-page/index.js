@@ -2,4 +2,4 @@
  * Product Page template entery
  */
 
-import "../../components/product-form";
+import "../../components/product-form1";

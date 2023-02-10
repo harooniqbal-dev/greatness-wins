@@ -1,33 +1,77 @@
 {% comment %}
-  image: p.image,
-  date: a.published_at,
-  title: a.title,
-  excerpt: a.excerpt,
-  url: a.url
-  ctaLabe
+image: p.image,
+date: a.published_at,
+title: a.title,
+excerpt: a.excerpt,
+url: a.url
+ctaLabe
 {% endcomment %}
 
-<a href="{{ product.url }}" class="block">
-    {% comment %} {{ product | json }} {% endcomment %}
-    {% if product.featured_image %}
-    <img src="data:," data-src="{{ product.featured_image | image_url: width: 550 }}" class="aspect-[3/4] object-cover w-full block lazyload" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" alt="{{ product.featured_image.alt }}" />
-    {% else %}
-    {{ 'collection-5' | placeholder_svg_tag: 'aspect-[3/4] object-cover w-full block' }}
-    {% endif %}
-
-    <div class="mt-4 flex flex-row items-end">
-        <h5 class="flex-auto text-sm font-semibold">{{ product.title }}</h5>
-        <p class="flex-initial ml-1 text-xs font-medium whitespace-nowrap">{{ product.price | money }}</p>
+<a href="{% if custom_data == true %}{{ custom_url }}{% else %}{{ product.url }}{% endif %}" class="block product-tile group relative">
+  {% comment %} {{ product | json }} {% endcomment %}
+  {% if product.metafields.my_fields.tag_badge_field %}
+    <div class="boost-pfs-label absolute aspect-square z-[1] flex items-center justify-center left-5 top-5 border border-black text-center text-xxs uppercase font-semibold p-2">{{ product.metafields.my_fields.tag_badge_field }}
     </div>
+  {% endif %}
 
-    {% if product.description %}
-        <div class="mt-1 text-sm font-medium">{{ product.description | truncate: 40 | strip_html }}</div>
+  <div class="relative">
+    <span
+      class="smartwishlist pro-thumb-swlist"
+      data-product="{{ product.id }}"
+      data-variant="{{ product.variants.first.id }}"></span>
+
+    {% if product.featured_image %}
+      <img
+        src="data:,"
+        data-src="{{ product.featured_image | image_url: width: 550 }}"
+        class="{% if product.images[1] %} product-tile__img absolute left-0 top-0 {% endif %} aspect-[3/4] object-cover w-full block lazyload"
+        width="{{ product.featured_image.width }}"
+        height="{{ product.featured_image.height }}"
+        alt="{{ product.featured_image.alt }}" />
+    {% else %}
+      {{ 'collection-5' | placeholder_svg_tag: 'aspect-[3/4] object-cover w-full block' }}
     {% endif %}
 
-    <p class="mt-1 text-xs font-medium text-neutral-500">
-        {%- for product_option in product.options_with_values -%}
-            {% assign size = product_option.values | size %}
-            {{ size }} {{ product_option.name }}{% if size > 1 %}s{% endif %}{% unless forloop.last %},{% endunless %}
-        {%- endfor -%}
-    </p>
+    {% if product.images[1] %}
+      <img
+        src="data:,"
+        data-src="{{ product.images[1] | image_url: width: 550 }}"
+        class="aspect-[3/4] object-cover w-full block bg-gray-50 lazyload"
+        width="{{ product.images[1].width }}"
+        height="{{ product.images[1].height }}"
+        alt="{{ product.images[1].alt }}" />
+    {% endif %}
+
+    <div class="absolute z-10 bottom-0 left-0 w-full opacity-0 group-hover:opacity-100 transition-opacity" id="product_{{product.id}}">
+      <div
+        class="js-product-quick-add-to-cart"
+        data-productid='{{ product.id }}'
+        data-product='{{ product | json | escape }}'
+        data-product-is-available='{{ product.available }}'
+        data-product-variants='{{ product.variants | json | escape }}'
+        data-options-with-values='{{ product.options_with_values | json | escape }}'
+        data-default-variant-id="{{ product.metafields.my_fields.default_variant_id }}"
+        data-lang-quick-buy="{{ 'product.quick_buy' | t }}"
+        data-lang-product-unavailable="{{ 'product.product_unavailable' | t }}"></div>
+    </div>
+  </div>
+
+  <div class="mt-4 flex flex-row items-end">
+    <h5 class="flex-auto text-sm font-semibold">
+      {{ product.title }}
+      {% if custom_data == true %}
+        {{ variant_key }}
+      {% endif %}
+    </h5>
+    <p class="flex-initial ml-1 text-xs font-medium whitespace-nowrap">{{ product.price | money }}</p>
+  </div>
+
+  <p class="mt-1 text-xs font-medium text-neutral-500">
+    {%- for product_option in product.options_with_values -%}
+      {%- if product_option.name == 'Color' -%}
+        {%- assign color = product.metafields.my_fields.color | split: '|' -%}
+        {{ color[1] | strip }}
+      {%- endif -%}
+    {%- endfor -%}
+  </p>
 </a>

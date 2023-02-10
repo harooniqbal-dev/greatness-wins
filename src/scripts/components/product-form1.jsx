@@ -13,29 +13,22 @@ import slugify from "slugify";
 
 // Component
 const ProductForm = (props) => {
-    var product = props.product,
-        productType = props.productType,
-        optionsWithValues = props.optionsWithValues,
-        productFormId = props.productFormId,
-        relatedItems = props.relatedItems,
-        relatedItemsColors = props.relatedItemsColors,
-        relatedItemsUrls = props.relatedItemsUrls,
-        relatedItemsTitles = props.relatedItemsTitles,
-        relatedItemsMultiColors = props.relatedItemsMultiColors,
-        relatedColor = props.relatedColor,
-        relatedMultiColor = props.relatedMultiColor,
-        type = props.type,
-        action = props.action,
-        beforeAddToCartDescription = props.beforeAddToCartDescription,
-        variantColors = props.variantColors,
-        langAddToCart = props.langAddToCart,
-        langColors = props.langColors,
-        langProductUnavailable = props.langProductUnavailable,
-        variantImages = props.variantImages;
-    var cartDrawerElement = document.querySelector(".js-cart-drawer");
-    var description = product.description;
+    const {
+        product,
+        optionsWithValues,
+        productFormId,
+        type,
+        action,
+        beforeAddToCartDescription,
+        variantColors,
+        langAddToCart,
+        langColors,
+        langProductUnavailable,
+        variantImages,
+    } = props;
+    const cartDrawerElement = document.querySelector(".js-cart-drawer");
 
-
+    const { description } = product;
 
     const [selectedOptionsHistory, setSelectedOptionsHistory] = useState([]);
     const [currentVariant, setCurrentVariant] = useState(null);
@@ -45,23 +38,11 @@ const ProductForm = (props) => {
         if (product.variants.length === 1) {
             setCurrentVariant(product.variants[0]);
         }
-        var initColorPosition = getColorPosition(optionsWithValues);
-        var initColorValue = "";
-        if (productType !== "Gift Cards") {
-            initColorValue = relatedColor.trim().split("|")[1];
-        }
-        setSelectedOptionsHistory((prevSelectedOptionsHistory) => [
-            ...prevSelectedOptionsHistory,
-            {
-                position: initColorPosition,
-                value: initColorValue
-            },
-        ]);
     }, []);
 
     // Call assign variant based on selected options
     useEffect(() => {
-        // assignVariant();
+        assignVariant();
     }, [selectedOptionsHistory]);
 
     // Assign variant based on selected options
@@ -131,13 +112,33 @@ const ProductForm = (props) => {
                 value,
             },
         ]);
+
+        if (e.target.name.toLowerCase() === "option_color") {
+            const variantSubsetToUse = variantImages.find((variant) =>
+                variant.options.includes(value)
+            );
+            if (!variantSubsetToUse) return;
+
+            const variantImagesArr = variantSubsetToUse.images;
+            replaceProductImages(variantImagesArr);
+        }
+    };
+
+    const replaceProductImages = (newImages) => {
+        if (!newImages) return;
+
+        const imagesWrapper = document.querySelector(".js-product-images-set");
+        const imageFigures = imagesWrapper.querySelectorAll(".js-product-image-figure");
+
+        [...imageFigures].forEach((figure, index) => {
+            figure.firstElementChild.src = newImages[index];
+            figure.style.backgroundImage = `url(${newImages[index]})`;
+        });
     };
 
     // Get current selected option value
     const getCurrentOptionValue = (position) => {
-        console.log("inside",selectedOptionsHistory,position);
         const _selectedOptionsHistory = selectedOptionsHistory.slice();
-        console.log("selected history",_selectedOptionsHistory)
         const option = _selectedOptionsHistory
             .reverse()
             .find((option) => option.position === parseInt(position, 10));
@@ -199,43 +200,100 @@ const ProductForm = (props) => {
         );
     }
 
-    var relatedItemsBoxes = function relatedItemsBoxes() {
-        if (!relatedItems) return;
-        var itemsIds = relatedItems.split(",");
-        var itemsColors = relatedItemsColors.split(",");
-        var itemsMultiColors = relatedItemsMultiColors.split("|");
-        var itemsUrls = relatedItemsUrls.split(",");
-        var itemsTitles = relatedItemsTitles.split(",");
-        if (!itemsColors) return;
-        var items = [];
-        itemsIds.forEach(function (item, index) {
-            items.push({
-                color: itemsColors[index] ? itemsColors[index].replace(/\s+$/, "") : "rgba(0,0,0, 0.5)",
-                multiColor: itemsMultiColors[index] ? itemsMultiColors[index] : false,
-                url: itemsUrls[index] ? itemsUrls[index] : "#",
-                title: itemsTitles[index] ? itemsTitles[index] : product.title
-            });
-        });
-        return items.sort((a, b) => a.url.localeCompare(b.url))
-    };
-
     // Options display in case of available variants
     const optionsDisplay = optionsWithValues.map((option, index) => {
         const wrapperClassName = parseInt(option.position, 10) === 1 ? "mt-1" : "mt-3";
         const optionNameSlug = `option_${slugify(option.name.toLowerCase(), "_")}`;
-        var relatedItemsObj = relatedItemsBoxes();
+
         if (product.variants.length > 1) {
-            if (relatedItemsObj && relatedItemsObj.length > 0) {
+            if (option.name.toLowerCase() === "color") {
+                // Color options
                 return (
                     <div className={wrapperClassName}>
                         <span className="block text-xxs font-family-heading uppercase">
                             {langColors}
-                            {/* {getCurrentColorDisplay(getCurrentOptionValue(index + 1))} */}
+                            {getCurrentColorDisplay(getCurrentOptionValue(index + 1))}
                         </span>
+
+                        <div className="mt-2 flex flex-row flex-wrap -mx-[0.125rem]">
+                            {option.values.map((color) => {
+                                let labelClassName =
+                                    "block pt-[100%] bg-mercury cursor-pointer border border-solid border-transparent hover:border-pomegranate ";
+                                labelClassName +=
+                                    color.toLowerCase() === "black"
+                                        ? "peer-checked:border-pomegranate"
+                                        : "peer-checked:border-black";
+
+                                const colorSlug = slugify(color, "_");
+
+                                return (
+                                    <div
+                                        className="mt-1 px-[0.125rem] w-1/6 sm:w-1/8 lg:w-1/6"
+                                        key={uuid()}
+                                    >
+                                        <input
+                                            type="radio"
+                                            className="absolute h-0 w-0 opacity-0 invisible peer"
+                                            name={optionNameSlug}
+                                            id={`${optionNameSlug}_${colorSlug}`}
+                                            value={color}
+                                            data-position={option.position}
+                                            onChange={handleValueChange}
+                                            checked={getCurrentOptionValue(index + 1) === color}
+                                        />
+                                        <label
+                                            htmlFor={`${optionNameSlug}_${colorSlug}`}
+                                            className={labelClassName}
+                                            aria-label={color}
+                                            style={{
+                                                backgroundColor: variantColorsProcessed[color],
+                                            }}
+                                        />
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
-                )
+                );
             }
+            // Default options
+            return (
+                <div className={wrapperClassName}>
+                    <span className="block text-xxs font-family-heading uppercase">
+                        {option.name}
+                    </span>
+
+                    <div className="mt-[0.4375rem] flex flex-row flex-wrap -mx-[0.125rem]">
+                        {option.values.map((value) => {
+                            const valueSlug = slugify(value, "_");
+
+                            return (
+                                <div className="mt-1 px-[0.125rem] w-full sm:w-1/2" key={uuid()}>
+                                    <input
+                                        type="radio"
+                                        className="absolute h-0 w-0 opacity-0 invisible peer"
+                                        name={optionNameSlug}
+                                        id={`${optionNameSlug}_${valueSlug}`}
+                                        value={value}
+                                        data-position={option.position}
+                                        onChange={handleValueChange}
+                                        checked={getCurrentOptionValue(index + 1) === value}
+                                    />
+                                    <label
+                                        htmlFor={`${optionNameSlug}_${valueSlug}`}
+                                        className="block bg-mercury text-center px-1 py-2 text-xxs leading-5 font-family-heading cursor-pointer border border-solid border-transparent peer-checked:border-black hover:border-pomegranate"
+                                    >
+                                        {value}
+                                    </label>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
         }
+
+        return "";
     });
 
     return (
@@ -247,7 +305,7 @@ const ProductForm = (props) => {
                 dangerouslySetInnerHTML={{ __html: description }}
             />
 
-           
+            <div className="mt-5">{optionsDisplay}</div>
 
             <p className="mt-6 uppercase text-xxs leading-5">{beforeAddToCartDescription}</p>
 
@@ -263,8 +321,9 @@ const ProductForm = (props) => {
 
             <button
                 type="button"
-                className={`text-center font-family-heading text-xxs py-5 px-5 uppercase leading-none rounded-3xl border border-solid tracking-widest focus-visible:outline-none transition-colors focus:outline focus:outline-2 focus:outline-orange focus:outline-offset-2 text-white border-black bg-black hover:text-black hover:bg-transparent focus:text-black focus:bg-transparent block w-full mt-5${currentVariant === null || !currentVariant.available ? " opacity-50" : ""
-                    }`}
+                className={`text-center font-family-heading text-xxs py-5 px-5 uppercase leading-none rounded-3xl border border-solid tracking-widest focus-visible:outline-none transition-colors focus:outline focus:outline-2 focus:outline-orange focus:outline-offset-2 text-white border-black bg-black hover:text-black hover:bg-transparent focus:text-black focus:bg-transparent block w-full mt-5${
+                    currentVariant === null || !currentVariant.available ? " opacity-50" : ""
+                }`}
                 disabled={currentVariant === null || !currentVariant.available}
                 onClick={handleAddToCart}
             >
@@ -276,7 +335,6 @@ const ProductForm = (props) => {
 
 // Initialize and pass variales to component if element exists
 const productFormElement = document.getElementById("product-form");
-console.log("product form",productFormElement)
 if (productFormElement) {
     // Assign variant colors from metafields
     const variantColors = [];
@@ -293,19 +351,14 @@ if (productFormElement) {
         }
     });
 
+    const variantImages = JSON.parse(`${productFormElement.dataset.variantImages.slice(0, -2)}]`);
+    const filteredVariantImages = variantImages.filter((el) => el.images.length !== 0);
 
     // Render component
     render(
         <ProductForm
+            variantImages={filteredVariantImages}
             product={JSON.parse(productFormElement.dataset.product)}
-            productType={productFormElement.dataset.productType}
-            relatedItems={productFormElement.dataset.relatedItems}
-            relatedItemsColors={productFormElement.dataset.relatedItemsColors}
-            relatedItemsUrls={productFormElement.dataset.relatedItemsUrls}
-            relatedItemsTitles={productFormElement.dataset.relatedItemsTitles}
-            relatedItemsMultiColors={productFormElement.dataset.relatedItemsMultiColors}
-            relatedColor={productFormElement.dataset.relatedColor}
-            relatedMultiColor={productFormElement.dataset.relatedMultiColor}
             optionsWithValues={JSON.parse(productFormElement.dataset.optionsWithValues)}
             productFormId={productFormElement.dataset.productFormId}
             type={productFormElement.dataset.type}

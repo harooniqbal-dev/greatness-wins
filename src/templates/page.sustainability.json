@@ -38,7 +38,7 @@
             "type": "newsletter",
             "settings": {
                 "heading": "Sign up for exclusive access & limited releases.",
-                "arrow": true,
+                "arrow": true
             }
         }
     },

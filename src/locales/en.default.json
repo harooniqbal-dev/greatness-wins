@@ -4,13 +4,15 @@
       "header": "Be The First to Know",
       "email": "Email Address",
       "cta": "Confirm & send",
-      "post_success": "Thanks for contacting us. We'll get back to you as soon as possible."
+      "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
+      "already_subscribed": "You are already on the list. Stay tuned!"
     }
   },
   "newsletter": {
     "form": {
       "email": "Enter Email Address",
       "post_success": "You've successfully subscribed to our newsletter",
+      "already_subscribed": "We already have you on the list. Thank you!",
       "cta": "Sign up to receive a coupon"
     },
     "background_alt": "Newsletter image"
@@ -72,11 +74,11 @@
     },
     "product_recommendations": {
       "colors": "Colors",
-      "pairs_well_with": "Pairs well with"
+      "pairs_well_with": "Also bought with"
     }
   },
   "navigation": {
-    "top_banner_text": "Free shipping on orders over $100!",
+    "top_banner_text": "Free shipping on orders over $75!",
     "top_banner_close_button_label": "Close banner",
     "open_menu_label": "Open mobile navigation",
     "close_menu_label": "Close mobile navigation",
@@ -100,6 +102,9 @@
     "socials": {
       "facebook": "Facebook",
       "linkedin": "LinkedIn",
+      "instagram": "Instagram",
+      "tiktok": "TikTok",
+      "twitter": "Twitter",
       "on": "on",
       "opens_in_a_new_tab": "Opens in a new tab"
     }
@@ -108,8 +113,9 @@
     "reviews": "reviews",
     "add_to_cart": "Add to cart",
     "colors": "colors",
-    "product_unavailable": "This product is unavailable",
-    "product_inseam": "Inseam"
+    "product_unavailable": "Notify Me....!",
+    "product_inseam": "Inseam",
+    "quick_buy": "Quick buy"
   },
   "user": {
     "main": {
@@ -169,7 +175,7 @@
         "city": "City",
         "country": "Country",
         "province": "State",
-        "zip": "ZIP/Postal Code",
+        "zip": "ZIP\/Postal Code",
         "phone": "Phone Number",
         "default": "Set as default address",
         "cta_new": "Add address",
@@ -189,12 +195,13 @@
     "shipping_cost_heading": "Shipping",
     "free_shipping_heading": "Free",
     "subtotal": "Subtotal",
+    "view_cart": "View Cart",
     "cost_info": "Taxes and shipping will be calculated at checkout",
     "discount_code": "Have a discount code? Enter it at checkout.",
     "checkout_link": "Proceed to checkout",
     "empty_cart": {
       "heading": "Your cart is empty. Let's fill it.",
-      "bottom_copy": "Reminder free shipping on orders over $100!"
+      "bottom_copy": "Reminder free shipping on orders over $75!"
     },
     "shipping": {
       "away": "You are {0} away from free shipping",

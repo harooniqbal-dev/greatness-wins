@@ -1,20 +1,31 @@
 {
-    "sections": {
-      "main": {
-        "type": "main-collection",
-        "settings": {
-          "heading": "Related Products",
-          "max_products": 4,
-          "related_by": "tags"
-        }
-      },
-      "newsletter": {
-        "type": "newsletter",
-        "settings": {
-          "heading": "Sign up for exclusive access & limited releases.",
-          "arrow": false,
-        }
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "margin_top": "mt-0",
+        "margin_bottom": "mb-0",
+        "padding_top": "pt-0",
+        "padding_bottom": "pb-0",
+        "heading": "Related Products",
+        "max_products": 4,
+        "image": "shopify:\/\/shop_images\/Tops_17e7f36c-1ee0-4746-93b6-1e79e5eafaa2.webp",
+        "lazyload": false,
+        "related_by": "tags"
       }
     },
-    "order": ["main","newsletter"]
-  }
+    "0aea672b-68bb-4c84-8a52-e484dd5e97f0": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Sign up for exclusive access & limited releases.",
+        "arrow": true,
+        "background_color": "",
+        "background_image": "shopify:\/\/shop_images\/051122_GreatnessWins_OrangMesh_Banner_001_1920x_1af91fa9-5f15-4947-a56a-1afb460c5842.webp"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "0aea672b-68bb-4c84-8a52-e484dd5e97f0"
+  ]
+}

@@ -5,5 +5,5 @@ development:
   directory: dist
   ignore_files:
   - config/settings_data.json
-    src/templates/**/*
+    templates/**/*
   timeout: 1m0s

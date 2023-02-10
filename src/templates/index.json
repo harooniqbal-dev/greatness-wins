@@ -1,76 +1,160 @@
 {
 	"sections": {
-		"hero": {
-			"type": "background-image",
-			"settings": {
-
-			}
-		},
-		"text_in_columns": {
-			"type": "text-in-columns",
-			"settings": {
-
-			}
-		},
-		"image_boxes": {
-			"type": "full-width-image-boxes",
-			"blocks": {
-
-			},
-			"settings": {
-
-			},
-			"block_order": []
-		},
-		"product_slider": {
-			"type": "product-cards-slider",
-			"settings": {
-				"heading": "New arrivals",
-				"collection": "new-arrivals",
-				"cta_label": "View all"
-			}
-		},
-
-		"images_slider": {
-			"type": "images-slider",
-			"blocks": {},
-			"block_order": [],
-			"settings": {}
-		},
-		"articles": {
-			"type": "articles",
-			"blocks": {},
-			"block_order": [],
-			"settings": {}
-		},
-
-		"video": {
-			"type": "video",
-			"blocks": {},
-			"block_order": [],
-			"settings": {}
-		},
-
-		"newsletter": {
-			"type": "newsletter",
-			"blocks": {},
-			"block_order": [],
-			"settings": {
-				"heading": "Sign up for exclusive access & limited releases.",
-				"background_color": "#000000"
-			}
+	  "hero": {
+		"type": "background-image",
+		"settings": {
+		  "image": "shopify:\/\/shop_images\/GW_shorts_sale_banner_-_dektop.webp",
+		  "lazyload": true,
+		  "mask_color": "",
+		  "mask_opacity": 0,
+		  "size": "md"
 		}
-
-
+	  },
+	  "text_in_columns": {
+		"type": "text-in-columns",
+		"settings": {
+		  "title": "Introducing Greatness Wins",
+		  "left_column_lead": "<p><strong>Born from a desire for high quality, great fitting athletic wear we just weren’t seeing on the market, Greatness Wins is a curated collection of premium performance apparel.<\/strong><\/p>",
+		  "left_column": "",
+		  "right_column": "<p>Anyone committed to achieving their personal best deserves the best. Current athletic apparel just isn’t delivering. Brands have lost sight of what really matters: providing the best possible product. Athleisure is good looking but ultimately designed for grabbing coffee or lounging on the couch, not anchored in working out. So, we’re going back to basics. Back to sport.<\/p><p>Our clothing is powered by innovative technical fabrics that work hard, wash well, and actually last. We prioritize superior fits you can depend on to stay the same, product to product, year after year. And we value clean, timeless style. It’s not about bells and whistles; it’s about quality, fit and performance above all else. Making great athletic apparel isn’t only about comfort, fit and durability. Sustainability is also of the upmost importance to us. It’s about the people who create it, the materials it’s made from and its impact on our environment. This is what a great sportswear brand is. This is why Greatness Wins.<\/p>",
+		  "margin_top": "mt-0",
+		  "margin_bottom": "mb-8",
+		  "padding_top": "pt-0",
+		  "padding_bottom": "pb-0"
+		}
+	  },
+	  "image_boxes": {
+		"type": "full-width-image-boxes",
+		"blocks": {
+		  "ac1eebc2-6995-44fc-a27e-01a9348ce0a6": {
+			"type": "item",
+			"settings": {
+			  "image": "shopify:\/\/shop_images\/New-Arrivals.webp",
+			  "url": "shopify:\/\/collections\/new-arrivals",
+			  "title": "New Arrivals",
+			  "description": ""
+			}
+		  },
+		  "ab357336-4a4e-4440-b4e0-e64e5ab668f1": {
+			"type": "item",
+			"settings": {
+			  "image": "shopify:\/\/shop_images\/Bottoms_2d07e0cf-7054-42cf-a39c-fc1d59b5354e.webp",
+			  "url": "shopify:\/\/collections\/new-arrivals",
+			  "title": "Bottoms",
+			  "description": ""
+			}
+		  },
+		  "20d1dcae-f92e-4d83-8fa5-178448b57302": {
+			"type": "item",
+			"settings": {
+			  "image": "shopify:\/\/shop_images\/Tops_17e7f36c-1ee0-4746-93b6-1e79e5eafaa2.webp",
+			  "url": "shopify:\/\/collections\/new-arrivals",
+			  "title": "tops",
+			  "description": ""
+			}
+		  },
+		  "b50002e0-a23b-4504-8546-7deded8ab0d7": {
+			"type": "item",
+			"settings": {
+			  "image": "shopify:\/\/shop_images\/Golf.webp",
+			  "url": "shopify:\/\/collections\/new-arrivals",
+			  "title": "golf",
+			  "description": ""
+			}
+		  }
+		},
+		"block_order": [
+		  "ac1eebc2-6995-44fc-a27e-01a9348ce0a6",
+		  "ab357336-4a4e-4440-b4e0-e64e5ab668f1",
+		  "20d1dcae-f92e-4d83-8fa5-178448b57302",
+		  "b50002e0-a23b-4504-8546-7deded8ab0d7"
+		],
+		"settings": {
+		  "styling": "simple",
+		  "margin_top": "mt-0",
+		  "margin_bottom": "mb-0",
+		  "padding_top": "pt-0",
+		  "padding_bottom": "pb-0"
+		}
+	  },
+	  "product_slider": {
+		"type": "product-cards-slider",
+		"settings": {
+		  "heading": "New arrivals",
+		  "collection": "new-arrivals",
+		  "cta_label": "View all",
+		  "margin_top": "mt-0",
+		  "margin_bottom": "mb-0",
+		  "padding_top": "pt-0",
+		  "padding_bottom": "pb-0"
+		}
+	  },
+	  "images_slider": {
+		"type": "images-slider",
+		"blocks": {
+		  "5d3d2b01-7c69-4a53-9d9a-7c336ca1f8e8": {
+			"type": "image_slider_item",
+			"settings": {
+			  "image_slider_item_image": "shopify:\/\/shop_images\/About-Us.webp",
+			  "image_slider_item_title": "About Us",
+			  "image_slider_item_url": "shopify:\/\/pages\/contact"
+			}
+		  }
+		},
+		"block_order": [
+		  "5d3d2b01-7c69-4a53-9d9a-7c336ca1f8e8"
+		],
+		"settings": {
+		  "margin_top": "mt-0",
+		  "margin_bottom": "mb-0",
+		  "padding_top": "pt-0",
+		  "padding_bottom": "pb-0"
+		}
+	  },
+	  "articles": {
+		"type": "articles",
+		"disabled": true,
+		"settings": {
+		  "heading": "",
+		  "blog": "",
+		  "article_cta_label": "Read more",
+		  "cta_label": "Read more",
+		  "cta_url": "",
+		  "margin_top": "mt-0",
+		  "margin_bottom": "mb-0",
+		  "padding_top": "pt-0",
+		  "padding_bottom": "pb-0"
+		}
+	  },
+	  "video": {
+		"type": "video",
+		"settings": {
+		  "poster": "shopify:\/\/shop_images\/Jeter-Frame.jpg",
+		  "url": "https:\/\/youtu.be\/38y_1EWIE9I",
+		  "margin_top": "mt-0",
+		  "margin_bottom": "mb-0",
+		  "padding_top": "pt-0",
+		  "padding_bottom": "pb-0"
+		}
+	  },
+	  "newsletter": {
+		"type": "newsletter",
+		"settings": {
+		  "heading": "Sign up for exclusive access & limited releases.",
+		  "arrow": true,
+		  "background_color": "#000000",
+		  "background_image": "shopify:\/\/shop_images\/GW_Fabric_1920x_4d91fe9c-747a-483e-9719-68913d283582.jpg"
+		}
+	  }
 	},
 	"order": [
-		"hero",
-		"text_in_columns",
-		"image_boxes",
-		"product_slider",
-		"images_slider",
-		"articles",
-		"video",
-		"newsletter"
+	  "hero",
+	  "text_in_columns",
+	  "image_boxes",
+	  "product_slider",
+	  "images_slider",
+	  "articles",
+	  "video",
+	  "newsletter"
 	]
-}
+  }

@@ -1,21 +1,12 @@
-{% comment %}
-Info: Collection template
-URL:
-* /collections/{collection-handle}
-* /collections/{collection-handle}/{tag}
-{% endcomment %}
-
-{% render "boost-pfs-theme-config" %}
-
-<section class="collection">
-  {% assign s = section.settings %}
-
-{% render 's-hero',
-  background_image: s.image,
-  lazyload: s.lazyload
-%}
-
-
+<section class="collection js-collection-page">
+  <h1 class="sr-only">{{ collection.title }}</h1>
+  {% if collection.handle == 'all' %}
+    {% section 'hero' %}
+  {% else %}
+    {% render 's-hero'
+     , background_image: collection.metafields.my_fields.collection_hero_image,
+     lazyload: false %}
+  {% endif %}
 
   <div class="hidden lg:flex px-6 py-2 shadow-sm items-center">
     <div class="flex-grow">{% render "c-breadcrumbs" %}</div>
@@ -38,11 +29,6 @@ URL:
   <div class="px-6 py-12">
     <div class="flex flex-wrap lg:flex-nowrap">
       <div class="flex-initial w-full lg:w-64">
-        <div>
-          <h1 class="text-3xl font-semibold">{{ collection.title }}</h1>
-
-          <p class="mt-4">{{ collection.description }}</p>
-        </div>
 
         <div class="grid gap-4 grid-cols-2 lg:hidden text-center mt-8">
           <div class="py-1 border-y border-black border-solid">
@@ -74,7 +60,7 @@ URL:
           </div>
 
           <div>
-            <ul class="border-b border-solid border-black">
+            <ul>
               {% for link in linklists.collections.links %}
                 <li class="border-t border-solid border-black" {% if link.links %}data-accordion="container"{% endif %}>
                   <div class="p-4 flex items-center">
@@ -124,7 +110,7 @@ URL:
             </ul>
           </div>
 
-          <div class="mt-10">
+          <div>
             <h5 class="p-4 pl-0 flex items-center">
               <span class="flex-initial">
                 {% render "i-filters" %}
@@ -141,114 +127,139 @@ URL:
           </div>
         </div>
       </div>
+      <div class="flex-initial w-full lg:flex-1 lg:ml-10 lg:w-auto mt-10 lg:mt-0 js-main-collection-wrapper">
+        <div class="js-main-collection-grid{% if collection.metafields.my_fields.show_promo_banner %} collection__grid_wrap boost-pfs-filter-products {% else %} grid gap-4 lg:gap-8 lg:pl-16 collection__grid boost-pfs-filter-products {% endif %}">
+          {%- paginate collection.products by 24 -%}
+            {%- for product in collection.products -%}
+              {% if product.metafields.custom.fleece_hoodie_img == blank %}
+                <div
+                  class="already-loaded product-type-promo"
+                  style="display: none"
+                  data-product-title="{{ product.title }}"
+                  data-product-type="{{ product.title }}"
+                  data-promo-title="{{ product.metafields.my_fields.promo_box_title }}"
+                  data-promo-description="{{ product.metafields.my_fields.promo_box_description }}">
+                  <h2>{{ product.title }}</h2>
 
-      <div class="flex-initial w-full lg:flex-1 lg:ml-10 lg:w-auto mt-10 lg:mt-0">
-        <div class="grid gap-4 lg:gap-8 lg:pl-16 collection__grid boost-pfs-filter-products">
-          {% for c in collections %}
-            <div class="col-start-1 relative bg-black flex justify-center items-center text-center">
-              {% if c.image %}
-                <img
-                  class="absolute left-0 top-0 w-full h-full object-cover lazyload"
-                  src="data:,"
-                  data-src="{{ product.collections.first.image | img_url: '720x' }}"
-                  alt="{{ product.collections.first.title }}">
+                  <p>{{ product.metafields.my_fields.promo_box_description }}</p>
+
+
+                </div>
+              {% else %}
+                <div
+                  class="already-loaded product-type-promo gry-card-sty"
+                  style="display: none"
+                  data-product-title="{{ product.metafields.my_fields.promo_box_title }}"
+                  data-product-type="{{ product.metafields.my_fields.promo_box_title }}"
+                  data-promo-title="{{ product.metafields.my_fields.promo_box_title }}"
+                  data-promo-description="{{ product.metafields.my_fields.promo_box_description }}">
+                  <h2>{{ product.metafields.my_fields.promo_box_title }}</h2>
+
+                  <p>{{ product.metafields.my_fields.promo_box_description }}</p>
+
+
+
+                  <h6 class="gry-card-h6">{{ product.metafields.my_fields.fare_trade }}</h6>
+                  <p class="gry-card-p">{{ product.metafields.custom.fair_trade_discription }}</p>
+
+
+                  {{ product.metafields.custom.fleece_hoodie_img | img_tag }}
+                </div>
               {% endif %}
+              {% comment %}               <div class="already-loaded product-type-promo" style="display: none" data-product-title="{{ product.title }}" data-product-type="{{ product.title }}" data-promo-title="{{ product.metafields.my_fields.promo_box_title }}" data-promo-description="{{ product.metafields.my_fields.promo_box_description }}">
+              <h2>{{ product.title }}</h2>
 
-              <p class="relative text-white text-3xl font-bold uppercase">{{ c.metafields.my_fields.collection_preview_title }}</p>
-            </div>
-
-            {% for product in c.products %}
-              {% render "c-product-tile" 
+              <p>{{ product.metafields.my_fields.promo_box_description }}</p>
+              </div> {% endcomment %}
+              {% render "c-product-tile"
                , product: product %}
-            {% endfor %}
-          {% endfor %}
+            {%- endfor -%}
+          {%- endpaginate -%}
         </div>
 
         <div class="boost-pfs-filter-bottom-pagination"></div>
         <div class="boost-pfs-filter-load-more"></div>
 
         <div class="mt-7 border-t border-solid border-black">
-       
+          {% assign s = section.settings %}
 
-            {% if s.related_by == "vendor" %}
-                {%- capture collectionTags -%}
-                    {%- for product in collection.products -%}{{ product.vendor }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}
-                {%- endcapture -%}
-            {% else %}
-                {%- capture collectionTags -%}
-                    {%- for product in collection.products -%}
-                        {%- for tag in product.tags -%}{{ tag }}{% unless forloop.last %},{% endunless %}{%- endfor -%}{%- unless forloop.last -%},{%- endunless -%}
-                    {%- endfor -%}
-                {%- endcapture -%}
-            {% endif %}
-            
-            {% assign tagsArray = collectionTags | split: "," %}
-            {% assign unique = tagsArray | uniq %}
-            
-            {% assign final = "" %}
-            {% assign max = 0 %}
-            
-            {% for uniqueTag in unique %}
-                {% assign uniqueTagCounter = 0 %}
-            
-                {% for tag in tagsArray %}
-                    {% if tag == uniqueTag %}
-                        {% assign uniqueTagCounter = uniqueTagCounter | plus: 1 %}
-                    {% endif %}
-                {% endfor %}
-            
-                {% if uniqueTagCounter > max %}
-                    {% assign max = uniqueTagCounter %}
-                    {% assign final = uniqueTag %}
-                {% endif %}
+          {% if s.related_by == "vendor" %}
+            {%- capture collectionTags -%}
+              {%- for product in collection.products -%}
+                {{ product.vendor }}{%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            {%- endcapture -%}
+          {% else %}
+            {%- capture collectionTags -%}
+              {%- for product in collection.products -%}
+                {%- for tag in product.tags -%}
+                  {{ tag }}{% unless forloop.last %},{% endunless %}
+                {%- endfor -%}
+                {%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            {%- endcapture -%}
+          {% endif %}
+
+          {% assign tagsArray = collectionTags | split: "," %}
+          {% assign unique = tagsArray | uniq %}
+
+          {% assign final = "" %}
+          {% assign max = 0 %}
+
+          {% for uniqueTag in unique %}
+            {% assign uniqueTagCounter = 0 %}
+
+            {% for tag in tagsArray %}
+              {% if tag == uniqueTag %}
+                {% assign uniqueTagCounter = uniqueTagCounter | plus: 1 %}
+              {% endif %}
             {% endfor %}
-            
-            <div class="{{ s.margin_top }} {{ s.margin_bottom }} {{ s.padding_top }} {{ s.padding_bottom }}">
-                <section class="pt-12 pb-20">
-                    {% if s.heading != "" %}
-                        <h4 class="block font-family-heading text-lg uppercase">{{ s.heading }}</h4>
+
+            {% if uniqueTagCounter > max %}
+              {% assign max = uniqueTagCounter %}
+              {% assign final = uniqueTag %}
+            {% endif %}
+          {% endfor %}
+
+          <div class="{{ s.margin_top }} {{ s.margin_bottom }} {{ s.padding_top }} {{ s.padding_bottom }}">
+            <section class="pt-12 pb-20">
+              {% if s.heading != "" %}
+                <h4 class="block font-family-heading text-lg uppercas js-collection-related-products-heading">{{ s.heading }}</h4>
+              {% endif %}
+
+              <div class="grid gap-6 grid-cols-2 sm:grid-cols-4 mt-6 js-collection-related-products-wrapper">
+                {% assign iterator = 0 %}
+
+                {% for product in collections.all.products %}
+                  {% if s.related_by == "vendor" %}
+                    {% if product.vendor == final %}
+                      {% render "c-product-tile"
+                       , product: product %}
+
+                      {% assign iterator = iterator | plus: 1 %}
+
+                      {% if iterator >= s.max_products %}
+                        {% break %}
+                      {% endif %}
                     {% endif %}
-            
-                    <div class="grid gap-6 grid-cols-2 sm:grid-cols-4 mt-6">
-                        {% assign iterator = 0 %}
-            
-                        {% for product in collections.all.products %}
-                            {% if s.related_by == "vendor" %}
-                                {% if product.vendor == final %}
-                                    {% render "c-product-tile",
-                                        product: product
-                                    %}
-            
-                                    {% assign iterator = iterator | plus: 1 %}
-            
-                                    {% if iterator >= s.max_products %}
-                                        {% break %}
-                                    {% endif %}
-                                {% endif %}
-                            {% else %}
-                                {% if product.tags contains final %}
-                                    {% render "c-product-tile",
-                                        product: product
-                                    %}
-            
-                                    {% assign iterator = iterator | plus: 1 %}
-            
-                                    {% if iterator >= s.max_products %}
-                                        {% break %}
-                                    {% endif %}
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </section>
-            </div>
-            
-          
+                  {% else %}
+                    {% if product.tags contains final %}
+                      {% render "c-product-tile"
+                       , product: product %}
+
+                      {% assign iterator = iterator | plus: 1 %}
+
+                      {% if iterator >= s.max_products %}
+                        {% break %}
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-
-{% schema 'main-collection' %}

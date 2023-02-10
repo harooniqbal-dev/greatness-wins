@@ -22,7 +22,12 @@ module.exports = {
         blog_page: path.resolve(
             __dirname,
             "./src/scripts/templates/blog-page/index.js"
+        ),
+        collection_page: path.resolve(
+            __dirname,
+            "./src/scripts/templates/collection-page/index.js"
         )
+
     },
     output: {
         path: path.resolve(__dirname, "dist/assets"),
@@ -117,6 +122,11 @@ module.exports = {
                 {
                     context: "src/",
                     from: "templates/**/*.json",
+                    to: path.resolve(__dirname, "dist"),
+                },
+                {
+                    context: "src/",
+                    from: "templates/**/*.liquid",
                     to: path.resolve(__dirname, "dist"),
                 },
             ],

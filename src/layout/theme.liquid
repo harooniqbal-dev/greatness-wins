@@ -13,7 +13,281 @@
     {%- render 'variables-css' -%}
 
     {{ 'default_page.css' | asset_url | stylesheet_tag }}
+    <style>
+      .intro-gw-sec p{font-weight:normal;}
+.intro-gw-sec { padding:50px 0; }
+.collection-header > div h2 {
+    max-width: 350px;
+    font-size: 36px;
+}
 
+.collection-item-wrapper {
+    margin-bottom: 30px;
+}
+.cust-em-logo {
+    text-align: center;
+    margin-bottom: 50px;
+}
+.cust-em-logo img {
+    display: inline-block;
+    max-width: 200px;
+}
+.product-type-promo {
+    background: #f6f6f6;
+    text-align: center;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-transform: uppercase;
+    padding: 0 15px;
+}
+
+.product-type-promo h2 {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: bold;
+    max-width: 280px;
+}
+
+.product-type-promo p {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: none;
+    margin-top: 16px;
+    max-width: 90%;
+}
+
+.collection-header > div {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+}
+
+.product-type-promo[data-product-title="Core Tech Quarter Zip"] h2,
+.product-type-promo[data-product-title="Performance Training Quarter Zip"] h2 {
+    max-width: 250px;
+}
+
+.cart-items-count {
+    background-color: #2f2f2f;
+    color: #fff;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    top: -10px;
+    text-align: center;
+}
+img[alt="Chris signature"] {
+    margin-left: 0;
+    max-width: 280px;
+}
+.smartwishlist {
+    font-size: 12px !important;
+    position: absolute;
+    display: none !important;
+}
+/* chat icon hide */
+
+iframe#dummy-chat-button-iframe {
+    display: none !important;
+}
+/* chat icon hide */
+@media only screen and (min-width: 768px) {
+    .product-type-promo h2 {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .product-type-promo p {
+        margin-top: 32px;
+    }
+}
+div#smartwishlist {
+    display: none !important;
+}
+.smartwishlist.pro-thumb-swlist{
+    position: absolute;
+    z-index: 1 !important;
+    left: 10px;
+    top: 5px;
+    margin: 0;
+    font-size: 20px !important;
+    display: none !important;
+}
+/**
+@media only screen and (min-width: 1400px) {
+  .collection-item-wrapper.boost-pfs-filter-products {
+  display: flex;
+  }
+  .collection-item-wrapper.boost-pfs-filter-products > * {
+  width: 322px;
+  }
+}
+**/
+.yotpo-promoted-product .yotpo-product-link {
+    width: 100%;
+}
+/**Greg css start**/
+.shop_pay_inst{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    text-align: left;
+    color: #17120f;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    background-color: #FFFFFF;
+    border-style: solid;
+    border-color: #eae7e4;
+    border-radius: 0px;
+    border-width: 1px;
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    margin-bottom: 5px;
+}
+
+.gnw-sale-pric {
+    color: red;
+    font-weight: 900;
+}
+.gnw-copm-pric {
+    color: black;
+    font-weight: 100;
+    padding-right: 8px;
+}
+.gnw-sale-pric-prdct .mt-3 span.block.text-sm {
+    color: red;
+      font-weight: 900;
+}
+.gnw-copm-pric-single-prdct {
+    font-size: 14px;
+}
+
+
+
+.text-pomegranate {
+	cursor: pointer;
+	background-color: #ff4713;
+	padding: 15px;
+	text-align:center;
+	border-radius: 25px;
+	color: white;
+	
+}
+/* .text-pomegranate span{
+  text-decoration: underline;
+} */
+.text-pomegranate:hover {
+	background-color: white;
+	color: black;
+  border: 1px solid black;
+}
+
+
+.gry-card-h6 {
+	margin-top: 50px;
+	font-size: 12px;
+	text-transform: capitalize;
+}
+.gry-card-p {
+	margin-top: 10px !important;
+}
+.gry-card-sty h2 {
+	font-size: 16px;
+	line-height: 20px;
+}
+.gry-card-sty p {
+	margin-top: 6px !important;
+	font-size: 8px;
+	line-height: 12px;
+}
+.gry-card-sty img {
+  width: 80px;
+}
+/* .gry-card-sty{
+padding-top: 50px;
+padding-bottom: 20px;
+} */
+
+@media(max-width:767px){
+
+  .gry-card-sty {
+	padding: 0px 2px;
+}
+.gry-card-sty h2 {
+	font-size: 10px;
+	line-height: 14px;
+}  
+.gry-card-sty p {
+	margin-top: 2px !important;
+	font-size: 6px;
+	line-height: 9px;
+}  
+.gry-card-h6 {
+	margin-top: 20px;
+	font-size: 8px;
+	text-transform: capitalize;
+}
+.gry-card-sty img {
+	width: 50px;
+}  
+  
+ #BIS_trigger {
+	background-color: #ff4713 !important;
+	border-color: #ff4713 !important;
+} 
+
+
+/**CODE FOR 30% flat off start **/
+.shorts_discount {
+	text-align: center;
+	padding: 10px 0;
+	background-color: #ff7800;
+}
+.shorts_discount_h2 {
+	font-size: 17px;
+	color: #fff;
+	font-weight: bolder;
+}
+.shorts_discount_h2.collection_shorts_discount_h2 {
+	font-size: 12px;
+}
+
+.flat_off_cart {
+	font-size: 11px;
+	margin-top: 15px;
+	color: #ff7800;
+}
+@media(max-width:767px){
+  .shorts_discount_h2.collection_shorts_discount_h2 {
+	font-size: 6px;
+}
+}
+
+  
+/**CODE FOR 30% flat off end **/
+  
+      
+/**Greg css end**/
+.shipping-script{
+    display: block;
+    max-width: 1340px;
+    margin: 20px auto 20px
+}
+    </style>
+    <link
+      rel="preload"
+      href="{{ 'custom_styles.css' | asset_url }}"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ 'custom_styles.css' | asset_url }}"></noscript>
     {{ content_for_header }}
 
     {%- if request.page_type == 'collection' or request.page_type == 'search' -%}
@@ -23,21 +297,21 @@
     <script type="application/ld+json">
       {
       "@context": "https://schema.org",
-                            "@type": "WebSite",
-                            "@id": "{{ shop.secure_url }}/#website",
+                                        "@type": "WebSite",
+                                        "@id": "{{ shop.secure_url }}/#website",
       "url": "{{ shop.secure_url }}",
       "potentialAction": {
-                                "@type": "SearchAction",
-                                "target": "{{ shop.secure_url }}/search?q={query}",
+                                            "@type": "SearchAction",
+                                            "target": "{{ shop.secure_url }}/search?q={query}",
       "query-input": "required name=query"
-                            }
-                        }
+                                        }
+                                    }
     </script>
     <script type="application/ld+json">
       {
       "@context": "https://schema.org",
-                            "@type": "Organization",
-                            "@id": "{{ shop.secure_url }}/#org",
+                                        "@type": "Organization",
+                                        "@id": "{{ shop.secure_url }}/#org",
       "name": "{{ shop.name }}",
       "url": "{{ shop.secure_url }}",
       "description": "{{ shop.description }}",
@@ -45,24 +319,24 @@
       "logo": "{{ settings.logo_dark | img_url }}",
       "image": "{{ settings.logo_dark | img_url }}",
       "address": {
-                                "@type": "PostalAddress",
-                                "streetAddress": "{{ shop.address.street }}",
+                                            "@type": "PostalAddress",
+                                            "streetAddress": "{{ shop.address.street }}",
       "addressLocality": "{{ shop.address.city }}",
       "addressRegion": "{{ shop.address.province }}",
       "postalCode": "{{ shop.address.zip }}",
       "addressCountry": "{{ shop.address.country }}"
       }
-                        }
+                                    }
     </script>
 
     <!-- YOTPO JAVASCRIPT | location: layout > theme.liquid  -->
     <script type="text/partytown">
       (function e(){
       var e=document.createElement("script");
-                                e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/UkCHsjiu6UpW1ZMqTBR8woLNu0isrYeXSs5lbFfO/widget.js";
-                                var t=document.getElementsByTagName("script")[0];
-                                t.parentNode.insertBefore(e,t)
-                            })();
+                                            e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/UkCHsjiu6UpW1ZMqTBR8woLNu0isrYeXSs5lbFfO/widget.js";
+                                            var t=document.getElementsByTagName("script")[0];
+                                            t.parentNode.insertBefore(e,t)
+                                        })();
     </script>
     <!-- END | YOTPO JAVASCRIPT -->
   </head>
@@ -121,10 +395,28 @@
 
     {%- if request.page_type == 'collection' or request.page_type == 'search' -%}
       {%- include 'boost-pfs' -%}
+      <script src="{{ 'custom_quick_buy_scripts.js' | asset_url }}" defer></script>
     {%- endif -%}
 
     {%- if request.page_type == 'product' -%}
       <script src="{{ 'product_page.js' | asset_url }}" defer></script>
+    {%- endif -%}
+
+
+    {%- if request.page_type == 'collection' -%}
+      {% if collection.metafields.my_fields.show_promo_banner %}
+
+        <script
+          crossorigin="anonymous"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        {% if collection.handle == "mens-compression-bottoms" or collection.handle == "mens-compression-tops" %}
+          <script src="{{ 'custom_scripts.js' | asset_url }}" defer></script>
+        {% else %}
+          <script src="{{ 'custom_script_additional.js' | asset_url }}" defer></script>
+        {% endif %}
+
+      {% endif %}
     {%- endif -%}
 
     {%- if request.page_type == 'blog' or request.page_type == 'article' -%}

@@ -1,24 +1,24 @@
 {
-    "sections": {
-      "main": {
-        "type": "main-blog",
-        "settings": {
-        }
-      },
-      "featured": {
-        "type": "featured-post",
-        "settings": {
-        }
-      },
-      "newsletter": {
-        "type": "newsletter",
-        "settings": {
-        }
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {
       }
     },
-    "order": [
-      "featured",
-      "main",
-      "newsletter"
-    ]
-  }
+    "featured": {
+      "type": "featured-post",
+      "settings": {
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "featured",
+    "main",
+    "newsletter"
+  ]
+}

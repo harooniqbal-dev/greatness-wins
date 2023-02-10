@@ -34,7 +34,7 @@
         "type": "newsletter",
         "settings": {
           "heading": "",
-          "arrow": false,
+          "arrow": false
         }
       }
     },

@@ -28,8 +28,8 @@
             <ul class="swiper-wrapper">
                 {% for product in s.collection.products %}
                 <li class="swiper-slide xl:w-[16.25rem]">
-                    {% render "c-product-tile",
-                        product: product
+                    {% render "c-product-slider-item",
+                            product: product product_option_key: product_option_key,
                     %}
                 </li>
                 {% endfor %}
