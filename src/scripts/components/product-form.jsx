@@ -35,10 +35,16 @@ const ProductForm = (props) => {
     var cartDrawerElement = document.querySelector(".js-cart-drawer");
     var description = product.description;
 
-
-
     const [selectedOptionsHistory, setSelectedOptionsHistory] = useState([]);
     const [currentVariant, setCurrentVariant] = useState(null);
+    let defaultcolor = '';
+    if (optionsWithValues.length > 0) {
+        optionsWithValues.forEach(element => {
+            if (element.name.toLowerCase() == "color") {
+                defaultcolor = element.values[0];
+            }
+        })
+    }
 
     // In case variants are not set, set default variant
     useEffect(() => {
@@ -61,7 +67,7 @@ const ProductForm = (props) => {
 
     // Call assign variant based on selected options
     useEffect(() => {
-        // assignVariant();
+        assignVariant();
     }, [selectedOptionsHistory]);
 
     // Assign variant based on selected options
@@ -123,7 +129,11 @@ const ProductForm = (props) => {
         const checkedEl = document.querySelector(`input[name="${e.target.name}"]:checked`);
         const { value } = checkedEl;
         const position = parseInt(checkedEl.dataset.position, 10);
-
+        product.variants.forEach(variant => {
+            if (JSON.stringify([defaultcolor, value]) === JSON.stringify(variant.options)) {
+                setCurrentVariant(variant);
+            }
+        })
         setSelectedOptionsHistory((prevSelectedOptionsHistory) => [
             ...prevSelectedOptionsHistory,
             {
@@ -131,13 +141,34 @@ const ProductForm = (props) => {
                 value,
             },
         ]);
+
+
+        if (e.target.name.toLowerCase() === "option_color") {
+            const variantSubsetToUse = variantImages.find((variant) =>
+                variant.options.includes(value)
+            );
+            if (!variantSubsetToUse) return;
+
+            const variantImagesArr = variantSubsetToUse.images;
+            replaceProductImages(variantImagesArr);
+        }
+    };
+
+    const replaceProductImages = (newImages) => {
+        if (!newImages) return;
+
+        const imagesWrapper = document.querySelector(".js-product-images-set");
+        const imageFigures = imagesWrapper.querySelectorAll(".js-product-image-figure");
+
+        [...imageFigures].forEach((figure, index) => {
+            figure.firstElementChild.src = newImages[index];
+            figure.style.backgroundImage = `url(${newImages[index]})`;
+        });
     };
 
     // Get current selected option value
     const getCurrentOptionValue = (position) => {
-        console.log("inside",selectedOptionsHistory,position);
         const _selectedOptionsHistory = selectedOptionsHistory.slice();
-        console.log("selected history",_selectedOptionsHistory)
         const option = _selectedOptionsHistory
             .reverse()
             .find((option) => option.position === parseInt(position, 10));
@@ -199,7 +230,7 @@ const ProductForm = (props) => {
         );
     }
 
-    var relatedItemsBoxes = function relatedItemsBoxes() {
+    const relatedItemsBoxes = () => {
         if (!relatedItems) return;
         var itemsIds = relatedItems.split(",");
         var itemsColors = relatedItemsColors.split(",");
@@ -209,33 +240,114 @@ const ProductForm = (props) => {
         if (!itemsColors) return;
         var items = [];
         itemsIds.forEach(function (item, index) {
-            items.push({
+            const pushobject = {
                 color: itemsColors[index] ? itemsColors[index].replace(/\s+$/, "") : "rgba(0,0,0, 0.5)",
                 multiColor: itemsMultiColors[index] ? itemsMultiColors[index] : false,
                 url: itemsUrls[index] ? itemsUrls[index] : "#",
                 title: itemsTitles[index] ? itemsTitles[index] : product.title
-            });
+            }
+            items.push(pushobject);
         });
-        return items.sort((a, b) => a.url.localeCompare(b.url))
-    };
+
+        return items;
+    }
 
     // Options display in case of available variants
     const optionsDisplay = optionsWithValues.map((option, index) => {
         const wrapperClassName = parseInt(option.position, 10) === 1 ? "mt-1" : "mt-3";
         const optionNameSlug = `option_${slugify(option.name.toLowerCase(), "_")}`;
-        var relatedItemsObj = relatedItemsBoxes();
+        let relatedItemsObj = relatedItemsBoxes();
+
         if (product.variants.length > 1) {
-            if (relatedItemsObj && relatedItemsObj.length > 0) {
+            if (option.name.toLowerCase() === "color") {
+                // Color options
+                if (relatedItemsObj && relatedItemsObj.length > 0) {
+                    return (
+                        <div className={wrapperClassName}>
+                            <span className={"block text-xxs font-family-heading uppercase"}>
+                                {langColors}
+                                {getCurrentColorDisplay(getCurrentOptionValue(index + 1))}
+                                <div className={"mt-2 flex flex-row flex-wrap -mx-[0.125rem]"}>
+                                    {relatedItemsObj.map((itemObj) => {
+                                        var styles = { marginRight: "4px" };
+                                        if (itemObj.multiColor === undefined || itemObj.multiColor === false || itemObj.multiColor === "") {
+                                            styles.backgroundColor = itemObj.color;
+                                        } else {
+                                            styles.backgroundImage = `linear-gradient(to top left, ${itemObj.multiColor.trim().split(",")[0]} 50%,${itemObj.multiColor.trim().split(",")[1]} 50%`;
+                                            styles.border = "none";
+                                        }
+                                        return (
+                                            <a
+                                                key={uuid()}
+                                                href={itemObj.url}
+                                                className={"mt-1 mx-[0.125rem] w-1/6 sm:w-1/8 lg:w-1/6 block bg-mercury border border-solid border-transparent hover:border-pomegranate aspect-square"}
+                                                style={styles} data-test-2={JSON.stringify(itemObj.multiColorz)}>
+                                                <span className="sr-only">{itemObj.title}</span>
+                                            </a>)
+                                    })}
+                                </div>
+                            </span>
+                        </div>
+                    )
+                }
                 return (
                     <div className={wrapperClassName}>
                         <span className="block text-xxs font-family-heading uppercase">
                             {langColors}
-                            {/* {getCurrentColorDisplay(getCurrentOptionValue(index + 1))} */}
+                            {getCurrentColorDisplay(getCurrentOptionValue(index + 1))}
                         </span>
+                        <div className="mt-2 flex flex-row flex-wrap -mx-[0.125rem]">
+                            <a
+                                href="#"
+                                disabled={true}
+                                data-colors-multi="false"
+                                className="mt-1 mx-[0.125rem] w-1/6 sm:w-1/8 lg:w-1/6 block bg-mercury border border-solid border-transparent hover:border-pomegranate aspect-square"
+                                style={relatedColor.trim().split("|")[0].trim()}>
+                                <span className="sr-only">{product.title}</span>
+                            </a>
+                        </div>
                     </div>
-                )
+                );
             }
+            // Default options
+            return (
+                <div className={wrapperClassName}>
+                    <div className="flex justify-between items-center">
+                        <span className="text-xxs font-family-heading uppercase">
+                            {option.name}
+                        </span>
+                        {option.name.toLowerCase() === "size" && (<button className="text-xxs font-family-heading uppercase underline transition-colors hover:text-orange" type="button" data-modal-toggle="largeModal">Size Chart</button>)}
+                    </div>
+                    <div className="mt-[0.4375rem] flex flex-row flex-wrap -mx-[0.125rem]">
+                        {option.values.map((value) => {
+                            const valueSlug = slugify(value, "_");
+                            return (
+                                <div className="mt-1 px-[0.125rem] w-full sm:w-1/2" key={uuid()}>
+                                    <input
+                                        type="radio"
+                                        className="absolute h-0 w-0 opacity-0 invisible peer"
+                                        name={optionNameSlug}
+                                        id={`${optionNameSlug}_${valueSlug}`}
+                                        value={value}
+                                        data-position={option.position}
+                                        onChange={handleValueChange}
+                                        checked={getCurrentOptionValue(index + 1) === value}
+                                    />
+                                    <label
+                                        htmlFor={`${optionNameSlug}_${valueSlug}`}
+                                        className="block bg-mercury text-center px-1 py-2 text-xxs leading-5 font-family-heading cursor-pointer border border-solid border-transparent peer-checked:border-black hover:border-pomegranate"
+                                    >
+                                        {value}
+                                    </label>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
         }
+
+        return "";
     });
 
     return (
@@ -247,7 +359,7 @@ const ProductForm = (props) => {
                 dangerouslySetInnerHTML={{ __html: description }}
             />
 
-           
+            <div className="mt-5">{optionsDisplay}</div>
 
             <p className="mt-6 uppercase text-xxs leading-5">{beforeAddToCartDescription}</p>
 
@@ -276,7 +388,6 @@ const ProductForm = (props) => {
 
 // Initialize and pass variales to component if element exists
 const productFormElement = document.getElementById("product-form");
-console.log("product form",productFormElement)
 if (productFormElement) {
     // Assign variant colors from metafields
     const variantColors = [];
@@ -293,10 +404,13 @@ if (productFormElement) {
         }
     });
 
+    const variantImages = JSON.parse(`${productFormElement.dataset.variantImages.slice(0, -2)}]`);
+    const filteredVariantImages = variantImages.filter((el) => el.images.length !== 0);
 
     // Render component
     render(
         <ProductForm
+            variantImages={filteredVariantImages}
             product={JSON.parse(productFormElement.dataset.product)}
             productType={productFormElement.dataset.productType}
             relatedItems={productFormElement.dataset.relatedItems}

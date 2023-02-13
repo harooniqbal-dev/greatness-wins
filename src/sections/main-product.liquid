@@ -97,23 +97,23 @@ Enable this section instead of dummy-product-recommendations when some orders wi
 {% section 'product-recommendations' %}
 {% endcomment %}{% comment %} {% section 'dummy-product-recommendations' %}
 
-<div class="mt-20">
-{% section 'image-and-content' %}
-</div>
+  <div class="mt-20">
+  {% section 'image-and-content' %}
+  </div>
 
-<div class="mt-20">
-{% section 'three-cols-full-width' %}
-</div>
+  <div class="mt-20">
+  {% section 'three-cols-full-width' %}
+  </div>
 
-<div class="mt-32 mb-20">
-{% section 'product-reviews' %}
-</div>
+  <div class="mt-32 mb-20">
+  {% section 'product-reviews' %}
+  </div>
 
-{% section 'newsletter' %} {% endcomment %}<script type="application/ld+json">
+  {% section 'newsletter' %} {% endcomment %}<script type="application/ld+json">
   {
   "@context": "http://schema.org",
-          "@type": "Product",
-          "productId": "{{ product.id }}",
+            "@type": "Product",
+            "productId": "{{ product.id }}",
   "brand": "{{ product.vendor }}",
   "url": "{{ product.url }}",
   "sku": "{{ product.selected_or_first_available_variant.sku }}",
@@ -127,10 +127,10 @@ Enable this section instead of dummy-product-recommendations when some orders wi
   "name": "{{ product.title }}",
   "description": "{{ product.description | strip_html }}",
   "offers": {
-              "@type": "Offer",
-              "price": {{ product.price | divided_by: 100 }},
+                "@type": "Offer",
+                "price": {{ product.price | divided_by: 100 }},
   "priceCurrency": "USD",
-              "url": "{{ product.url }}",
+                "url": "{{ product.url }}",
   "availability": "{% if product.available %}http://schema.org/InStock{% else %}http://schema.org/OutOfStock{% endif %}"
   }
-      }</script>
+        }</script>
