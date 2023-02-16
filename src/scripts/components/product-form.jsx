@@ -129,11 +129,13 @@ const ProductForm = (props) => {
         const checkedEl = document.querySelector(`input[name="${e.target.name}"]:checked`);
         const { value } = checkedEl;
         const position = parseInt(checkedEl.dataset.position, 10);
-        product.variants.forEach(variant => {
-            if (JSON.stringify([defaultcolor, value]) === JSON.stringify(variant.options)) {
-                setCurrentVariant(variant);
-            }
-        })
+        const fproductVariant = product.variants.find((variant) => JSON.stringify([defaultcolor, value]) === JSON.stringify(variant.options));
+        setCurrentVariant(fproductVariant);
+        // product.variants.forEach(variant => {
+        //     if (JSON.stringify([defaultcolor, value]) === JSON.stringify(variant.options)) {
+        //         setCurrentVariant(variant);
+        //     }
+        // })
         setSelectedOptionsHistory((prevSelectedOptionsHistory) => [
             ...prevSelectedOptionsHistory,
             {
@@ -364,13 +366,16 @@ const ProductForm = (props) => {
             <p className="mt-6 uppercase text-xxs leading-5">{beforeAddToCartDescription}</p>
 
             <p
+                id="BIS_trigger"
                 className={
                     currentVariant !== null && !currentVariant.available
-                        ? "mt-6 text-xxs leading-5 text-pomegranate"
+                        ? "mt-6 text-sm leading-5 text-pomegranate"
                         : "hidden"
                 }
             >
                 {langProductUnavailable}
+                <br/>
+                Click here to notify me when available
             </p>
 
             <button

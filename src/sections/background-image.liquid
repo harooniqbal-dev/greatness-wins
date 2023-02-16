@@ -1,79 +1,147 @@
 {% assign s = section.settings %}
 
-<div
-    class="relative background-image-wrapper {% if s.size == 'sm' %} h-[17.5rem] sm:h-[21.25rem] lg:h-[25rem] {% elsif s.size == 'md' %} h-[17.5rem] sm:h-[25rem] lg:h-[33.75rem] {% elsif s.size == 'lg' %} h-[20rem] sm:h-[33.75rem] lg:h-[45rem] {% endif %}"
->
+<div class="flex items-center relative background-image-wrapper{% if s.size == 'sm' %} h-[17.5rem] sm:h-[21.25rem] lg:h-[25rem]{% elsif s.size == 'md' %} h-[22.5rem] sm:h-[30rem] lg:h-[33.75rem]{% elsif s.size == 'lg' %} h-[25rem] sm:h-[33.75rem] lg:h-[45rem]{% endif %} {{ page.handle }}">
+  <a href="{{ s.heading_link_url1 }}" class="hero-overlay-link">
+    <div class="sr-only lg:h-[45rem]"></div>
+
+    {%- capture desktopImageClassName -%}
+      absolute left-0 top-0 w-full h-full object-cover{% if s.mobile_image %}
+        hidden md:block{% endif %}
+    {%- endcapture -%}
     {% if s.image %}
-        <img fetchpriority="high" decoding="async" src="{{ s.image.src | img_url: '480x' }}" class="absolute left-0 top-0 w-full h-full object-cover" alt="{{ image.alt | escape }}" srcset="{% if s.image.width > 640 %}{{ s.image.src | img_url: '640x' }} 640w{% endif %}{% if s.image.width > 720 %},{{ s.image.src | img_url: '720x' }} 720w{% endif %}{% if s.image.width > 900 %},{{ s.image.src | img_url: '900x' }} 900w{% endif %}" sizes="(min-width: 960px) 450px, (min-width: 720px) 50vw, 100vw" />
+      <img
+        width="{{ s.image.width }}"
+        height="{{ s.image.height }}"
+        src="{{ s.image | image_url: width: 1920}}"
+        class="{{ desktopImageClassName }}"
+        alt="{{ s.image.alt }}"
+        loading="eager"
+        fetchpriority="high">
     {% endif %}
+    {% if s.mobile_image %}
+      <img
+        width="{{ s.mobile_image.width }}"
+        height="{{ s.mobile_image.height }}"
+        src="{{ s.mobile_image | image_url: width: 1920}}"
+        class="mobile-image absolute left-0 top-0 w-full h-full object-cover md:hidden"
+        alt="{{ s.mobile_image.alt }}"
+        loading="eager"
+        fetchpriority="high">
+    {% endif %}
+
     {% if s.mask_color != "" %}
-        <div class="absolute left-0 top-0 w-full h-full object-cover" style="background-color: {{ s.mask_color }}; opacity: {{ s.mask_opacity | divided_by: 100 }}"></div>
+      <div class="absolute left-0 top-0 w-full h-full object-cover" style="background-color: {{ s.mask_color }}; opacity: {{ s.mask_opacity | divided_by: 100 }}"></div>
     {% endif %}
+
+    {% if s.heading_copy != blank or s.subheading_copy != blank or s.heading_link_url != blank %}
+
+      <div class="z-10 text-white relative container mx-auto xl:max-w-[83.25rem] xl:pl-8">
+        {% if s.heading_copy %}
+          <h1 class="text-5xl font-bold">{{ s.heading_copy }}</h1>
+        {% endif %}
+
+        {% if s.subheading_copy %}
+          <p class="text-xl font-light mt-2">{{ s.subheading_copy }}</p>
+        {% endif %}
+
+        {% if s.heading_link_url %}
+          {% render 'c-button'
+           , text: s.heading_link_label,
+           translate: false,
+           type: 'link',
+           href: s.heading_link_url,
+           preset: 'outline-white',
+           customClass: 'text-center mt-6',
+           fullWidth: false %}
+        {% endif %}
+      </div>
+    {% endif %}
+  </a>
 </div>
 {% schema %}
-{
+  {
     "name": "Background Image",
     "settings": [
-        {
-            "label": "Image",
-            "id": "image",
-            "type": "image_picker"
-        },
-        {
-            "label": "Lazyload?",
-            "id": "lazyload",
-            "type": "checkbox",
-            "default": true
-        },
-        {
-            "type": "header",
-            "content": "Mask"
-        },
-        {
-            "label": "Color",
-            "id": "mask_color",
-            "type": "color"
-        },
-        {
-            "label": "Opacity",
-            "id": "mask_opacity",
-            "type": "range",
-            "min": 0,
-            "max": 100,
-            "step": 1,
-            "unit": "%",
-            "default": 0
-        },
-        {
-            "type": "header",
-            "content": "Size"
-        },
-        {
-            "type": "radio",
-            "id": "size",
-            "label": "Section size",
-            "options": [
-                {
-                    "value": "sm",
-                    "label": "Small"
-                },
-                {
-                    "value": "md",
-                    "label": "Medium"
-                },
-                {
-                    "value": "lg",
-                    "label": "Large"
-                }
-            ],
-            "default": "md"
-        }
+      {
+        "label": "Desktop Image",
+        "id": "image",
+        "type": "image_picker"
+      },
+      {
+        "label": "Mobile Image",
+        "id": "mobile_image",
+        "type": "image_picker"
+      },
+      {
+        "label": "Heading",
+        "id": "heading_copy",
+        "type": "text"
+      },
+      {
+        "label": "Subheading",
+        "id": "subheading_copy",
+        "type": "text"
+      }, {
+        "label": "Link URL",
+        "id": "heading_link_url",
+        "type": "url"
+      }, {
+        "label": "Link Label",
+        "id": "heading_link_label",
+        "type": "text",
+        "default": "Shop Men"
+      }, {
+        "label": "Full section link URL",
+        "id": "heading_link_url1",
+        "type": "url"
+      }, {
+        "label": "Lazyload?",
+        "id": "lazyload",
+        "type": "checkbox",
+        "default": true
+      }, {
+        "type": "header",
+        "content": "Mask"
+      }, {
+        "label": "Color",
+        "id": "mask_color",
+        "type": "color"
+      }, {
+        "label": "Opacity",
+        "id": "mask_opacity",
+        "type": "range",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "default": 0
+      }, {
+        "type": "header",
+        "content": "Size"
+      }, {
+        "type": "radio",
+        "id": "size",
+        "label": "Section size",
+        "options": [
+          {
+            "value": "sm",
+            "label": "Small"
+          }, {
+            "value": "md",
+            "label": "Medium"
+          }, {
+            "value": "lg",
+            "label": "Large"
+          }
+        ],
+        "default": "md"
+      }
     ],
     "presets": [
-        {
-            "name": "Background Image",
-            "category": "Section"
-        }
+      {
+        "name": "Background Image",
+        "category": "Section"
+      }
     ]
-}
+  }
 {% endschema %}

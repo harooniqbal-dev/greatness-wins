@@ -176,8 +176,8 @@ const ProductQuickAddToCart = (props) => {
                     var optionValue = boostFilterItem ? value.title : value;
                     var isAvailable = isVariantBySizeAvailable(optionValue);
                     return (
-                        <div className="px-[0.3125rem] mt-[0.625rem]" style={{ marginLeft: '10px' }} key={optionValue}>
-                            <button type="button" disabled={!isAvailable} onClick={handleOnClick} className={"block min-w-[2rem] h-11 lg:min-w-[2.75rem] lg:h-11 px-3 border border-black uppercase text-black bg-white text-center ".concat(isAvailable ? "hover:text-white hover:bg-black focus-visible:text-white focus-visible:bg-black" : "cursor-not-allowed line-through", " js-product-quick-add-to-cart-size-selector-button")} data-value={optionValue}>{optionValue}</button>
+                        <div className="px-[0.3125rem] mt-[0.625rem]" key={optionValue}>
+                            <button type="button" disabled={!isAvailable} onClick={handleOnClick} className={"block min-w-[2rem] h-8 lg:min-w-[2.75rem] lg:h-11 px-3 border border-black uppercase text-black bg-white text-center ".concat(isAvailable ? "hover:text-white hover:bg-black focus-visible:text-white focus-visible:bg-black" : "cursor-not-allowed line-through", " js-product-quick-add-to-cart-size-selector-button")} data-value={optionValue}>{optionValue}</button>
                         </div>
                     )
                 })}
@@ -190,9 +190,11 @@ const ProductQuickAddToCart = (props) => {
     }
 
     if (!isAvailable || isAvailable === "false") {
+        
         if (productproductid) {
             const parentDocument = document.getElementById('product_' + productproductid);
-            parentDocument.classList.remove('opacity-0');
+            console.log('parentDocument',parentDocument);
+            // parentDocument.classList.remove('opacity-0');
         }
         return (
             <div><a href="#" onClick={openNotify} data-product-data={productData1} className="font-family-heading text-xxs p-3 uppercase leading-loose border border-solid tracking-widest text-white border-black bg-black block w-full text-center BIS_trigger" >{langProductUnavailable}</a></div>

@@ -35,7 +35,7 @@
                   />
               {% endif %}
       
-              <div class="absolute z-10 bottom-0 left-0 w-full opacity-0 group-hover:opacity-100 transition-opacity" id="product_{{product.id}}">
+              <div class="absolute z-10 bottom-0 left-0 w-full opacity-0 group-over:opacity-100 transition-opacity" id="product_{{product.id}}">
                   <div
                       class="js-product-quick-add-to-cart"
                       data-product='{{ product | json | escape }}'
@@ -103,14 +103,14 @@
   
             <!--       code start for flat discount for shorts -->
           
-                {% for collection in product.collections %}
+                {% comment %} {% for collection in product.collections %}
                   {% if collection.title == "Men's Shorts" %}
                       <div class="shorts_discount collection_shorts_discount">
                         <h2 class="shorts_discount_h2 collection_shorts_discount_h2">30% automatically applied at Checkout</h2>
                       </div>
                     
                  {% endif %}
-                {% endfor %}
+                {% endfor %} {% endcomment %}
                 
           <!--       code end for flat discount for shorts -->
          

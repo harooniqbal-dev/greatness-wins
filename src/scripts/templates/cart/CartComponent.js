@@ -18,7 +18,7 @@ import {
 
 // Set of HTML elements
 const cartRoot = document.querySelector(".js-cart-root");
-const cartTotalCost = document.querySelector(".js-cart-subtotal-cost");
+var cartTotalCost = document.querySelector(".js-main-cart-subtotal-cost");
 const cartWrapperHasItems = document.querySelector(".js-cart-box--has-items");
 const cartWrapperNoItems = document.querySelector(".js-cart-box--no-items");
 

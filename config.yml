@@ -1,9 +1,8 @@
 development:
-  password: shptka_83a734c97f005c08628dc14cf2193fb0
-  theme_id: "142893416763"
-  store: 10c616.myshopify.com
+  password: shptka_625d7d4c3f7d480a6aa18ab74022ec73
+  theme_id: "136882847990"
+  store: greatnesswins2021-dev.myshopify.com
   directory: dist
   ignore_files:
-  - config/settings_data.json
-    templates/**/*
+  - config/settings_data.json templates/**/*
   timeout: 1m0s

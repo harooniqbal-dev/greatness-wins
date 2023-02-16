@@ -1,33 +1,40 @@
 {% comment %}
-  image: a.image,
-  author: a.author,
-  date: a.published_at,
-  title: a.title,
-  excerpt: a.excerpt,
-  url: a.url
-  hide_hr
-  full_width_link
-  image_height_class
-  read_more_link
-  ctaLabel
+image: a.image,
+author: a.author,
+date: a.published_at,
+title: a.title,
+excerpt: a.excerpt,
+url: a.url
+hide_hr
+full_width_link
+image_height_class
+read_more_link
+ctaLabel
 {% endcomment %}
 
 <article>
-    <a href="{{ url }}" class="bg-white{% if full_width_link == true %} w-full{% else %} w-[19.375rem]{% endif %} mt-3">
-        <img src="data:," data-src="{{ image | image_url: width: 310 }}" class="aspect-video object-cover w-full block lazyload {% if image_height_class %}{{ image_height_class }}{% else %}h-[19.75rem]{% endif %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ title }}" />
-        <div class="{% if full_width_link != true %}px-4{% endif %}">
-            <p class="mt-2 text-xs font-semibold">{{ author }} / <time datetime=" {{date | date: "%Y-%m-%d" }}">{{ date | date: "%Y-%d-%m" }}</time></p>
-            <h5 class="mt-1 text-sm font-semibold">{{ title }}</h5>
-            {% if hide_hr != true %}
-            <hr class="border-black mb-5 mt-3" />
-            {% endif %}
-            {% if excerpt %}
-            <div class="{% if hide_hr != true %}mt-1{% else %}mt-3{% endif %} text-sm font-medium">{{ excerpt  | truncate: 164 | strip_html}}</div>
-            {% endif %}
-            {% if read_more_link == true %}
-            <p class="text-xs transition-colors font-bold uppercase underline link-indicator">{{ "blog.read_more" | t }}</p>
-            {% endif %}
-        </div>
-    </a>
+  <a href="{{ url }}" class="bg-white{% if full_width_link == true %} w-full{% else %} w-[19.375rem]{% endif %} mt-3">
+    <img
+      src="data:,"
+      data-src="{{ image | image_url: width: 310 }}"
+      class="aspect-video object-cover w-full block lazyload {% if image_height_class %}{{ image_height_class }}{% else %}h-[19.75rem]{% endif %}"
+      width="{{ image.width }}"
+      height="{{ image.height }}"
+      alt="{{ title }}" />
+    <div class="{% if full_width_link != true %}px-4{% endif %}">
+      <p class="mt-2 text-xs font-semibold">{{ author }} /
+        <time datetime=" {{date | date: "%Y-%m-%d" }}">{{ date | date: "%Y-%d-%m" }}</time>
+      </p>
+      <h5 class="mt-1 text-sm font-semibold">{{ title }}</h5>
+      {% if hide_hr != true %}
+        <hr class="border-black mb-5 mt-3" />
+      {% endif %}
+      {% if excerpt %}
+        <div class="{% if hide_hr != true %}mt-1{% else %}mt-3{% endif %} text-sm font-medium">{{ excerpt | truncate: 164 | strip_html }}</div>
+      {% endif %}
+      {% if read_more_link == true %}
+        <p class="text-xs transition-colors font-bold uppercase underline link-indicator">{{ "blog.read_more" | t }}</p>
+      {% endif %}
+    </div>
+  </a>
 </article>
-

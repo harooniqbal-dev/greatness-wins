@@ -10,6 +10,18 @@ $cm-menu-toggle-outline-offset: 0;
 $cm-toggle-animation-delay: 0.125s;
 
 .main-header {
+    .navigation__mega-menu {
+        @apply flex;
+        visibility: hidden;
+        transition: .2s .25s;
+    }
+
+    .navigation__dropdown-menu{
+        @apply flex;
+        visibility: hidden;
+        transition: .2s .25s;
+    }
+
     .top-banner {
         &__button {
             svg {
@@ -96,7 +108,19 @@ $cm-toggle-animation-delay: 0.125s;
                 &:focus-within,
                 &.is-active {
                     > .navigation__mega-menu {
-                        @apply flex;
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+
+        &__main-navbar-item {
+            &--has-children {
+                &:hover,
+                &:focus-within,
+                &.is-active {
+                    > .navigation__dropdown-menu {
+                        visibility: visible;
                     }
                 }
             }

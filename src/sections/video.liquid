@@ -1,71 +1,56 @@
 {% assign s = section.settings %}
-
-{% if s.url %}
-<div class="{{ s.margin_top }} {{ s.margin_bottom }} {{ s.padding_top }} {{ s.padding_bottom }}">
-    <div class="player__video-wrapper relative js-player">
-        <video class="absolute top-0 left-0 w-full h-full js-video" playsinline poster="{{ s.poster.src | image_url: width: 1920 }}" preload="metadata">
-            <source src="{{ s.url }}" type="video/mp4">
-
-            {% for block in section.blocks %}
-                {% case block.type %}
-                    {% when 'subtitles' %}
-                    <track label="{{ block.settings.label }}" kind="subtitles" srclang="{{ block.settings.lang }}" src="{{ block.settings.subtitles }}"{% if block.settings.default %} default{% endif %}>
-                {% endcase %}
-            {% endfor %}
-        </video>
-
-        <div class="absolute top-0 left-0 w-full h-full z-10 js-player-controls" data-state="hidden">
-            <button class="block w-full h-full bg-dove-gray/[.5] group js-player-controls-play" data-state="play">
-                <span class="sr-only">{{ 'sections.video.play' | t }}</span>
-                <span class="w-auto h-16 lg:h-28 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" aria-hidden="true">
-                    {% render 'i-play-big' %}
-                </span>
-            </button>
-            <div class="absolute bottom-0 left-0 w-full bg-dove-gray/[.5] flex flex-row justify-end py-5 hidden js-player-controls-bottom">
-                <button class="player__controls-playpause w-auto h-6 lg:h-9 ml-4 lg:ml-14 mr-auto group js-player-controls-playpause" data-state="play">
-                    <span class="player__controls-playpause-play w-auto h-full">
-                        <span class="sr-only">{{ 'sections.video.play' | t }}</span>
-                        <span aria-hidden="true">
-                            {% render 'i-play' %}
-                        </span>
-                    </span>
-                    <span class="player__controls-playpause-pause w-auto h-full">
-                        <span class="sr-only">{{ 'sections.video.pause' | t }}</span>
-                        <span aria-hidden="true">
-                            {% render 'i-pause' %}
-                        </span>
-                    </span>
-                </button>
-                <div class="mr-4 lg:mr-14 hidden relative js-player-controls-subtitles-dropdown">
-                    <button class="block w-full h-6 lg:h-9 group js-player-controls-subtitles-dropdown-button">
-                        <span class="sr-only">{{ 'sections.video.subtitles' | t }}</span>
-                        {% render 'i-subtitles' %}
-                    </button>
-                    <div class="absolute bottom-[calc(100%+1.625rem)] left-1/2 bg-dove-gray/[.5] py-2 px-3 -translate-x-1/2 hidden js-player-controls-subtitles-dropdown-menu">
-                        {% for block in section.blocks %}
-                            {% case block.type %}
-                                {% when 'subtitles' %}
-                                <button class="text-white transition-colors hover:text-pomegranate focus-visible:text-pomegranate js-player-controls-subtitles-dropdown-menu-item" data-srclang="{{ block.settings.lang }}">{{ block.settings.label }}</button>
-                            {% endcase %}
-                        {% endfor %}
-                    </div>
-                </div>
-                <button class="player__controls-mute w-auto inline-flex justify-end h-6 lg:h-9 mr-4 lg:mr-[6.8125rem] group js-player-controls-mute" data-state="mute">
-                    <span class="player__controls-mute-name--mute sr-only">{{ 'sections.video.mute' | t }}</span>
-                    <span class="player__controls-mute-name--unmute sr-only">{{ 'sections.video.unmute' | t }}</span>
-                    <span class="player__controls-mute-icon--mute h-full js-player-speaker-icon" aria-hidden="true">{% render 'i-speaker' %}</span>
-                    <span class="player__controls-mute-icon--unmute h-full js-player-mute-icon hidden" aria-hidden="true">{% render 'i-mute' %}</span>
-                </button>
-                <button class="w-auto h-6 lg:h-9 mr-4 lg:mr-5 group js-player-controls-fullscreen" data-state="go-fullscreen">
-                    <span class="sr-only">{{ 'sections.video.fullscreen' | t }}</span>
-                    <span aria-hidden="true">
-                        {% render 'i-fullscreen' %}
-                    </span>
-                </button>
-            </div>
-        </div>
-    </div>
+<script src="https://fast.wistia.com/embed/medias/7is54vxpku.jsonp?idType=ab-test" async></script>
+<script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+<div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;">
+  <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+    <div class="wistia_embed wistia_async_7is54vxpku idType=ab-test seo=true videoFoam=true" style="height:100%;position:relative;width:100%">&nbsp;</div>
+  </div>
 </div>
-{% endif %}
-
-{% schema 'video' %}
+{% schema %}
+  {
+    "name": "Video",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "poster",
+        "label": "Poster"
+      }, {
+        "type": "url",
+        "id": "url",
+        "label": "Video URL"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "subtitles",
+        "name": "Subtitles",
+        "settings": [
+          {
+            "type": "url",
+            "id": "subtitles",
+            "label": "Subtitles URL"
+          }, {
+            "type": "text",
+            "id": "label",
+            "label": "Language label"
+          }, {
+            "type": "text",
+            "id": "lang",
+            "label": "Language ISO code"
+          }, {
+            "type": "checkbox",
+            "id": "default",
+            "label": "Default",
+            "default": false
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Video",
+        "category": "Section"
+      }
+    ]
+  }
+{% endschema %}
